@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://dvuqiwtbvexb1"]
+
+[ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
+[ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/Ground.tscn" id="1_t65l0"]
+[ext_resource type="Script" path="res://jogo/Camera3D.gd" id="3_goc5b"]
+[ext_resource type="PackedScene" uid="uid://oqt3xm2plyds" path="res://jogo/assets/Cursor.tscn" id="4_23btj"]
+[ext_resource type="PackedScene" uid="uid://1iu70ppnt3yq" path="res://jogo/assets/Farm.tscn" id="5_1l8hm"]
+[ext_resource type="Script" path="res://jogo/assets/Farm.gd" id="5_n8dox"]
+[ext_resource type="Script" path="res://jogo/assets/Cursor.gd" id="6_1stki"]
+
+[sub_resource type="Environment" id="Environment_8vrw3"]
+background_mode = 1
+background_color = Color(0.407843, 1, 0.294118, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="jogo" type="Node3D"]
+script = ExtResource("1_2b80a")
+
+[node name="ground" parent="." instance=ExtResource("1_t65l0")]
+collision_layer = 3
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.641304, -0.272422, 0.717298, -0.0328686, 0.924237, 0.380401, -0.766583, -0.267529, 0.583763, 18.423, 4.6, 12.685)
+projection = 1
+size = 10.0
+script = ExtResource("3_goc5b")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8vrw3")
+
+[node name="farm" parent="." instance=ExtResource("5_1l8hm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.82369, 0.5, 7.17917)
+script = ExtResource("5_n8dox")
+
+[node name="Cursor" parent="." instance=ExtResource("4_23btj")]
+script = ExtResource("6_1stki")

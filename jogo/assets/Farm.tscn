@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://1iu70ppnt3yq"]
 
-[ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/mush.png" id="1_epyox"]
+[ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/Mush.png" id="1_hlnuw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ysh18"]
 transparency = 1
-albedo_texture = ExtResource("1_epyox")
+albedo_texture = ExtResource("1_hlnuw")
 
 [node name="farm" type="CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
