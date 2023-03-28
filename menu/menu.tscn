@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyvq4bxalmd5q"]
+
+[ext_resource type="PackedScene" uid="uid://brw3clfmo7sfx" path="res://menu/background.tscn" id="1_1sxkx"]
+[ext_resource type="Script" path="res://menu/Button.gd" id="2_u5cw4"]
+
+[node name="menu" type="Node2D"]
+
+[node name="background" parent="." instance=ExtResource("1_1sxkx")]
+process_mode = 3
+
+[node name="Button" type="Button" parent="."]
+offset_left = 406.0
+offset_top = 426.0
+offset_right = 702.0
+offset_bottom = 488.0
+text = "quero iniciar o jogo do victor schererl"
+script = ExtResource("2_u5cw4")
