@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="jogo"
-run/main_scene="res://menu/Menu.tscn"
+run/main_scene="res://jogo/Jogo.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Globals="*res://jogo/Globals.gd"
+DrawLine3D="*res://addons/DrawLine3D/DrawLine3D.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [rendering]
 

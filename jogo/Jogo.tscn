@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvuqiwtbvexb1"]
+[gd_scene load_steps=10 format=3 uid="uid://dvuqiwtbvexb1"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/Ground.tscn" id="1_t65l0"]
 [ext_resource type="Script" path="res://jogo/Camera3D.gd" id="3_goc5b"]
 [ext_resource type="PackedScene" uid="uid://oqt3xm2plyds" path="res://jogo/assets/Cursor.tscn" id="4_23btj"]
 [ext_resource type="PackedScene" uid="uid://1iu70ppnt3yq" path="res://jogo/assets/Farm.tscn" id="5_1l8hm"]
-[ext_resource type="Script" path="res://jogo/assets/Farm.gd" id="5_n8dox"]
 [ext_resource type="Script" path="res://jogo/assets/Cursor.gd" id="6_1stki"]
+[ext_resource type="PackedScene" uid="uid://baut35o0w3sdq" path="res://jogo/assets/Enemy.tscn" id="8_fjhl6"]
+[ext_resource type="Script" path="res://jogo/assets/Enemy.gd" id="9_jal3g"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -31,7 +32,10 @@ environment = SubResource("Environment_8vrw3")
 
 [node name="farm" parent="." instance=ExtResource("5_1l8hm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.82369, 0.5, 7.17917)
-script = ExtResource("5_n8dox")
 
 [node name="Cursor" parent="." instance=ExtResource("4_23btj")]
 script = ExtResource("6_1stki")
+
+[node name="Enemy" parent="." instance=ExtResource("8_fjhl6")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.12368, 0, 2.42355)
+script = ExtResource("9_jal3g")

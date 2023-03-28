@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://baut35o0w3sdq"]
+
+[ext_resource type="Texture2D" uid="uid://cgqxrkoq4k7c" path="res://menu/assets/g.png" id="1_udbdu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uwnb5"]
+
+[node name="Enemy" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.434439, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(11, 0, 0, 0, 11, 0, 0, 0, 11, 0, 5.62729, 0)
+shape = SubResource("BoxShape3D_uwnb5")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.80423, 0)
+billboard = 1
+texture = ExtResource("1_udbdu")

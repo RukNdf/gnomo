@@ -21,7 +21,6 @@ func update(newPos):
 			gridP.x = Globals.maxX
 		if gridP.y > Globals.maxY:
 			gridP.y = Globals.maxY
-		print(gridP)
 		position.x = (gridP.x*Globals.gridSize)+Globals.gridCenter
 		position.z = (gridP.y*Globals.gridSize)+Globals.gridCenter
 

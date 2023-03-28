@@ -3,6 +3,8 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	draw3D = Draw3D.new()
+	add_child(draw3D)
 	pass # Replace with function body.
 
 
@@ -11,7 +13,7 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_O):
 		spawnFarm()
 	if Input.is_key_pressed(KEY_S):
-		spawnSmoke()
+		spawnSmoke($farm.getSmokePos())
 	pass
 
 var farm = preload("res://jogo/assets/Farm.tscn")
@@ -33,10 +35,26 @@ func spawnFarm():
 	
 	
 var smoke = preload("res://jogo/assets/Smoke.tscn")
-func spawnSmoke():
-	var pos = $farm.getSmokePos()
+func spawnSmoke(pos):
 	var s = smoke.instantiate()
 	s.position.x = pos.x
 	s.position.y = 1.5
 	s.position.z = pos.z + Globals.cameraOffset.z
 	add_child(s)
+
+var draw3D
+func line(p1, p2):
+	draw3D.clear()
+	draw3D.draw_line([p1,p2])
+	pass
+
+func destroy(obj):
+	obj.die()
+	spawnSmoke(obj.getSmokePos())
+	var enemies = get_tree().get_nodes_in_group("enemy")
+	for e in enemies:
+		e.getTarget()
+	
+func remove(obj):
+	remove_child(obj)
+
