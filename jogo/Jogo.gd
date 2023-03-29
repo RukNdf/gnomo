@@ -14,6 +14,8 @@ func _process(delta):
 		spawnFarm()
 	if Input.is_key_pressed(KEY_S):
 		spawnSmoke($farm.getSmokePos())
+	if Input.is_key_pressed(KEY_T):
+		nextTurn()
 	pass
 
 var farm = preload("res://jogo/assets/Farm.tscn")
@@ -48,7 +50,9 @@ func line(p1, p2):
 	draw3D.draw_line([p1,p2])
 	pass
 
-func destroy(obj):
+func destroy(obj):	
+	if(!obj.has_method('die')):
+		return
 	obj.die()
 	spawnSmoke(obj.getSmokePos())
 	var enemies = get_tree().get_nodes_in_group("enemy")
@@ -58,3 +62,12 @@ func destroy(obj):
 func remove(obj):
 	remove_child(obj)
 
+var turn = 1	
+func nextTurn():
+	spawnEnemy()
+
+var enemy = preload("res://jogo/assets/Enemy.tscn")
+func spawnEnemy():
+	var e = enemy.instantiate()
+	e.position = Vector3(0,0,0)
+	add_child(e)

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://1iu70ppnt3yq" path="res://jogo/assets/Farm.tscn" id="5_1l8hm"]
 [ext_resource type="Script" path="res://jogo/assets/Cursor.gd" id="6_1stki"]
 [ext_resource type="PackedScene" uid="uid://baut35o0w3sdq" path="res://jogo/assets/Enemy.tscn" id="8_fjhl6"]
-[ext_resource type="Script" path="res://jogo/assets/Enemy.gd" id="9_jal3g"]
+[ext_resource type="PackedScene" uid="uid://c6h1k467knxnk" path="res://jogo/assets/Arrow.tscn" id="8_ikw7w"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -38,4 +38,6 @@ script = ExtResource("6_1stki")
 
 [node name="Enemy" parent="." instance=ExtResource("8_fjhl6")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.12368, 0, 2.42355)
-script = ExtResource("9_jal3g")
+
+[node name="Sprite3D" parent="." instance=ExtResource("8_ikw7w")]
+transform = Transform3D(0.35, 0, 0, 0, -1.5299e-08, 0.35, 0, -0.35, -1.5299e-08, 3.04011, 0.1, 2.1972)

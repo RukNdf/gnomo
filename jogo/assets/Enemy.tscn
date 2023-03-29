@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://baut35o0w3sdq"]
+[gd_scene load_steps=4 format=3 uid="uid://baut35o0w3sdq"]
 
+[ext_resource type="Script" path="res://jogo/assets/Enemy.gd" id="1_o2iu4"]
 [ext_resource type="Texture2D" uid="uid://cgqxrkoq4k7c" path="res://menu/assets/g.png" id="1_udbdu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwnb5"]
 
 [node name="Enemy" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.434439, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.434439, 0)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_o2iu4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(11, 0, 0, 0, 11, 0, 0, 0, 11, 0, 5.62729, 0)

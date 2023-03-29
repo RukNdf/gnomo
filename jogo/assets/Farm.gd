@@ -2,11 +2,12 @@ extends CSGBox3D
 
 
 # Called when the node enters the scene tree for the first time.
+var dead
 func _ready():
+	dead = false
 	add_to_group("farms")
 	print("farm")
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
