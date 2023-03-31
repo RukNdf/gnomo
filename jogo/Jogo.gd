@@ -7,13 +7,13 @@ func _ready():
 	add_child(draw3D)
 	initGridSpace()
 	spawnGrass()
+	makeGhost()
 	
 func spawnGrass():
 	var grass = preload("res://jogo/assets/Grass.tscn")
 	var min = Vector2(0, 0)
 	var gSize = $ground.size * $ground.scale
 	var max = Vector2(gSize.x, gSize.z)
-	print(max)
 	for i in range(10+(randi()%100)):
 		var g = grass.instantiate()
 		g.position = Vector3(randf_range(min.x, max.x), 0, randf_range(min.y, max.y))
@@ -24,7 +24,6 @@ func spawnGrass():
 var turnP = false
 func _process(delta):
 	if Input.is_key_pressed(KEY_O):
-		print(canPlace)
 		if canPlace:
 			if spawnFarm():
 				place($Cursor.gridPos, ghost.size)
@@ -145,7 +144,12 @@ func place(pos, size):
 		for y in range(pos.y, pos.y+size.y):
 			gridSpace[x][y] = true
 
-var ghost = farm.instantiate()
+var ghost
+func makeGhost():
+	#remove(ghost)
+	ghost = farm.instantiate()
+	add_child(ghost)
+	ghost.createGhost()
 #moves ghost and update placement
 func moveGhost(): 
 	#ghost.mat
@@ -156,8 +160,7 @@ func moveGhost():
 	ghost.position.x = pos.x + Globals.cameraOffset.x
 	ghost.position.z = pos.z + Globals.cameraOffset.z
 	ghost.position.y = 0.5
-	ghost.createGhost(canPlace)
-	add_child(ghost)
+	ghost.updateGhost(canPlace)
 	
 	
 	

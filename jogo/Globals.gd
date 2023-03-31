@@ -25,5 +25,5 @@ var colDelay = 0.5
 # Placement
 ############
 var ghostOpacity = 0.5
-var blockedColor = Color(255, 0, 0)
+var blockedColor = Color(255, 0, 0, ghostOpacity)
 var placementDelay = 150

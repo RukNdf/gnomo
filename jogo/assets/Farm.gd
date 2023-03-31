@@ -2,11 +2,12 @@ extends Node3D
 
 #farm size
 const size = Vector2(1,1)
+const group = "farms"
 #farm starts not dead and in the valid farms group
 var dead
 func _ready():
 	dead = false
-	add_to_group("farms")
+	add_to_group(group)
 
 #get smoke position to place in front of the farm when it dies
 func getSmokePos():
@@ -23,7 +24,7 @@ func die():
 		return
 	dying = true
 	#start animations, remove from target group, and remove collision halfway into the animation
-	remove_from_group("farms")
+	remove_from_group(group)
 	get_parent().spawnSmoke(getSmokePos())
 	$AnimationPlayer.play("die")
 	await get_tree().create_timer(Globals.colDelay).timeout
@@ -34,13 +35,15 @@ func removeCol():
 	$StaticBody3D/CollisionShape3D.disabled = true
 
 #create a ghost to show placement, ghost is not a real farm and doesn't have collision
-func createGhost(canPlace):
-	remove_from_group("farms")
+func createGhost():
+	remove_from_group(group)
 	scale = Vector3(1.01, 1.01, 1.01)
-	$StaticBody3D/CollisionShape3D.disabled = true
-	print($Mesh.material_override.albedo_color)
+	removeCol()
+	$Mesh.material_override.albedo_color.a = Globals.ghostOpacity
+#update color to show collision	
+func updateGhost(canPlace):
 	if canPlace:
-		$Mesh.material_override.albedo_color = Color(1, 1, 1)
+		$Mesh.material_override.albedo_color = Color(1, 1, 1, Globals.ghostOpacity)
 	else:
 		$Mesh.material_override.albedo_color = Globals.blockedColor
-	$Mesh.material_override.albedo_color.a = Globals.ghostOpacity
+	

@@ -44,6 +44,7 @@ func getTargetCenter(target):
 #iterate through valid targets and move towards nearest 
 func getTarget():
 	targets = get_tree().get_nodes_in_group("farms")
+	print(targets)
 	var tNum = len(targets)
 	if tNum == 0:
 		return
