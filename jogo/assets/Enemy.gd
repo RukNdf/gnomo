@@ -2,20 +2,21 @@ extends CharacterBody3D
 
 const SPEED = 3.0
 
+#targets and current target 
 var targets 
 var destination 
-
-# Called when the node enters the scene tree for the first time.
+#world
+var space_state
+#enemy spawns and instantly searches for the nearest target
 func _ready():
 	self.add_to_group("enemy")
 	destination = position
 	space_state = get_world_3d().direct_space_state
 	getTarget()
 
-var minDist = 40
+#attacking when close enough to a building
 var atacking = false
-var space_state
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+#move towards target until it touches something, then attack
 func _physics_process(delta):
 	if atacking:
 		return
@@ -23,26 +24,26 @@ func _physics_process(delta):
 	velocity.z = -(position.z - destination.z)
 	velocity = velocity.normalized()
 	var nextMove = position+(velocity)
-	get_parent().line(position, nextMove)
-	#get_parent().updateLine(position, nextMove)
+	get_parent().line(position, nextMove) #DEBUG
 	var query = PhysicsRayQueryParameters3D.create(position, nextMove)
 	var result = space_state.intersect_ray(query)
+	#touched building, destroy it
 	if result:
-		#print(result)
-		#get_parent().placeDot(result.position, false)
 		get_parent().destroy(result.collider)
+	#no collision, keep moving
 	else:
 		velocity *= SPEED
 		move_and_slide()
 
+#move towards center point of target
 func getTargetCenter(target):
 	var x = target.position.x+Globals.gridCenter
 	var z = target.position.z+Globals.gridCenter
 	return {'x':x, 'z':z}
 
+#iterate through valid targets and move towards nearest 
 func getTarget():
 	targets = get_tree().get_nodes_in_group("farms")
-	print(targets)
 	var tNum = len(targets)
 	if tNum == 0:
 		return

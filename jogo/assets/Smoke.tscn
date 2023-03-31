@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://djo0uj2xlwexw"]
+[gd_scene load_steps=4 format=3 uid="uid://djo0uj2xlwexw"]
 
 [ext_resource type="Texture2D" uid="uid://c6ccyomr6opxy" path="res://jogo/assets/Smoke.png" id="1_k4ae8"]
+[ext_resource type="Script" path="res://jogo/assets/Smoke.gd" id="1_ldix2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_00xos"]
 viewport_path = NodePath("SubViewport")
@@ -9,6 +10,7 @@ viewport_path = NodePath("SubViewport")
 transform = Transform3D(0.6, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1.28, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_00xos")
+script = ExtResource("1_ldix2")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

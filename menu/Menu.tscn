@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2e5gjlaokag0"]
+[gd_scene load_steps=4 format=3 uid="uid://c2e5gjlaokag0"]
 
 [ext_resource type="PackedScene" path="res://menu/Background.tscn" id="2_023kg"]
 [ext_resource type="Script" path="res://menu/Button.gd" id="2_u5cw4"]
+[ext_resource type="AudioStream" uid="uid://chsu8hihxohke" path="res://mus/menu.mp3" id="3_fvpo6"]
 
 [node name="menu" type="Node2D"]
 
@@ -14,3 +15,7 @@ offset_right = 702.0
 offset_bottom = 488.0
 text = "quero iniciar o jogo do victor schererl"
 script = ExtResource("2_u5cw4")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fvpo6")
+autoplay = true

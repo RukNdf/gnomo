@@ -1,13 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://dvuqiwtbvexb1"]
+[gd_scene load_steps=13 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/Ground.tscn" id="1_t65l0"]
 [ext_resource type="Script" path="res://jogo/Camera3D.gd" id="3_goc5b"]
+[ext_resource type="PackedScene" uid="uid://dprocgeb8ure4" path="res://jogo/assets/Forest.tscn" id="3_jb13l"]
 [ext_resource type="PackedScene" uid="uid://oqt3xm2plyds" path="res://jogo/assets/Cursor.tscn" id="4_23btj"]
 [ext_resource type="PackedScene" uid="uid://1iu70ppnt3yq" path="res://jogo/assets/Farm.tscn" id="5_1l8hm"]
 [ext_resource type="Script" path="res://jogo/assets/Cursor.gd" id="6_1stki"]
 [ext_resource type="PackedScene" uid="uid://baut35o0w3sdq" path="res://jogo/assets/Enemy.tscn" id="8_fjhl6"]
 [ext_resource type="PackedScene" uid="uid://c6h1k467knxnk" path="res://jogo/assets/Arrow.tscn" id="8_ikw7w"]
+[ext_resource type="AudioStream" uid="uid://dxhwdmww0b08n" path="res://mus/build.mp3" id="9_nelf8"]
+[ext_resource type="Texture2D" uid="uid://dbgpnjryugo6d" path="res://jogo/assets/treeShadow.png" id="11_4f1rt"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -39,5 +42,28 @@ script = ExtResource("6_1stki")
 [node name="Enemy" parent="." instance=ExtResource("8_fjhl6")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2.12368, 0, 2.42355)
 
-[node name="Sprite3D" parent="." instance=ExtResource("8_ikw7w")]
+[node name="Arrow" parent="." instance=ExtResource("8_ikw7w")]
 transform = Transform3D(0.35, 0, 0, 0, -1.5299e-08, 0.35, 0, -0.35, -1.5299e-08, 3.04011, 0.1, 2.1972)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_nelf8")
+
+[node name="trunk" parent="." instance=ExtResource("3_jb13l")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(574, 324)
+texture = ExtResource("11_4f1rt")
+
+[node name="Turn" type="RichTextLabel" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -301.0
+offset_bottom = 124.0
+grow_horizontal = 0
+theme_override_font_sizes/normal_font_size = 90
+text = "Turn  1"
+fit_content = true
+autowrap_mode = 0

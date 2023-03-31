@@ -22,7 +22,7 @@ DrawLine3D="*res://addons/DrawLine3D/DrawLine3D.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/MagicaVoxel_Importer_with_Extensions/plugin.cfg")
 
 [rendering]
 

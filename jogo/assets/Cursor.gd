@@ -1,28 +1,25 @@
 extends Sprite3D
 
 
-# Called when the node enters the scene tree for the first time.
+#spawn outside the screen
 func _ready():
 	position.x = 100
 	position.z = 100
-	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-var gridP = Vector2i(0,0)
+#placement within the discrete virtual grid
+var gridPos = Vector2i(0,0)
 func update(newPos):
+	#got a valid new position, calculate new valid position within the grid
 	if len(newPos) > 0:
-		gridP.x = newPos.position.x/Globals.gridSize
-		gridP.y = newPos.position.z/Globals.gridSize
-		if gridP.x > Globals.maxX:
-			gridP.x = Globals.maxX
-		if gridP.y > Globals.maxY:
-			gridP.y = Globals.maxY
-		position.x = (gridP.x*Globals.gridSize)+Globals.gridCenter
-		position.z = (gridP.y*Globals.gridSize)+Globals.gridCenter
+		gridPos.x = newPos.position.x/Globals.gridSize
+		gridPos.y = newPos.position.z/Globals.gridSize
+		if gridPos.x > Globals.maxX:
+			gridPos.x = Globals.maxX
+		if gridPos.y > Globals.maxY:
+			gridPos.y = Globals.maxY
+		position.x = (gridPos.x*Globals.gridSize)+Globals.gridCenter
+		position.z = (gridPos.y*Globals.gridSize)+Globals.gridCenter
 
+#get center point
 func getCenter():
 	return {'x' = position.x, 'z' = position.z}

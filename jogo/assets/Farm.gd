@@ -1,27 +1,46 @@
-extends CSGBox3D
+extends Node3D
 
-
-# Called when the node enters the scene tree for the first time.
+#farm size
+const size = Vector2(1,1)
+#farm starts not dead and in the valid farms group
 var dead
 func _ready():
 	dead = false
 	add_to_group("farms")
-	print("farm")
-	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+#get smoke position to place in front of the farm when it dies
 func getSmokePos():
+	print(Globals)
+	print(Globals.gridCenter)
 	var x = position.x + Globals.gridCenter
 	var z = position.z + Globals.gridCenter
 	return {'x' = x, 'z' = z}
 
+#ignore collision if it's already dying
+var dying = false
 func die():
+	if dying:
+		return
+	dying = true
+	#start animations, remove from target group, and remove collision halfway into the animation
 	remove_from_group("farms")
-	use_collision = false
+	get_parent().spawnSmoke(getSmokePos())
 	$AnimationPlayer.play("die")
-	
-func leave(anim):
-	get_parent().remove(self)
+	await get_tree().create_timer(Globals.colDelay).timeout
+	removeCol()
+
+#remove collision box
+func removeCol():
+	$StaticBody3D/CollisionShape3D.disabled = true
+
+#create a ghost to show placement, ghost is not a real farm and doesn't have collision
+func createGhost(canPlace):
+	remove_from_group("farms")
+	scale = Vector3(1.01, 1.01, 1.01)
+	$StaticBody3D/CollisionShape3D.disabled = true
+	print($Mesh.material_override.albedo_color)
+	if canPlace:
+		$Mesh.material_override.albedo_color = Color(1, 1, 1)
+	else:
+		$Mesh.material_override.albedo_color = Globals.blockedColor
+	$Mesh.material_override.albedo_color.a = Globals.ghostOpacity
