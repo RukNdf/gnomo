@@ -29,10 +29,9 @@ var farmCost = -10
 func _process(delta):
 	if Input.is_key_pressed(KEY_O):
 		if canPlace:
-			if updateMushrooms(farmCost):
-				print('a')
-				if spawnFarm():
-					place($Cursor.gridPos, ghost.size)
+			if tryPlace(farmCost):
+				spawnFarm()
+				place($Cursor.gridPos, ghost.size)
 			else:
 				print('b')
 	if Input.is_key_pressed(KEY_A):
@@ -55,13 +54,18 @@ func _process(delta):
 			remove_child(e)
 	pass	
 
-var farm = preload("res://jogo/assets/Farm.tscn")
+
 var lastSpawnTime = 0
-func spawnFarm():
+func tryPlace(cost):
 	var t = Time.get_ticks_msec()
 	if t < lastSpawnTime+Globals.placementDelay:
 		return false
-	lastSpawnTime = t
+	return updateMushrooms(cost)
+	
+
+var farm = preload("res://jogo/assets/Farm.tscn")
+func spawnFarm():
+	lastSpawnTime = Time.get_ticks_msec()
 	var pos = $Cursor.getCenter()
 	if len(pos) == 0:
 		return false
