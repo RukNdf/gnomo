@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://yecjvohw3ilf"]
+
+[ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/Mush.png" id="1_1472y"]
+[ext_resource type="Script" path="res://jogo/assets/Resources.gd" id="1_i4rbg"]
+
+[node name="resources" type="Node2D"]
+script = ExtResource("1_i4rbg")
+
+[node name="mush" type="Sprite2D" parent="."]
+position = Vector2(57, 40)
+scale = Vector2(0.167969, 0.167969)
+texture = ExtResource("1_1472y")
+
+[node name="Mtext" type="RichTextLabel" parent="."]
+offset_left = 101.0
+offset_top = 38.0
+offset_right = 141.0
+offset_bottom = 78.0
+bbcode_enabled = true
+text = "0"
+text_direction = 1

@@ -1,4 +1,6 @@
 extends Node3D
+const mush = 0
+var resources = [20]
 
 #import draw3D for 3D lines
 func _ready():	
@@ -8,6 +10,7 @@ func _ready():
 	initGridSpace()
 	spawnGrass()
 	makeGhost()
+	updateMushrooms(0)
 	
 func spawnGrass():
 	var grass = preload("res://jogo/assets/Grass.tscn")
@@ -22,15 +25,19 @@ func spawnGrass():
 	
 #DEBUG
 var turnP = false
+var farmCost = -10
 func _process(delta):
 	if Input.is_key_pressed(KEY_O):
 		if canPlace:
-			if spawnFarm():
-				place($Cursor.gridPos, ghost.size)
+			if updateMushrooms(farmCost):
+				print('a')
+				if spawnFarm():
+					place($Cursor.gridPos, ghost.size)
+			else:
+				print('b')
 	if Input.is_key_pressed(KEY_A):
 		var scale = $Arrow.scale.x
 		$Arrow.scale = Vector3(-scale, -scale, -scale)
-		
 	if Input.is_key_pressed(KEY_Q):
 		pass#test()
 	if Input.is_key_pressed(KEY_S):
@@ -96,11 +103,12 @@ func remove(obj):
 var turn = 1	
 var atkTurn = false
 func nextTurn():
+	updateResources()
 	turn += 1
 	if turn > 9:
-		$Turn.text = 'Turn ' + str(turn) + ' '
+		$Overlay/Turn.text = 'Turn ' + str(turn) + ' '
 	else: 
-		$Turn.text = 'Turn   ' + str(turn) + ' '
+		$Overlay/Turn.text = 'Turn   ' + str(turn) + ' '
 	atkTurn = !atkTurn
 	if(atkTurn):
 		spawnEnemy()
@@ -115,6 +123,20 @@ func spawnEnemy():
 func updateMousePos(pos):
 	$Cursor.update(pos)
 	moveGhost()
+	
+var farmProduces = 5
+func updateResources():
+	var m = 0
+	for f in get_tree().get_nodes_in_group("farms"):
+		m += farmProduces
+	updateMushrooms(m)
+	
+func updateMushrooms(num):
+	if resources[mush] + num < 0:
+		return false
+	resources[mush] += num
+	$Overlay/resources.updateMush(resources[mush])
+	return true
 	
 #############
 # Placement
@@ -143,8 +165,17 @@ func place(pos, size):
 	for x in range(pos.x, pos.x+size.x):
 		for y in range(pos.y, pos.y+size.y):
 			gridSpace[x][y] = true
+#clear space on grid when destroyed
+func clearPlace(position, size):
+	var pos = Vector2()
+	pos.x = position.x/Globals.gridSize
+	pos.y = position.z/Globals.gridSize
+	for x in range(pos.x, pos.x+size.x):
+		for y in range(pos.y, pos.y+size.y):
+			gridSpace[x][y] = false
 
 var ghost
+var ghostState = canPlace
 func makeGhost():
 	#remove(ghost)
 	ghost = farm.instantiate()
@@ -152,7 +183,6 @@ func makeGhost():
 	ghost.createGhost()
 #moves ghost and update placement
 func moveGhost(): 
-	#ghost.mat
 	var pos = $Cursor.getCenter()
 	testPlacement($Cursor.gridPos, ghost.size)
 	if len(pos) == 0:
@@ -160,7 +190,10 @@ func moveGhost():
 	ghost.position.x = pos.x + Globals.cameraOffset.x
 	ghost.position.z = pos.z + Globals.cameraOffset.z
 	ghost.position.y = 0.5
-	ghost.updateGhost(canPlace)
+	#only update color if it changed
+	if ghostState != canPlace:
+		ghost.updateGhost(canPlace)
+		ghostState = canPlace
 	
 	
 	

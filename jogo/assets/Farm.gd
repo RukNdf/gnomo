@@ -25,6 +25,7 @@ func die():
 	dying = true
 	#start animations, remove from target group, and remove collision halfway into the animation
 	remove_from_group(group)
+	get_parent().clearPlace(position, size)
 	get_parent().spawnSmoke(getSmokePos())
 	$AnimationPlayer.play("die")
 	await get_tree().create_timer(Globals.colDelay).timeout

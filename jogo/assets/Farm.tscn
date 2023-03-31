@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://1iu70ppnt3yq"]
 
-[ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/Mush.png" id="1_hlnuw"]
+[ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Farm.png" id="2_armiy"]
 [ext_resource type="Script" path="res://jogo/assets/Farm.gd" id="2_ld6o3"]
 
 [sub_resource type="Animation" id="Animation_yd33j"]
@@ -41,7 +41,7 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dj1q8"]
 resource_local_to_scene = true
 transparency = 1
-albedo_texture = ExtResource("1_hlnuw")
+albedo_texture = ExtResource("2_armiy")
 uv1_scale = Vector3(3, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_teiyg"]
