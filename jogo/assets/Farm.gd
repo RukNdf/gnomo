@@ -20,8 +20,6 @@ func getSmokePos():
 #ignore collision if it's already dying
 var dying = false
 func die():
-	if dying:
-		return
 	dying = true
 	#start animations, remove from target group, and remove collision halfway into the animation
 	remove_from_group(group)
@@ -30,6 +28,7 @@ func die():
 	$AnimationPlayer.play("die")
 	await get_tree().create_timer(Globals.colDelay).timeout
 	removeCol()
+	return true
 
 #remove collision box
 func removeCol():

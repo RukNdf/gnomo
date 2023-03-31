@@ -1,6 +1,7 @@
 extends Node3D
 const mush = 0
 var resources = [20]
+var numBuilding = 0
 
 #import draw3D for 3D lines
 func _ready():	
@@ -74,6 +75,7 @@ func spawnFarm():
 	f.position.z = pos.z + Globals.cameraOffset.z
 	f.position.y = 0.5
 	add_child(f)
+	numBuilding += 1
 	return true
 	
 	
@@ -96,13 +98,23 @@ func destroy(col):
 	var obj = col.get_parent()
 	if(!obj.has_method('die')):
 		return
+	if obj.dying:
+		return
 	obj.die()
+	numBuilding -= 1
+	if numBuilding == 0:
+		gameOver()
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for e in enemies:
 		e.getTarget()
 	
 func remove(obj):
 	remove_child(obj)
+
+func gameOver():
+	$Overlay/AnimationPlayer.play("GG")
+	$Cursor.visible = false
+	ghost.visible = false	
 
 var turn = 1	
 var atkTurn = false
