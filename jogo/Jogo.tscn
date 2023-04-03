@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=17 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/Ground.tscn" id="1_t65l0"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://jogo/assets/Cursor.gd" id="6_1stki"]
 [ext_resource type="PackedScene" uid="uid://c6h1k467knxnk" path="res://jogo/assets/Arrow.tscn" id="8_ikw7w"]
 [ext_resource type="AudioStream" uid="uid://dxhwdmww0b08n" path="res://mus/build.mp3" id="9_nelf8"]
+[ext_resource type="AudioStream" uid="uid://bijx3q3p5ij2r" path="res://mus/atk.mp3" id="10_oy75o"]
 [ext_resource type="Texture2D" uid="uid://dbgpnjryugo6d" path="res://jogo/assets/treeShadow.png" id="11_4f1rt"]
 [ext_resource type="PackedScene" uid="uid://baukyukyxwori" path="res://jogo/assets/Gnome.tscn" id="11_20040"]
 [ext_resource type="Texture2D" uid="uid://desq32d5llcdi" path="res://jogo/assets/forestForeground.png" id="11_ddiwf"]
@@ -91,8 +92,12 @@ environment = SubResource("Environment_8vrw3")
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Bsong" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_nelf8")
+autoplay = true
+
+[node name="Asong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_oy75o")
 
 [node name="Overlay" type="Node2D" parent="."]
 position = Vector2(851, 0)

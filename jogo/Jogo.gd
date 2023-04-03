@@ -145,7 +145,7 @@ func gameOver():
 	ghost.visible = false	
 
 var turn = 1
-var atkTurn = false
+var atkTurn = false 
 func nextTurn():
 	updateResources()
 	turn += 1
@@ -155,6 +155,10 @@ func nextTurn():
 		$Overlay/Turn.text = 'Turn   ' + str(turn) + ' '
 	#atkTurn = !atkTurn
 	if(turn >= 3):
+		if(!atkTurn):
+			atkTurn = true
+			$Bsong.stop()
+			$Asong.play()
 		spawnEnemy()
 
 var enemy = preload("res://jogo/assets/Enemy.tscn")
