@@ -28,6 +28,8 @@ func spawnGrass():
 var turnP = false
 var farmCost = -10
 func _process(delta):
+	if Input.is_key_pressed(KEY_L):
+		kill()
 	if Input.is_key_pressed(KEY_O):
 		if canPlace:
 			if tryPlace(farmCost):
@@ -62,6 +64,18 @@ func _process(delta):
 			remove_child(e)
 	pass	
 
+
+var lastKillTime = 0
+func kill():
+	var t = Time.get_ticks_msec()
+	if t < lastKillTime+Globals.placementDelay:
+		return
+	lastKillTime = t	
+	for tower in get_tree().get_nodes_in_group("tower"):
+		var e = tower.kill()
+		print(e)
+		
+		remove_child(e)
 
 var lastSpawnTime = 0
 func tryPlace(cost):
@@ -130,7 +144,7 @@ func gameOver():
 	$Cursor.visible = false
 	ghost.visible = false	
 
-var turn = 3
+var turn = 1
 var atkTurn = false
 func nextTurn():
 	updateResources()

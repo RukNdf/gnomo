@@ -58,3 +58,7 @@ func getTarget():
 			min = d
 			target = i
 	destination = targets[target].position
+
+
+#func leave(anim_name):
+	
