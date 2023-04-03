@@ -31,7 +31,14 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_O):
 		if canPlace:
 			if tryPlace(farmCost):
-				spawnFarm()
+				spawn('farm')
+				place($Cursor.gridPos, ghost.size)
+			else:
+				print('b')
+	if Input.is_key_pressed(KEY_I):
+		if canPlace:
+			if tryPlace(farmCost):
+				spawn('tower')
 				place($Cursor.gridPos, ghost.size)
 			else:
 				print('b')
@@ -65,17 +72,22 @@ func tryPlace(cost):
 	
 
 var farm = preload("res://jogo/assets/Farm.tscn")
-func spawnFarm():
+var tower = preload("res://jogo/assets/Tower.tscn")
+func spawn(type):
 	lastSpawnTime = Time.get_ticks_msec()
 	var pos = $Cursor.getCenter()
 	if len(pos) == 0:
 		return false
-	var f = farm.instantiate()
+	var f
+	if type == 'farm':
+		f = farm.instantiate()
+		numBuilding += 1
+	else:
+		f = tower.instantiate()
 	f.position.x = pos.x + Globals.cameraOffset.x
 	f.position.z = pos.z + Globals.cameraOffset.z
 	f.position.y = 0.5
 	add_child(f)
-	numBuilding += 1
 	return true
 	
 	
@@ -101,7 +113,9 @@ func destroy(col):
 	if obj.dying:
 		return
 	obj.die()
-	numBuilding -= 1
+	if obj.group == 'farms':
+		print('a')
+		numBuilding -= 1	
 	if numBuilding == 0:
 		gameOver()
 	var enemies = get_tree().get_nodes_in_group("enemy")
@@ -116,7 +130,7 @@ func gameOver():
 	$Cursor.visible = false
 	ghost.visible = false	
 
-var turn = 1	
+var turn = 3
 var atkTurn = false
 func nextTurn():
 	updateResources()
@@ -125,8 +139,8 @@ func nextTurn():
 		$Overlay/Turn.text = 'Turn ' + str(turn) + ' '
 	else: 
 		$Overlay/Turn.text = 'Turn   ' + str(turn) + ' '
-	atkTurn = !atkTurn
-	if(atkTurn):
+	#atkTurn = !atkTurn
+	if(turn >= 3):
 		spawnEnemy()
 
 var enemy = preload("res://jogo/assets/Enemy.tscn")
