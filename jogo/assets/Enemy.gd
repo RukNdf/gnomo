@@ -1,18 +1,27 @@
 extends CharacterBody3D
 
-const SPEED = 3.0
+var speed = 3.0
 
 #targets and current target 
 var targets 
 var destination 
 #world
 var space_state
+var running = false
 #enemy spawns and instantly searches for the nearest target
 func _ready():
 	self.add_to_group("enemy")
 	destination = position
 	space_state = get_world_3d().direct_space_state
 	getTarget()
+
+func defeat():
+	if !running:
+		running = true
+		atacking = false
+		speed *= 2
+		destination = Vector3(0,position.y,0)
+		
 
 #attacking when close enough to a building
 var atacking = false
@@ -23,17 +32,17 @@ func _physics_process(delta):
 	velocity.x = -(position.x - destination.x)
 	velocity.z = -(position.z - destination.z)
 	velocity = velocity.normalized()
-	var nextMove = position+(velocity)
-	get_parent().line(position, nextMove) #DEBUG
-	var query = PhysicsRayQueryParameters3D.create(position, nextMove)
-	var result = space_state.intersect_ray(query)
-	#touched building, destroy it
-	if result:
-		get_parent().destroy(result.collider)
-	#no collision, keep moving
-	else:
-		velocity *= SPEED
-		move_and_slide()
+	if !running:
+		var nextMove = position+(velocity)
+		get_parent().line(position, nextMove) #DEBUG
+		var query = PhysicsRayQueryParameters3D.create(position, nextMove)
+		var result = space_state.intersect_ray(query)
+		#touched building, destroy it
+		if result:
+			get_parent().destroy(result.collider)
+			return
+	velocity *= speed
+	move_and_slide()
 
 #move towards center point of target
 func getTargetCenter(target):
@@ -43,6 +52,8 @@ func getTargetCenter(target):
 
 #iterate through valid targets and move towards nearest 
 func getTarget():
+	if running:
+		return
 	targets = get_tree().get_nodes_in_group("farms")
 	print(targets)
 	var tNum = len(targets)

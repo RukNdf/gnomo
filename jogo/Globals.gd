@@ -27,3 +27,8 @@ var colDelay = 0.5
 var ghostOpacity = 0.5
 var blockedColor = Color(255, 0, 0, ghostOpacity)
 var placementDelay = 150
+
+##########
+# Player
+##########
+var atkDelay = 1

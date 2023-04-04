@@ -5,6 +5,8 @@ var numBuilding = 0
 
 #import draw3D for 3D lines
 func _ready():	
+	var master_sound = AudioServer.get_bus_index("Master")
+	AudioServer.set_bus_mute(master_sound, true)
 	randomize()
 	draw3D = Draw3D.new()
 	add_child(draw3D)
@@ -28,8 +30,8 @@ func spawnGrass():
 var turnP = false
 var farmCost = -10
 func _process(delta):
-	if Input.is_key_pressed(KEY_L):
-		kill()
+	#if Input.is_key_pressed(KEY_L):
+		#kill()
 	if Input.is_key_pressed(KEY_O):
 		if canPlace:
 			if tryPlace(farmCost):
@@ -65,17 +67,22 @@ func _process(delta):
 	pass	
 
 
-var lastKillTime = 0
-func kill():
-	var t = Time.get_ticks_msec()
-	if t < lastKillTime+Globals.placementDelay:
-		return
-	lastKillTime = t	
+func defend():
+	print('start')
+	$AtkTimer.set_wait_time(Globals.atkDelay)
+	$AtkTimer.start()
+	
+func towerAtk():
+	print('defend')
+	print(atkTurn)
 	for tower in get_tree().get_nodes_in_group("tower"):
 		var e = tower.kill()
-		print(e)
+		killUnit(e)
+	if(!atkTurn):
+		$AtkTimer.stop()
 		
-		remove_child(e)
+func killUnit(e):
+	remove_child(e)	
 
 var lastSpawnTime = 0
 func tryPlace(cost):
@@ -157,15 +164,18 @@ func nextTurn():
 	if(turn >= 3):
 		if(!atkTurn):
 			atkTurn = true
+			defend()
 			$Bsong.stop()
 			$Asong.play()
-		spawnEnemy()
+		spawnEnemy(turn)
+
 
 var enemy = preload("res://jogo/assets/Enemy.tscn")
-func spawnEnemy():
-	var e = enemy.instantiate()
-	e.position = Vector3(0,0,0)
-	add_child(e)
+func spawnEnemy(num):
+	for i in range(num):
+		var e = enemy.instantiate()
+		e.position = Vector3(0,0,0)
+		add_child(e)
 
 	
 func updateMousePos(pos):

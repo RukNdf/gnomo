@@ -90,7 +90,7 @@ collision_layer = 3
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8vrw3")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="AtkTimer" type="Timer" parent="."]
 
 [node name="Bsong" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_nelf8")
@@ -142,3 +142,5 @@ speed_scale = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_t81et")
 }
+
+[connection signal="timeout" from="AtkTimer" to="." method="towerAtk"]
