@@ -73,16 +73,15 @@ func defend():
 	$AtkTimer.start()
 	
 func towerAtk():
-	print('defend')
-	print(atkTurn)
 	for tower in get_tree().get_nodes_in_group("tower"):
 		var e = tower.kill()
-		killUnit(e)
+		if e != null:
+			killUnit(e)
 	if(!atkTurn):
 		$AtkTimer.stop()
 		
 func killUnit(e):
-	remove_child(e)	
+	e.defeat()
 
 var lastSpawnTime = 0
 func tryPlace(cost):
@@ -168,6 +167,7 @@ func nextTurn():
 			$Bsong.stop()
 			$Asong.play()
 		spawnEnemy(turn)
+		#spawnEnemy(1)
 
 
 var enemy = preload("res://jogo/assets/Enemy.tscn")
@@ -252,12 +252,3 @@ func moveGhost():
 	if ghostState != canPlace:
 		ghost.updateGhost(canPlace)
 		ghostState = canPlace
-	
-	
-	
-	
-	
-	
-	
-	
-		

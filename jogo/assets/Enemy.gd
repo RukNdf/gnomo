@@ -8,6 +8,7 @@ var destination
 #world
 var space_state
 var running = false
+var dying = false
 #enemy spawns and instantly searches for the nearest target
 func _ready():
 	self.add_to_group("enemy")
@@ -17,11 +18,13 @@ func _ready():
 
 func defeat():
 	if !running:
+		remove_from_group('enemy')
 		running = true
 		atacking = false
-		speed *= 2
+		speed *= 1.5
 		destination = Vector3(0,position.y,0)
-		
+		$AnimationPlayer.play("defeat")
+		$CollisionShape3D.disabled = true
 
 #attacking when close enough to a building
 var atacking = false
@@ -34,15 +37,23 @@ func _physics_process(delta):
 	velocity = velocity.normalized()
 	if !running:
 		var nextMove = position+(velocity)
-		get_parent().line(position, nextMove) #DEBUG
+		#get_parent().line(position, nextMove) #DEBUG
 		var query = PhysicsRayQueryParameters3D.create(position, nextMove)
 		var result = space_state.intersect_ray(query)
 		#touched building, destroy it
 		if result:
 			get_parent().destroy(result.collider)
 			return
+	elif not dying:
+		if position.x < 0 or position.y < 0:
+			$AnimationPlayer.play("die")
+			dying = true
 	velocity *= speed
 	move_and_slide()
+	
+func animationFinished(anim):
+	if anim == 'die':
+		get_parent().destroy(self)
 
 #move towards center point of target
 func getTargetCenter(target):
@@ -55,7 +66,6 @@ func getTarget():
 	if running:
 		return
 	targets = get_tree().get_nodes_in_group("farms")
-	print(targets)
 	var tNum = len(targets)
 	if tNum == 0:
 		return

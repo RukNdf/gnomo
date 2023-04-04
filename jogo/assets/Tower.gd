@@ -60,7 +60,7 @@ func kill():
 	var targets = get_tree().get_nodes_in_group("enemy")
 	var tNum = len(targets)
 	if tNum == 0:
-		return
+		return 
 	var target = 0
 	var center = getTargetCenter(targets[0])
 	var min = ((position.x - center.x)**2) + ((position.z - center.z)**2)
