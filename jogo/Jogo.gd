@@ -177,6 +177,18 @@ func spawnEnemy(num):
 		e.position = Vector3(0,0,0)
 		add_child(e)
 
+func select(type):
+	print('select')
+	var pos = ghost.position
+	remove_child(ghost)
+	if type == 'mush':
+		ghost = farm.instantiate()
+	if type == 'tower':
+		ghost = tower.instantiate()
+	ghost.createGhost()
+	ghost.position = pos
+	add_child(ghost)
+		
 	
 func updateMousePos(pos):
 	$Cursor.update(pos)

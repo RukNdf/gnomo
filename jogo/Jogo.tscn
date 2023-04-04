@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=18 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/Ground.tscn" id="1_t65l0"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://baukyukyxwori" path="res://jogo/assets/Gnome.tscn" id="11_20040"]
 [ext_resource type="Texture2D" uid="uid://desq32d5llcdi" path="res://jogo/assets/forestForeground.png" id="11_ddiwf"]
 [ext_resource type="PackedScene" uid="uid://yecjvohw3ilf" path="res://jogo/assets/Resources.tscn" id="11_uv7wv"]
+[ext_resource type="PackedScene" uid="uid://byagf7xbcx37j" path="res://jogo/assets/BuildingMenu/BuildingMenu.tscn" id="14_cyh6t"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -104,7 +105,7 @@ position = Vector2(851, 0)
 
 [node name="Shadow" type="Sprite2D" parent="Overlay"]
 modulate = Color(1, 1, 1, 0.768627)
-position = Vector2(-277, 324)
+position = Vector2(-275, 324)
 texture = ExtResource("11_4f1rt")
 
 [node name="Turn" type="RichTextLabel" parent="Overlay"]
@@ -134,7 +135,7 @@ text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 scroll_active = false
 
 [node name="foreground" type="Sprite2D" parent="Overlay"]
-position = Vector2(-277, 324)
+position = Vector2(-275, 324)
 texture = ExtResource("11_ddiwf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Overlay"]
@@ -142,5 +143,8 @@ speed_scale = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_t81et")
 }
+
+[node name="menu" parent="." instance=ExtResource("14_cyh6t")]
+visible = false
 
 [connection signal="timeout" from="AtkTimer" to="." method="towerAtk"]
