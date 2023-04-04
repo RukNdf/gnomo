@@ -1,10 +1,11 @@
 extends Camera3D
 
-#Used to get cursor position relative to the ground within the isometric FOV
+#	Used to get cursor position relative to the ground within the isometric FOV
+#--------------------------------------------------------------------------------
 
+#ground gets loaded along with camera so it doesn't need to update the 3D space afterwards
 var worldspace
 func _ready():
-	#ground gets loaded along with camera so it doesn't need to update the 3D space afterwards
 	worldspace = get_world_3d().direct_space_state
 	
 var mousePos

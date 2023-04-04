@@ -3,3 +3,5 @@
 	Switch ghost material only "local to scene" for the instance
 
 	Enemies have shared space_state and targets list
+
+	building scripts extend base

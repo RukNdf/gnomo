@@ -1,10 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://byagf7xbcx37j"]
+[gd_scene load_steps=8 format=3 uid="uid://byagf7xbcx37j"]
 
 [ext_resource type="Script" path="res://jogo/assets/BuildingMenu/BuildingMenu.gd" id="1_0nihi"]
 [ext_resource type="Texture2D" uid="uid://6tlv7kb8l7ap" path="res://jogo/assets/BuildingMenu/BuildingMenu.png" id="1_g3558"]
 [ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Farm.png" id="2_wx84w"]
 [ext_resource type="Texture2D" uid="uid://bk4hgp6tj1j2w" path="res://jogo/assets/Tower.png" id="3_knnam"]
 [ext_resource type="Texture2D" uid="uid://dpxuwbgmchdbf" path="res://jogo/assets/BuildingMenu/Overlay.png" id="4_1crbr"]
+
+[sub_resource type="Animation" id="Animation_xpdjs"]
+resource_name = "move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.28),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 220), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8wmkn"]
+_data = {
+"move": SubResource("Animation_xpdjs")
+}
 
 [node name="menu" type="Node2D"]
 script = ExtResource("1_0nihi")
@@ -40,6 +60,11 @@ texture_normal = ExtResource("2_wx84w")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8wmkn")
+}
 
 [connection signal="pressed" from="Buildings/Tower" to="." method="selectTower"]
 [connection signal="pressed" from="Buildings/Mush" to="." method="selectMush"]

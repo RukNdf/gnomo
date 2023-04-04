@@ -1,14 +1,20 @@
 extends Node3D
 
-#farm size
+
+############
+# Init
+############
 const size = Vector2(1,1)
 const group = "farms"
+var dead = false
 #farm starts not dead and in the valid farms group
-var dead
 func _ready():
-	dead = false
 	add_to_group(group)
 
+
+###########
+# Graphics
+###########
 #get smoke position to place in front of the farm when it dies
 func getSmokePos():
 	print(Globals)
@@ -17,28 +23,30 @@ func getSmokePos():
 	var z = position.z + Globals.gridCenter
 	return {'x' = x, 'z' = z}
 
-#ignore collision if it's already dying
-var dying = false
+
+########
+# Die
+#######
+#start dying
 func die():
-	dying = true
-	#start animations, remove from target group, and remove collision halfway into the animation
+	dead = true
+	#remove from target group, start animations, and remove collision halfway into the animation
 	remove_from_group(group)
 	get_parent().clearPlace(position, size)
 	get_parent().spawnSmoke(getSmokePos())
 	$AnimationPlayer.play("die")
 	await get_tree().create_timer(Globals.colDelay).timeout
-	removeCol()
-	return true
-
-#remove collision box
-func removeCol():
 	$StaticBody3D/CollisionShape3D.disabled = true
 
+
+#########
+# Ghost
+########
 #create a ghost to show placement, ghost is not a real farm and doesn't have collision
 func createGhost():
 	remove_from_group(group)
 	scale = Vector3(1.01, 1.01, 1.01)
-	removeCol()
+	$StaticBody3D/CollisionShape3D.disabled = true
 	$Mesh.material_override.albedo_color.a = Globals.ghostOpacity
 #update color to show collision	
 func updateGhost(canPlace):

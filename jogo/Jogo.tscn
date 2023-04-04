@@ -112,13 +112,15 @@ texture = ExtResource("11_4f1rt")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = 145.0
 offset_right = 301.0
 offset_bottom = 124.0
 grow_horizontal = 0
 theme_override_font_sizes/normal_font_size = 90
-text = "Turn  1"
+text = "Turn   1"
 fit_content = true
 autowrap_mode = 0
+text_direction = 2
 
 [node name="resources" parent="Overlay" instance=ExtResource("11_uv7wv")]
 position = Vector2(-851, 0)
