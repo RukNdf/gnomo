@@ -10,6 +10,8 @@ const mush = 0
 var resources = [120]
 #num of required buildings (e.g. farm)
 var numBuilding = 0
+#current selected building
+var selected = 'farm'
 
 #initialize game field
 func _ready():	
@@ -234,6 +236,7 @@ func remove(obj):
 	remove_child(obj)
 
 func gameOver():
+	$menu/colBox.position.y = 1000
 	$Overlay/AnimationPlayer.play("GG")
 	$Cursor.visible = false
 	ghost.visible = false	
@@ -266,7 +269,7 @@ func spawnEnemy(num):
 		add_child(e)
 
 func select(type):
-	print('select')
+	selected = type
 	var pos = ghost.position
 	remove_child(ghost)
 	if type == 'mush':
@@ -280,7 +283,18 @@ func select(type):
 	
 func updateMousePos(pos):
 	$Cursor.update(pos)
+	#$menu.$shape.
 	moveGhost()
+	
+func _input(event):
+	if event is InputEventMouse:
+		$menu.testMenuCol(event.position)
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if canPlace:
+				if tryPlace(farmCost):
+					spawn(selected)
+					place($Cursor.gridPos, ghost.size)
 	
 var farmProduces = 5
 func updateResources():
