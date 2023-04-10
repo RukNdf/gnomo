@@ -44,7 +44,8 @@ func die():
 ########
 #create a ghost to show placement, ghost is not a real tower and doesn't have collision
 func createGhost():
-	remove_from_group(group)
+	dead = true
+	remove_from_group('tower')
 	scale = Vector3(1.01, 1.01, 1.01)
 	$StaticBody3D/CollisionShape3D.disabled = true
 	$Mesh.material_override.albedo_color.a = Globals.ghostOpacity

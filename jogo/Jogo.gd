@@ -190,6 +190,8 @@ func defend():
 	
 func towerAtk():
 	for tower in get_tree().get_nodes_in_group("tower"):
+		if tower.dead:
+			continue
 		var e = tower.kill()
 		if e != null:
 			killUnit(e)
