@@ -4,4 +4,5 @@
 
 [node name="Cursor" type="Sprite3D"]
 transform = Transform3D(0.3, 0, 0, 0, -1.31134e-08, 0.3, 0, -0.3, -1.31134e-08, 0, 0.1, 0)
+alpha_cut = 1
 texture = ExtResource("1_dwlw7")
