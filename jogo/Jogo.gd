@@ -11,7 +11,7 @@ var resources = [120]
 #num of required buildings (e.g. farm)
 var numBuilding = 0
 #current selected building
-var selected = 'farm'
+var selected = 'mush'
 
 #initialize game field
 func _ready():	
@@ -84,7 +84,7 @@ func spawn(type):
 	if len(pos) == 0:
 		return false
 	var f
-	if type == 'farm':
+	if type == 'mush':
 		f = farm.instantiate()
 		numBuilding += 1
 	else:
@@ -293,8 +293,9 @@ func _input(event):
 		$menu.testMenuCol(event.position)
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if canPlace:
+			if canPlace and not $menu.up:
 				if tryPlace(farmCost):
+					print(selected)
 					spawn(selected)
 					place($Cursor.gridPos, ghost.size)
 	
