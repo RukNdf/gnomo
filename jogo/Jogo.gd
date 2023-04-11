@@ -50,7 +50,7 @@ func makeGhost():
 ##############
 #Spawn random grass patches on the player's field
 func spawnGrass():
-	var grass = preload("res://jogo/assets/Grass.tscn")
+	var grass = preload("res://jogo/assets/map/Grass.tscn")
 	var min = Vector2(0, 0)
 	var gSize = $ground.size * $ground.scale
 	var max = Vector2(gSize.x, gSize.z)
@@ -60,7 +60,7 @@ func spawnGrass():
 		add_child(g)
 
 #spawn smoke after building dies
-var smoke = preload("res://jogo/assets/Smoke.tscn")
+var smoke = preload("res://jogo/assets/Buildings/Smoke.tscn")
 func spawnSmoke(pos):
 	var s = smoke.instantiate()
 	s.position.x = pos.x
@@ -74,8 +74,8 @@ func spawnSmoke(pos):
 #############
 var canPlace = false
 #buildings
-var farm = preload("res://jogo/assets/Farm.tscn")
-var tower = preload("res://jogo/assets/Tower.tscn")
+var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
+var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
 
 #try to spawn a building
 func spawn(type):
@@ -263,7 +263,7 @@ func nextTurn():
 		#spawnEnemy(1)
 
 
-var enemy = preload("res://jogo/assets/Enemy.tscn")
+var enemy = preload("res://jogo/assets/Enemy/Enemy.tscn")
 func spawnEnemy(num):
 	for i in range(num):
 		var e = enemy.instantiate()

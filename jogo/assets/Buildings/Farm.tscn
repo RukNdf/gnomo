@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8dcru3koqyxs"]
+[gd_scene load_steps=8 format=3 uid="uid://1iu70ppnt3yq"]
 
-[ext_resource type="Script" path="res://jogo/assets/Tower.gd" id="1_dnulk"]
-[ext_resource type="Texture2D" uid="uid://bk4hgp6tj1j2w" path="res://jogo/assets/Tower.png" id="1_nrtjx"]
+[ext_resource type="Script" path="res://jogo/assets/Buildings/Farm.gd" id="1_0ld32"]
+[ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Buildings/Farm.png" id="2_armiy"]
 
 [sub_resource type="Animation" id="Animation_yd33j"]
 resource_name = "die"
@@ -35,19 +35,20 @@ _data = {
 "die": SubResource("Animation_yd33j")
 }
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8b3kx"]
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yali0"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6mhdk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dj1q8"]
 resource_local_to_scene = true
 transparency = 1
-albedo_texture = ExtResource("1_nrtjx")
+albedo_texture = ExtResource("2_armiy")
 uv1_scale = Vector3(3, 2, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_7ywuw"]
+[sub_resource type="BoxMesh" id="BoxMesh_teiyg"]
 
-[node name="tower" type="Node3D"]
-script = ExtResource("1_dnulk")
+[node name="farm" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("1_0ld32")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -57,8 +58,10 @@ libraries = {
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_8b3kx")
+shape = SubResource("ConcavePolygonShape3D_yali0")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_6mhdk")
-mesh = SubResource("BoxMesh_7ywuw")
+material_override = SubResource("StandardMaterial3D_dj1q8")
+mesh = SubResource("BoxMesh_teiyg")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgj1ayvdhsurc"
-path.s3tc="res://.godot/imported/Arrow.png-cfb30583a0ba418949708766733a6f1d.s3tc.ctex"
+uid="uid://bk4hgp6tj1j2w"
+path.s3tc="res://.godot/imported/Tower.png-7d8836a35320d382f900e9e648187faa.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://jogo/assets/Arrow.png"
-dest_files=["res://.godot/imported/Arrow.png-cfb30583a0ba418949708766733a6f1d.s3tc.ctex"]
+source_file="res://jogo/assets/Buildings/Tower.png"
+dest_files=["res://.godot/imported/Tower.png-7d8836a35320d382f900e9e648187faa.s3tc.ctex"]
 
 [params]
 

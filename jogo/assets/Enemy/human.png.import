@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byk1751ia0x6e"
-path.s3tc="res://.godot/imported/Cursor.png-9c34291d43de72a6f47310e321a95380.s3tc.ctex"
+uid="uid://c2aqhgyatiopy"
+path.s3tc="res://.godot/imported/human.png-de93f7649929b3775cb933be8b4532b3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://jogo/assets/Cursor.png"
-dest_files=["res://.godot/imported/Cursor.png-9c34291d43de72a6f47310e321a95380.s3tc.ctex"]
+source_file="res://jogo/assets/Enemy/human.png"
+dest_files=["res://.godot/imported/human.png-de93f7649929b3775cb933be8b4532b3.s3tc.ctex"]
 
 [params]
 

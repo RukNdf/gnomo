@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://jogo/assets/BuildingMenu/BuildingMenu.gd" id="1_0nihi"]
 [ext_resource type="Texture2D" uid="uid://6tlv7kb8l7ap" path="res://jogo/assets/BuildingMenu/BuildingMenu.png" id="1_g3558"]
-[ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Farm.png" id="2_wx84w"]
-[ext_resource type="Texture2D" uid="uid://bk4hgp6tj1j2w" path="res://jogo/assets/Tower.png" id="3_knnam"]
+[ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Buildings/Farm.png" id="2_wx84w"]
+[ext_resource type="Texture2D" uid="uid://bk4hgp6tj1j2w" path="res://jogo/assets/Buildings/Tower.png" id="3_knnam"]
 [ext_resource type="Texture2D" uid="uid://dpxuwbgmchdbf" path="res://jogo/assets/BuildingMenu/Overlay.png" id="4_1crbr"]
 [ext_resource type="Script" path="res://jogo/assets/BuildingMenu/colBox.gd" id="6_7dyf8"]
 

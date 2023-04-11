@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk4hgp6tj1j2w"
-path.s3tc="res://.godot/imported/Tower.png-184fb43ec17ebf41afc4007757d653ac.s3tc.ctex"
+uid="uid://c6ccyomr6opxy"
+path.s3tc="res://.godot/imported/Smoke.png-0b63c0e35fc0aa9eb33c150138206796.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://jogo/assets/Tower.png"
-dest_files=["res://.godot/imported/Tower.png-184fb43ec17ebf41afc4007757d653ac.s3tc.ctex"]
+source_file="res://jogo/assets/Buildings/Smoke.png"
+dest_files=["res://.godot/imported/Smoke.png-0b63c0e35fc0aa9eb33c150138206796.s3tc.ctex"]
 
 [params]
 

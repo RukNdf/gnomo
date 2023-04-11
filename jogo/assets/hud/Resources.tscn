@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://yecjvohw3ilf"]
 
-[ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/Mush.png" id="1_1472y"]
-[ext_resource type="Script" path="res://jogo/assets/Resources.gd" id="1_i4rbg"]
+[ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/hud/Mush.png" id="1_1472y"]
+[ext_resource type="Script" path="res://jogo/assets/hud/Resources.gd" id="1_kwp37"]
 
 [node name="resources" type="Node2D"]
-script = ExtResource("1_i4rbg")
+script = ExtResource("1_kwp37")
 
 [node name="mush" type="Sprite2D" parent="."]
 position = Vector2(57, 40)

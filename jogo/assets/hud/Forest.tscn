@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dprocgeb8ure4"]
 
-[ext_resource type="ArrayMesh" uid="uid://b7118u5kuab3b" path="res://jogo/assets/Trunk.vox" id="1_v7dhx"]
-[ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/Ground.tscn" id="2_l40nt"]
+[ext_resource type="ArrayMesh" uid="uid://b7118u5kuab3b" path="res://jogo/assets/map/Trunk.vox" id="1_v7dhx"]
+[ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="2_l40nt"]
 
 [node name="trunk" type="MultiMeshInstance3D"]
 
