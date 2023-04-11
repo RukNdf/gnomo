@@ -79,6 +79,9 @@ shape = SubResource("BoxShape3D_uwnb5")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 9.57473, 0)
 billboard = 1
+double_sided = false
+alpha_cut = 1
+alpha_antialiasing_mode = 2
 texture = ExtResource("3_43mfx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -86,5 +89,5 @@ libraries = {
 "": SubResource("AnimationLibrary_xldnl")
 }
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
