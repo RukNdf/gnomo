@@ -37,7 +37,11 @@ func getTarget():
 	if running:
 		return
 	#select nearest farm, ignore other buildings
-	targets = get_tree().get_nodes_in_group("farms")
+	var farms = get_tree().get_nodes_in_group("farms")
+	targets = []
+	for f in farms:
+		if not f.dead:
+			targets.append(f)
 	var tNum = len(targets)
 	if tNum == 0:
 		return
