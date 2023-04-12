@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=26 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -12,14 +12,27 @@
 [ext_resource type="Texture2D" uid="uid://dbgpnjryugo6d" path="res://jogo/assets/hud/treeShadow.png" id="11_4f1rt"]
 [ext_resource type="PackedScene" uid="uid://baukyukyxwori" path="res://jogo/assets/Gnome.tscn" id="11_20040"]
 [ext_resource type="Texture2D" uid="uid://desq32d5llcdi" path="res://jogo/assets/hud/forestForeground.png" id="11_ddiwf"]
+[ext_resource type="Shader" path="res://jogo/assets/hud/treeShadow.gdshader" id="11_o2rlp"]
 [ext_resource type="PackedScene" uid="uid://yecjvohw3ilf" path="res://jogo/assets/hud/Resources.tscn" id="11_uv7wv"]
 [ext_resource type="PackedScene" uid="uid://byagf7xbcx37j" path="res://jogo/assets/BuildingMenu/BuildingMenu.tscn" id="14_cyh6t"]
+[ext_resource type="Shader" path="res://jogo/assets/hud/foreRustle.gdshader" id="14_qxplc"]
+[ext_resource type="Texture2D" uid="uid://co5pr03rt13jm" path="res://jogo/assets/hud/forestForeL.png" id="16_7henw"]
+[ext_resource type="Texture2D" uid="uid://b4icrnnqc2mky" path="res://jogo/assets/hud/forestForeR.png" id="17_keuvm"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
 background_color = Color(0.4, 1, 0.290196, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2g7dm"]
+shader = ExtResource("11_o2rlp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cv80i"]
+shader = ExtResource("14_qxplc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3b3k"]
+shader = ExtResource("14_qxplc")
 
 [sub_resource type="Animation" id="Animation_ww7sj"]
 resource_name = "GG"
@@ -84,9 +97,15 @@ tracks/4/keys = {
 "values": [Vector2(0, 175), Vector2(0, 250)]
 }
 
+[sub_resource type="Animation" id="Animation_jco2y"]
+resource_name = "Rustle"
+length = 2.0
+loop_mode = 1
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81et"]
 _data = {
-"GG": SubResource("Animation_ww7sj")
+"GG": SubResource("Animation_ww7sj"),
+"Rustle": SubResource("Animation_jco2y")
 }
 
 [node name="jogo" type="Node3D"]
@@ -96,6 +115,7 @@ script = ExtResource("1_2b80a")
 transform = Transform3D(0.641304, -0.272422, 0.717298, -0.0328686, 0.924237, 0.380401, -0.766583, -0.267529, 0.583763, 18.423, 4.6, 12.685)
 projection = 1
 size = 10.0
+near = 0.001
 script = ExtResource("3_goc5b")
 
 [node name="gnome" parent="." instance=ExtResource("11_20040")]
@@ -108,6 +128,7 @@ script = ExtResource("5_jfmow")
 transform = Transform3D(0.35, 0, 0, 0, -1.5299e-08, 0.35, 0, -0.35, -1.5299e-08, 3.04011, 0.1, 2.1972)
 
 [node name="ground" parent="." instance=ExtResource("1_t65l0")]
+transform = Transform3D(22, 0, 0, 0, 0.2, 0, 0, 0, 15, 11, -0.1, 7.5)
 collision_layer = 3
 
 [node name="trunk" parent="." instance=ExtResource("3_jb13l")]
@@ -128,9 +149,11 @@ stream = ExtResource("10_oy75o")
 position = Vector2(851, 0)
 
 [node name="Shadow" type="Sprite2D" parent="Overlay"]
-modulate = Color(1, 1, 1, 0.768627)
-position = Vector2(-275, 324)
+self_modulate = Color(1, 1, 1, 0.105882)
+material = SubResource("ShaderMaterial_2g7dm")
+position = Vector2(-275, 317)
 texture = ExtResource("11_4f1rt")
+region_filter_clip_enabled = true
 
 [node name="Turn" type="RichTextLabel" parent="Overlay"]
 anchors_preset = 1
@@ -161,10 +184,24 @@ text = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 scroll_active = false
 
 [node name="foreground" type="Sprite2D" parent="Overlay"]
-position = Vector2(-275, 324)
+visible = false
+material = SubResource("ShaderMaterial_cv80i")
+position = Vector2(-275.5, 326.5)
+scale = Vector2(1.01476, 1.00772)
 texture = ExtResource("11_ddiwf")
 
+[node name="foregroundL" type="Sprite2D" parent="Overlay"]
+material = SubResource("ShaderMaterial_b3b3k")
+position = Vector2(-560, 554)
+texture = ExtResource("16_7henw")
+
+[node name="foregroundR" type="Sprite2D" parent="Overlay"]
+material = SubResource("ShaderMaterial_b3b3k")
+position = Vector2(67, 530)
+texture = ExtResource("17_keuvm")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Overlay"]
+autoplay = "Rustle"
 speed_scale = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_t81et")

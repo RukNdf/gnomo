@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2aqhgyatiopy"
-path.bptc="res://.godot/imported/human.png-de93f7649929b3775cb933be8b4532b3.bptc.ctex"
+uid="uid://co5pr03rt13jm"
+path="res://.godot/imported/forestForeL.png-2c3ef93b889ae8da794d19a7ebb05fd6.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://jogo/assets/Enemy/human.png"
-dest_files=["res://.godot/imported/human.png-de93f7649929b3775cb933be8b4532b3.bptc.ctex"]
+source_file="res://jogo/assets/hud/forestForeL.png"
+dest_files=["res://.godot/imported/forestForeL.png-2c3ef93b889ae8da794d19a7ebb05fd6.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

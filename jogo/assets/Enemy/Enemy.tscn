@@ -1,9 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://baut35o0w3sdq"]
 
 [ext_resource type="Script" path="res://jogo/assets/Enemy/Enemy.gd" id="1_8nv2y"]
-[ext_resource type="Texture2D" uid="uid://c2aqhgyatiopy" path="res://jogo/assets/Enemy/human.png" id="3_43mfx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwnb5"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_0qrri"]
 
 [sub_resource type="Animation" id="Animation_w5hea"]
 resource_name = "defeat"
@@ -82,7 +83,7 @@ billboard = 1
 double_sided = false
 alpha_cut = 1
 alpha_antialiasing_mode = 2
-texture = ExtResource("3_43mfx")
+texture = SubResource("ImageTexture_0qrri")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

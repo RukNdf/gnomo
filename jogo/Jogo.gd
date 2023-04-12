@@ -18,8 +18,8 @@ func _ready():
 	mute()
 	randomize()
 	#import draw3D for 3D lines
-	draw3D = Draw3D.new()
-	add_child(draw3D)
+	#draw3D = Draw3D.new()
+	#add_child(draw3D)
 	initGridSpace()
 	spawnGrass()
 	makeGhost()
@@ -213,6 +213,7 @@ func tryPlace(cost):
 
 var draw3D
 func line(p1, p2):
+	return
 	draw3D.clear()
 	draw3D.draw_line([p1,p2])
 	pass

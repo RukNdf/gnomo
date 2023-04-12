@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://desq32d5llcdi"
-path="res://.godot/imported/forestForeground.png-a05f21c39b72aedcbcb22fbb68662972.ctex"
+uid="uid://b7wpa16ohu73i"
+path="res://.godot/imported/treeRustling.png-80088458c5fb2c8ede83635e58c3f115.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://jogo/assets/hud/forestForeground.png"
-dest_files=["res://.godot/imported/forestForeground.png-a05f21c39b72aedcbcb22fbb68662972.ctex"]
+source_file="res://jogo/assets/hud/treeRustling.png"
+dest_files=["res://.godot/imported/treeRustling.png-80088458c5fb2c8ede83635e58c3f115.ctex"]
 
 [params]
 
