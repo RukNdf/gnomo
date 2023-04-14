@@ -1,0 +1,119 @@
+[gd_scene load_steps=12 format=3 uid="uid://blabkyss20bj0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_llq2m"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Gradient" id="Gradient_k8q1v"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sw5l6"]
+gradient = SubResource("Gradient_k8q1v")
+
+[sub_resource type="Gradient" id="Gradient_c35p7"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u3nw8"]
+gradient = SubResource("Gradient_c35p7")
+fill_from = Vector2(0.393162, 0.482906)
+
+[sub_resource type="Gradient" id="Gradient_ftb6l"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bpftu"]
+gradient = SubResource("Gradient_ftb6l")
+fill_to = Vector2(0.910256, 0.0940171)
+
+[sub_resource type="Gradient" id="Gradient_7sjp1"]
+offsets = PackedFloat32Array(0.584229)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_buswx"]
+gradient = SubResource("Gradient_7sjp1")
+fill_from = Vector2(0, 0.517094)
+fill_to = Vector2(1, 0.474359)
+
+[sub_resource type="Animation" id="Animation_rl2hm"]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/back/health:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(1, 1, 0, 1), Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SubViewport/back/health:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.97, 0.92, 1), Vector3(0, 0.92, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SubViewport/back/health:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-31, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lvq20"]
+_data = {
+"damage": SubResource("Animation_rl2hm")
+}
+
+[node name="healthBar" type="Node3D"]
+
+[node name="bar3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = SubResource("ViewportTexture_llq2m")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(201, 52)
+
+[node name="back" type="Sprite2D" parent="SubViewport"]
+position = Vector2(100.5, 26)
+scale = Vector2(3.14062, 0.8125)
+texture = SubResource("GradientTexture2D_sw5l6")
+
+[node name="health" type="Sprite2D" parent="SubViewport/back"]
+modulate = Color(0, 1, 0, 1)
+scale = Vector2(0.97, 0.92)
+texture = SubResource("GradientTexture2D_u3nw8")
+
+[node name="back" type="Sprite3D" parent="."]
+transform = Transform3D(0.9, 0, 0, 0, 0.2, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+transparent = false
+texture = SubResource("GradientTexture2D_bpftu")
+
+[node name="health" type="Sprite3D" parent="back"]
+transform = Transform3D(0, 0, 0, 0, 0.92, 0, 0, 0, 1, -0.31, 0, 0)
+visible = false
+modulate = Color(1, 0, 0, 1)
+billboard = 1
+transparent = false
+no_depth_test = true
+texture = SubResource("GradientTexture2D_buswx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lvq20")
+}
