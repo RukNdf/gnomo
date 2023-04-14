@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqcg1fmjtcefo"]
+
+[ext_resource type="Texture2D" uid="uid://qaffgydrfdf" path="res://jogo/assets/Enemy/spawner.png" id="1_wmru2"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jdc2n"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_mp7va"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_jdc2n")
+uv1_scale = Vector3(2, 3, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l87n1"]
+
+[sub_resource type="Animation" id="Animation_hpfdb"]
+resource_name = "spawn"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Spawner:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [3, 13]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ryxl2"]
+_data = {
+"spawn": SubResource("Animation_hpfdb")
+}
+
+[node name="EnemySpawner" type="Node3D"]
+transform = Transform3D(5, 0, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("ORMMaterial3D_mp7va")
+mesh = SubResource("CylinderMesh_l87n1")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(200, 200)
+
+[node name="Spawner" type="Sprite2D" parent="SubViewport"]
+position = Vector2(128, 128)
+texture = ExtResource("1_wmru2")
+hframes = 7
+vframes = 2
+frame = 12
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+libraries = {
+"": SubResource("AnimationLibrary_ryxl2")
+}

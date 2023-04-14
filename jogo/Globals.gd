@@ -32,3 +32,10 @@ var placementDelay = 150
 # Player
 ##########
 var atkDelay = 1
+
+##########
+# Enemy
+#########
+var spawnRadius = 1.5
+var minESpeed = 2.5
+var maxESpeed = 3.0

@@ -260,16 +260,23 @@ func nextTurn():
 			defend()
 			$Bsong.stop()
 			$Asong.play()
-		spawnEnemy(turn)
+		spawnEnemy([turn])
 		#spawnEnemy(1)
 
-
+#recieves a list of numbers of enemies to spawn in each position
 var enemy = preload("res://jogo/assets/Enemy/Enemy.tscn")
-func spawnEnemy(num):
-	for i in range(num):
-		var e = enemy.instantiate()
-		e.position = Vector3(0,0,0)
-		add_child(e)
+func spawnEnemy(numList):
+	#center of spawn positions
+	var centerPoss = $Spawners.getSpawnPositions()
+	for i in range(len(centerPoss)):
+		var centerPos = centerPoss[i]
+		var num = numList[i]
+		for n in range(num):
+			var e = enemy.instantiate()
+			e.position.x = centerPos.x + randf_range(-1,1)*Globals.spawnRadius 
+			e.position.z = centerPos.z + randf_range(-1,1)*Globals.spawnRadius 
+			e.speed = randf_range(Globals.minESpeed, Globals.maxESpeed)
+			add_child(e)
 
 func select(type):
 	selected = type

@@ -1,4 +1,10 @@
-enemy sprite fix alpha 
-
-construct animation
+	construct animation
 gnome pathfinding
+
+	enemy decustler 
+	enemy spawn random
+
+	turn file
+spawn directions
+
+	
