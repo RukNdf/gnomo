@@ -1,4 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://blabkyss20bj0"]
+[gd_scene load_steps=13 format=3 uid="uid://blabkyss20bj0"]
+
+[ext_resource type="Script" path="res://jogo/assets/hud/HealthBar.gd" id="1_314gm"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_llq2m"]
 viewport_path = NodePath("SubViewport")
@@ -80,6 +82,7 @@ _data = {
 }
 
 [node name="healthBar" type="Node3D"]
+script = ExtResource("1_314gm")
 
 [node name="bar3D" type="Sprite3D" parent="."]
 billboard = 1
