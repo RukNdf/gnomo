@@ -5,6 +5,7 @@ extends CharacterBody3D
 ##########
 #current speed
 var speed = 3.0
+var health = 2
 #targets and current target 
 var targets 
 var destination 
@@ -16,6 +17,7 @@ var leaving = false
 var atacking = false
 #enemy spawns and instantly searches for the nearest target
 func _ready():
+	$healthBar.max = float(health)
 	self.add_to_group("enemy")
 	destination = position
 	space_state = get_world_3d().direct_space_state
@@ -84,6 +86,17 @@ func _physics_process(delta):
 			leaving = true
 	velocity *= speed
 	move_and_slide()
+	
+func hit():
+	print('hit')
+	if health > 0:
+		health -= 1
+		$healthBar.move(health)
+		if health == 0:
+			print('die')
+			defeat()
+		else:
+			$AnimationPlayer.play("hit")
 	
 #defeated enemy, switch modes and run away
 func defeat():
