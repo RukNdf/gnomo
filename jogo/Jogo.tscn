@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=30 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://dfswyx4216vkb" path="res://mus/sfx/build.mp3" id="11_s511n"]
 [ext_resource type="PackedScene" uid="uid://yecjvohw3ilf" path="res://jogo/assets/hud/Resources.tscn" id="11_uv7wv"]
 [ext_resource type="AudioStream" uid="uid://cbocs18ktb4sa" path="res://mus/sfx/DIE.mp3" id="12_gfhdm"]
+[ext_resource type="AudioStream" uid="uid://blkl4plikvm7k" path="res://mus/sfx/hit.mp3" id="13_6q1m7"]
 [ext_resource type="PackedScene" uid="uid://byagf7xbcx37j" path="res://jogo/assets/BuildingMenu/BuildingMenu.tscn" id="14_cyh6t"]
 [ext_resource type="Shader" path="res://jogo/assets/hud/foreRustle.gdshader" id="14_qxplc"]
 [ext_resource type="Texture2D" uid="uid://co5pr03rt13jm" path="res://jogo/assets/hud/forestForeL.png" id="16_7henw"]
@@ -153,6 +154,10 @@ stream = ExtResource("11_s511n")
 
 [node name="EnemyDeath" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("12_gfhdm")
+max_polyphony = 5
+
+[node name="EnemyHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("13_6q1m7")
 max_polyphony = 5
 
 [node name="Overlay" type="Node2D" parent="."]

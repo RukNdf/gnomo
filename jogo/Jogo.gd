@@ -203,7 +203,12 @@ func towerAtk():
 		$AtkTimer.stop()
 		
 func atkUnit(e):
-	#if enemy died on hit
+	if MUTE:
+		e.hit()
+		return
+	#play sounds if not muted
+	$SFX/EnemyHit.play()
+	#if enemy died on hit 
 	if e.hit():
 		$SFX/EnemyDeath.play()
 
