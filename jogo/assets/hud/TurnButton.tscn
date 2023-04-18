@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl51c3hxl8gf0"]
+
+[ext_resource type="Texture2D" uid="uid://cmnhe4ep3k2o0" path="res://jogo/assets/hud/TurnB.png" id="1_dhxxp"]
+[ext_resource type="Texture2D" uid="uid://dmyll3wdse0fb" path="res://jogo/assets/hud/TurnBT.png" id="2_f8c2m"]
+
+[node name="turnButton" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_dhxxp")
+texture_pressed = ExtResource("2_f8c2m")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 77.0
+offset_bottom = 38.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Next"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 22.0
+offset_right = 115.0
+offset_bottom = 62.0
+mouse_filter = 2
+theme_override_font_sizes/normal_font_size = 20
+text = "Turn"

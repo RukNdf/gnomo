@@ -1,5 +1,7 @@
 extends Node3D
 
+#MUTE ALL GAME AUDIO
+const MUTE = false
 
 ################
 # Init
@@ -15,7 +17,8 @@ var selected = 'mush'
 
 #initialize game field
 func _ready():	
-	mute()
+	if(MUTE):
+		mute()
 	randomize()
 	#import draw3D for 3D lines
 	#draw3D = Draw3D.new()
@@ -84,6 +87,7 @@ func spawn(type):
 	if len(pos) == 0:
 		return false
 	var f
+	$SFX/Build.play()
 	if type == 'mush':
 		f = farm.instantiate()
 		numBuilding += 1
@@ -199,7 +203,9 @@ func towerAtk():
 		$AtkTimer.stop()
 		
 func atkUnit(e):
-	e.hit()
+	#if enemy died on hit
+	if e.hit():
+		$SFX/EnemyDeath.play()
 
 var lastSpawnTime = 0
 func tryPlace(cost):
@@ -292,9 +298,11 @@ func select(type):
 		
 	
 func updateMousePos(pos):
-	$Cursor.update(pos)
-	#$menu.$shape.
-	moveGhost()
+	if len(pos) > 0:
+		$Cursor.update(pos)
+		moveGhost()
+	else:
+		canPlace = false
 	
 func _input(event):
 	if event is InputEventMouse:

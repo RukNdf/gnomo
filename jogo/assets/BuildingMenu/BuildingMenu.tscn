@@ -105,7 +105,7 @@ libraries = {
 [node name="colBox" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 1, 1, 0.396078)
-position = Vector2(601, 574)
+position = Vector2(601, 585)
 scale = Vector2(916, 268)
 texture = SubResource("CanvasTexture_iwdwk")
 script = ExtResource("6_7dyf8")

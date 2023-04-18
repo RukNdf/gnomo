@@ -10,15 +10,14 @@ func _ready():
 var gridPos = Vector2i(0,0)
 func update(newPos):
 	#got a valid new position, calculate new valid position within the grid
-	if len(newPos) > 0:
-		gridPos.x = newPos.position.x/Globals.gridSize
-		gridPos.y = newPos.position.z/Globals.gridSize
-		if gridPos.x > Globals.maxX:
-			gridPos.x = Globals.maxX
-		if gridPos.y > Globals.maxY:
-			gridPos.y = Globals.maxY
-		position.x = (gridPos.x*Globals.gridSize)+Globals.gridCenter
-		position.z = (gridPos.y*Globals.gridSize)+Globals.gridCenter
+	gridPos.x = newPos.position.x/Globals.gridSize
+	gridPos.y = newPos.position.z/Globals.gridSize
+	if gridPos.x > Globals.maxX:
+		gridPos.x = Globals.maxX
+	if gridPos.y > Globals.maxY:
+		gridPos.y = Globals.maxY
+	position.x = (gridPos.x*Globals.gridSize)+Globals.gridCenter
+	position.z = (gridPos.y*Globals.gridSize)+Globals.gridCenter
 
 #get center point
 func getCenter():

@@ -88,15 +88,15 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func hit():
-	print('hit')
 	if health > 0:
 		health -= 1
 		$healthBar.move(health)
 		if health == 0:
-			print('die')
 			defeat()
+			return true
 		else:
 			$AnimationPlayer.play("hit")
+	return false
 	
 #defeated enemy, switch modes and run away
 func defeat():
