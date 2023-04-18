@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://baut35o0w3sdq"]
+[gd_scene load_steps=9 format=3 uid="uid://baut35o0w3sdq"]
 
 [ext_resource type="Script" path="res://jogo/assets/Enemy/Enemy.gd" id="1_8nv2y"]
 [ext_resource type="Texture2D" uid="uid://c2aqhgyatiopy" path="res://jogo/assets/Enemy/human.png" id="2_3nmg3"]
+[ext_resource type="PackedScene" uid="uid://blabkyss20bj0" path="res://jogo/assets/hud/HealthBar.tscn" id="3_jfeyd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwnb5"]
 
@@ -96,7 +97,6 @@ shape = SubResource("BoxShape3D_uwnb5")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 9.57473, 0)
-modulate = Color(0.32549, 1, 0.541176, 1)
 billboard = 1
 double_sided = false
 alpha_cut = 1
@@ -107,6 +107,9 @@ texture = ExtResource("2_3nmg3")
 libraries = {
 "": SubResource("AnimationLibrary_xldnl")
 }
+
+[node name="healthBar" parent="." instance=ExtResource("3_jfeyd")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 23.3526, -1.05974)
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
