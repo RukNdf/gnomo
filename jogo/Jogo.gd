@@ -194,12 +194,12 @@ func towerAtk():
 			continue
 		var e = tower.kill()
 		if e != null:
-			killUnit(e)
+			atkUnit(e)
 	if(!atkTurn):
 		$AtkTimer.stop()
 		
-func killUnit(e):
-	e.defeat()
+func atkUnit(e):
+	e.hit()
 
 var lastSpawnTime = 0
 func tryPlace(cost):
