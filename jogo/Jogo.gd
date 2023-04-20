@@ -156,20 +156,6 @@ var farmCost = -10
 func _process(delta):
 	#if Input.is_key_pressed(KEY_L):
 		#kill()
-	if Input.is_key_pressed(KEY_O):
-		if canPlace:
-			if tryPlace(farmCost):
-				spawn('farm')
-				place($Cursor.gridPos, ghost.size)
-			else:
-				print('b')
-	if Input.is_key_pressed(KEY_I):
-		if canPlace:
-			if tryPlace(farmCost):
-				spawn('tower')
-				place($Cursor.gridPos, ghost.size)
-			else:
-				print('b')
 	if Input.is_key_pressed(KEY_A):
 		var scale = $Arrow.scale.x
 		$Arrow.scale = Vector3(-scale, -scale, -scale)
@@ -192,7 +178,6 @@ func _process(delta):
 
 
 func defend():
-	print('start')
 	$AtkTimer.set_wait_time(Globals.atkDelay)
 	$AtkTimer.start()
 	
@@ -242,7 +227,6 @@ func destroy(col):
 		return
 	obj.die()
 	if obj.group == 'farms':
-		print('a')
 		numBuilding -= 1	
 	if numBuilding == 0:
 		gameOver()
@@ -283,8 +267,6 @@ var nextTurn
 func passTurn():
 	#buildings create resources
 	updateResources()
-	print('a')
-	print(turns)
 	#update turn
 	turnCount += 1
 	var turn = nextTurn
@@ -303,8 +285,6 @@ func passTurn():
 			defend()
 			$Bsong.stop()
 			$Asong.play()
-		print(turn)
-		print(nextTurn)
 		announceEnemy(turn, nextTurn)
 		spawnEnemy(turn)
 	else:
@@ -316,8 +296,6 @@ func passTurn():
 		announceEnemy(turn, nextTurn)
 		
 func announceEnemy(current, next):
-	print(current)
-	print('-------')
 	$Spawners/EnemySpawnerUL.visible = current[0] > 0
 	$Spawners/EnemySpawnerLL.visible = current[1] > 0
 	$Spawners/EnemySpawnerUR.visible = current[2] > 0
@@ -376,7 +354,6 @@ func _input(event):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if canPlace and not $menu.up:
 				if tryPlace(farmCost):
-					print(selected)
 					spawn(selected)
 					place($Cursor.gridPos, ghost.size)
 	
