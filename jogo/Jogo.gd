@@ -1,5 +1,6 @@
 extends Node3D
 
+
 #MUTE ALL GAME AUDIO
 const MUTE = false
 
@@ -14,6 +15,8 @@ var resources = [120]
 var numBuilding = 0
 #current selected building
 var selected = 'mush'
+#turn configuration
+var turns
 
 #initialize game field
 func _ready():	
@@ -24,6 +27,7 @@ func _ready():
 	#draw3D = Draw3D.new()
 	#add_child(draw3D)
 	initGridSpace()
+	initTurns()
 	spawnGrass()
 	makeGhost()
 	updateMushrooms(0)
@@ -178,7 +182,7 @@ func _process(delta):
 		if turnP:
 			return
 		turnP = true
-		nextTurn()
+		passTurn()
 	else:
 		turnP = false
 	if Input.is_key_pressed(KEY_K):
@@ -255,24 +259,80 @@ func gameOver():
 	$Cursor.visible = false
 	ghost.visible = false	
 
-var turn = 1
+func initTurns():
+	turns = []
+	var file = FileAccess.open("res://jogo/Turns.txt", FileAccess.READ).get_as_text().split('\n')
+	var turn = 1
+	for s in file.slice(0,-1):
+		var t = s.split(' ', true, 1)
+		var cTurn = int(t[0])
+		var e = t[-1]
+		while turn != cTurn:
+			turn+= 1 
+			turns.append([0,0,0,0,0])
+		var eInt = []
+		for v in e.split(' '):
+			eInt.append(int(v))
+		turns.append(eInt)		
+		turn+= 1 
+	nextTurn = turns[1]
+
+var turnCount = 1
 var atkTurn = false 
-func nextTurn():
+var nextTurn
+func passTurn():
+	#buildings create resources
 	updateResources()
-	turn += 1
-	if turn > 9:
-		$Overlay/Turn.text = 'Turn ' + str(turn) + ' '
+	print('a')
+	print(turns)
+	#update turn
+	turnCount += 1
+	var turn = nextTurn
+	if turnCount < len(turns):
+		nextTurn = turns[turnCount]
+	else:
+		nextTurn = turns[0]
+	if turnCount > 9:
+		$Overlay/Turn.text = 'Turn ' + str(turnCount) + ' '
 	else: 
-		$Overlay/Turn.text = 'Turn   ' + str(turn) + ' '
-	#atkTurn = !atkTurn
-	if(turn >= 3):
-		if(!atkTurn):
+		$Overlay/Turn.text = 'Turn   ' + str(turnCount) + ' '
+	#enemy attacking
+	if sum(turn) > 0:
+		if !atkTurn:
 			atkTurn = true
 			defend()
 			$Bsong.stop()
 			$Asong.play()
-		spawnEnemy([turn])
-		#spawnEnemy(1)
+		print(turn)
+		print(nextTurn)
+		announceEnemy(turn, nextTurn)
+		spawnEnemy(turn)
+	else:
+		if atkTurn:
+			atkTurn = true
+			defend()
+			$Asong.stop()
+			$Bsong.play()
+		announceEnemy(turn, nextTurn)
+		
+func announceEnemy(current, next):
+	print(current)
+	print('-------')
+	$Spawners/EnemySpawnerUL.visible = current[0] > 0
+	$Spawners/EnemySpawnerLL.visible = current[1] > 0
+	$Spawners/EnemySpawnerUR.visible = current[2] > 0
+	$Spawners/EnemySpawnerLR.visible = current[3] > 0
+	$Spawners/EnemySpawnerC.visible = current[4] > 0
+	$Spawners/ArrowUL.visible = next[0] > 0
+	$Spawners/ArrowLL.visible = next[1] > 0
+	$Spawners/ArrowUR.visible = next[2] > 0
+	$Spawners/ArrowLR.visible = next[3] > 0
+	
+func sum(list):
+	var s = 0
+	for i in list:
+		s += i
+	return s
 
 #recieves a list of numbers of enemies to spawn in each position
 var enemy = preload("res://jogo/assets/Enemy/Enemy.tscn")
