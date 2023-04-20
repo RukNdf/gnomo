@@ -4,7 +4,6 @@ extends Node3D
 func _ready():
 	$AnimationPlayer.play('damage')
 	$AnimationPlayer.pause()
-	pass # Replace with function body.
 
 
 var max

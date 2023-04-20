@@ -9,6 +9,7 @@ var health = 2
 #targets and current target 
 var targets 
 var destination 
+var origin
 #world
 var space_state
 #state
@@ -19,6 +20,7 @@ var atacking = false
 func _ready():
 	$healthBar.max = float(health)
 	self.add_to_group("enemy")
+	origin = position
 	destination = position
 	space_state = get_world_3d().direct_space_state
 	getTarget()
@@ -105,7 +107,7 @@ func defeat():
 		running = true
 		atacking = false
 		speed *= 1.5
-		destination = Vector3(0,position.y,0)
+		destination = origin
 		$AnimationPlayer.play("defeat")
 		$CollisionShape3D.disabled = true
 	

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://jogo/assets/hud/HealthBar.gd" id="1_314gm"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_llq2m"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_q7ev6"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Gradient" id="Gradient_k8q1v"]
@@ -45,7 +45,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.97, 0.92, 1), Vector3(0, 0.92, 1)]
+"values": [Vector2(0.95, 0.929), Vector2(0, 0.92)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -57,7 +57,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-31, 0)]
+"values": [Vector2(0, 0), Vector2(-30.5, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -83,9 +83,10 @@ script = ExtResource("1_314gm")
 [node name="bar3D" type="Sprite3D" parent="."]
 modulate = Color(1, 1, 1, 0)
 billboard = 1
-texture = SubResource("ViewportTexture_llq2m")
+texture = SubResource("ViewportTexture_q7ev6")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
 size = Vector2i(201, 52)
 
 [node name="back" type="Sprite2D" parent="SubViewport"]
@@ -95,7 +96,7 @@ texture = SubResource("GradientTexture2D_sw5l6")
 
 [node name="health" type="Sprite2D" parent="SubViewport/back"]
 modulate = Color(0, 1, 0, 1)
-scale = Vector2(0.97, 0.92)
+scale = Vector2(0.95, 0.929)
 texture = SubResource("GradientTexture2D_u3nw8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
