@@ -73,6 +73,18 @@ texture = ExtResource("4_1crbr")
 [node name="Buildings" type="Node2D" parent="."]
 position = Vector2(0, 42)
 
+[node name="Wide" type="TextureButton" parent="Buildings"]
+offset_left = 573.0
+offset_top = 462.0
+offset_right = 663.0
+offset_bottom = 552.0
+mouse_filter = 1
+texture_normal = ExtResource("2_wx84w")
+texture_pressed = ExtResource("7_6qkpf")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
 [node name="Tower" type="TextureButton" parent="Buildings"]
 offset_left = 407.0
 offset_top = 462.0
@@ -110,5 +122,6 @@ scale = Vector2(916, 268)
 texture = SubResource("CanvasTexture_iwdwk")
 script = ExtResource("6_7dyf8")
 
+[connection signal="pressed" from="Buildings/Wide" to="." method="selectWide"]
 [connection signal="pressed" from="Buildings/Tower" to="." method="selectTower"]
 [connection signal="pressed" from="Buildings/Mush" to="." method="selectMush"]

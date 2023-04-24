@@ -48,8 +48,8 @@ func initGridSpace():
 #set farm as default building 
 func makeGhost():
 	ghost = farm.instantiate()
-	add_child(ghost)
-	ghost.createGhost()
+	ghost.position.x = -500
+	select('mush')
 
 
 ##############
@@ -83,6 +83,7 @@ var canPlace = false
 #buildings
 var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
 var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
+var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
 
 #try to spawn a building
 func spawn(type):
@@ -95,16 +96,23 @@ func spawn(type):
 	if type == 'mush':
 		f = farm.instantiate()
 		numBuilding += 1
+	elif type == 'wide':
+		f = wide.instantiate()
+		numBuilding += 1
 	else:
 		f = tower.instantiate()
-	f.position.x = pos.x + Globals.cameraOffset.x
-	f.position.z = pos.z + Globals.cameraOffset.z
+	f.init()
+	f.position.x = pos.x + ghostDisplacement.x + Globals.cameraOffset.x
+	f.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
 	f.position.y = 0.5
 	add_child(f)
 	return true
 
 #test if there's a building intersecting within the grid
 func testPlacement(pos, size):
+	if pos.x+size.x > Globals.maxX or pos.y+size.y > Globals.maxY:
+		canPlace = false
+		return
 	for x in range(pos.x, pos.x+size.x):
 		for y in range(pos.y, pos.y+size.y):
 			if gridSpace[x][y]:
@@ -134,14 +142,15 @@ func clearPlace(position, size):
 #########
 var ghost
 var ghostState = canPlace
+var ghostDisplacement
 #moves ghost and update placement
 func moveGhost(): 
 	var pos = $Cursor.getCenter()
 	testPlacement($Cursor.gridPos, ghost.size)
 	if len(pos) == 0:
 		return
-	ghost.position.x = pos.x + Globals.cameraOffset.x
-	ghost.position.z = pos.z + Globals.cameraOffset.z
+	ghost.position.x = pos.x + ghostDisplacement.x + Globals.cameraOffset.x
+	ghost.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
 	ghost.position.y = 0.5
 	#only update color if it changed
 	if ghostState != canPlace:
@@ -154,8 +163,16 @@ func moveGhost():
 var turnP = false
 var farmCost = -10
 func _process(delta):
-	#if Input.is_key_pressed(KEY_L):
-		#kill()
+	if Input.is_key_pressed(KEY_L):
+		if(canPlace):
+			var f = wide.instantiate()
+			var pos = $Cursor.getCenter()
+			f.init()
+			var disp = f.calcDisplacement()
+			f.position.x = pos.x + disp.x + Globals.cameraOffset.x
+			f.position.z = pos.z + disp.z + Globals.cameraOffset.z
+			f.position.y = 0.5
+			add_child(f)
 	if Input.is_key_pressed(KEY_A):
 		var scale = $Arrow.scale.x
 		$Arrow.scale = Vector3(-scale, -scale, -scale)
@@ -335,6 +352,10 @@ func select(type):
 		ghost = farm.instantiate()
 	if type == 'tower':
 		ghost = tower.instantiate()
+	if type == 'wide':
+		ghost = wide.instantiate()
+	ghost.init()
+	ghostDisplacement = ghost.calcDisplacement()
 	ghost.createGhost()
 	ghost.position = pos
 	add_child(ghost)

@@ -6,6 +6,10 @@ func selectMush():
 	
 func selectTower():
 	get_parent().select('tower')
+	
+func selectWide():
+	get_parent().select('wide')
+
 
 #move menu on hover 
 var up = false
