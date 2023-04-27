@@ -89,7 +89,8 @@ func _physics_process(delta):
 			$AnimationPlayer.play("die")
 			leaving = true
 		else:
-			print(velocity)
+			pass
+			#print(velocity)
 	velocity *= speed
 	move_and_slide()
 	
@@ -119,6 +120,8 @@ func _process(delta):
 #defeated enemy, switch modes and run away
 func defeat():
 	if !running:
+		print('die')
+		get_parent().enemyDeath()
 		remove_from_group('enemy')
 		running = true
 		atacking = false
@@ -134,3 +137,5 @@ func animationFinished(anim):
 
 
 
+func play():
+	$AnimationPlayer.play('hit')

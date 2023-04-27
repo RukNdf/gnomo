@@ -8,5 +8,4 @@ func _ready():
 var max
 var real
 func move(cur):
-	print(cur/max)
 	$AnimationPlayer.seek(1-(cur/max), true)

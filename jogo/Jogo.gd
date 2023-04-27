@@ -163,6 +163,12 @@ func moveGhost():
 var turnP = false
 var farmCost = -10
 func _process(delta):
+	if Input.is_key_pressed(KEY_1):
+		select('mush')
+	elif Input.is_key_pressed(KEY_2):
+		select('tower')
+	elif Input.is_key_pressed(KEY_3):
+		select('wide')
 	if Input.is_key_pressed(KEY_L):
 		if(canPlace):
 			var f = wide.instantiate()
@@ -301,15 +307,12 @@ func passTurn():
 			atkTurn = true
 			defend()
 			$Bsong.stop()
+			$Horn.play()
+			await get_tree().create_timer(2).timeout
 			$Asong.play()
 		announceEnemy(turn, nextTurn)
 		spawnEnemy(turn)
 	else:
-		if atkTurn:
-			atkTurn = true
-			defend()
-			$Asong.stop()
-			$Bsong.play()
 		announceEnemy(turn, nextTurn)
 		
 func announceEnemy(current, next):
@@ -330,6 +333,7 @@ func sum(list):
 	return s
 
 #recieves a list of numbers of enemies to spawn in each position
+var numEnemy = 0
 var enemy = preload("res://jogo/assets/Enemy/Enemy.tscn")
 func spawnEnemy(numList):
 	#center of spawn positions
@@ -337,12 +341,22 @@ func spawnEnemy(numList):
 	for i in range(len(centerPoss)):
 		var centerPos = centerPoss[i]
 		var num = numList[i]
+		numEnemy += num
 		for n in range(num):
 			var e = enemy.instantiate()
 			e.position.x = centerPos.x + randf_range(-1,1)*Globals.spawnRadius 
 			e.position.z = centerPos.z + randf_range(-1,1)*Globals.spawnRadius 
 			e.speed = randf_range(Globals.minESpeed, Globals.maxESpeed)
 			add_child(e)
+
+func enemyDeath():
+	numEnemy -= 1
+	if numEnemy == 0:
+		$AtkTimer.stop()
+		atkTurn = false
+		$Asong.stop()
+		$Bsong.play()
+	
 
 func select(type):
 	selected = type
@@ -359,6 +373,7 @@ func select(type):
 	ghost.createGhost()
 	ghost.position = pos
 	add_child(ghost)
+	moveGhost()
 		
 	
 func updateMousePos(pos):
@@ -372,6 +387,9 @@ func _input(event):
 	if event is InputEventMouse:
 		$menu.testMenuCol(event.position)
 	if event is InputEventMouseButton:
+		var test = $Camera.selectEnemy()
+		if len(test) > 0:
+			test.collider.play()
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			if canPlace and not $menu.up:
 				if tryPlace(farmCost):

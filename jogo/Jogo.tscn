@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=31 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c6h1k467knxnk" path="res://jogo/assets/hud/Arrow.tscn" id="8_ikw7w"]
 [ext_resource type="AudioStream" uid="uid://dxhwdmww0b08n" path="res://mus/build.mp3" id="9_nelf8"]
 [ext_resource type="AudioStream" uid="uid://bijx3q3p5ij2r" path="res://mus/atk.mp3" id="10_oy75o"]
+[ext_resource type="AudioStream" uid="uid://dnh0t18wojhxq" path="res://mus/sfx/battle-horn.mp3" id="10_s3qrk"]
 [ext_resource type="Texture2D" uid="uid://dbgpnjryugo6d" path="res://jogo/assets/hud/treeShadow.png" id="11_4f1rt"]
 [ext_resource type="PackedScene" uid="uid://baukyukyxwori" path="res://jogo/assets/Gnome.tscn" id="11_20040"]
 [ext_resource type="Shader" path="res://jogo/assets/hud/treeShadow.gdshader" id="11_o2rlp"]
@@ -113,7 +114,7 @@ _data = {
 [node name="jogo" type="Node3D"]
 script = ExtResource("1_2b80a")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.641304, -0.272422, 0.717298, -0.0328686, 0.924237, 0.380401, -0.766583, -0.267529, 0.583763, 22.4884, 6.75599, 15.9936)
 projection = 1
 size = 10.0
@@ -143,6 +144,9 @@ autoplay = true
 
 [node name="Asong" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_oy75o")
+
+[node name="Horn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_s3qrk")
 
 [node name="SFX" type="Node" parent="."]
 

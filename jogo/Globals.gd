@@ -39,3 +39,8 @@ var atkDelay = 1
 var spawnRadius = 1.5
 var minESpeed = 2.5
 var maxESpeed = 3.0
+
+####################
+# cursor selection
+###################
+enum {NOMODE, BUILDMODE, ATKMODE}
