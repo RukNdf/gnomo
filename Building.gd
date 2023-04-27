@@ -15,6 +15,7 @@ func _ready():
 	initSmokePos()
 	add_to_group(group)
 
+
 ###########
 # Graphics
 ###########
@@ -40,6 +41,7 @@ func calcDisplacement():
 		z = (Globals.gridCenter*(size.y-1))
 	return {'x' = x, 'z' = z}
 
+
 ########
 # Die
 #######
@@ -58,7 +60,7 @@ func die():
 #########
 # Ghost
 ########
-#create a ghost to show placement, ghost is not a real farm and doesn't have collision
+#create a ghost to show placement, ghost is not a real building and doesn't have collision
 func createGhost():
 	dead = true
 	remove_from_group(group)

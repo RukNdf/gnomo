@@ -3,7 +3,7 @@ extends CharacterBody3D
 ##########
 # INIT
 ##########
-#current speed
+#current stats
 var speed = 3.0
 var health = 2
 #targets and current target 
@@ -76,7 +76,6 @@ func _physics_process(delta):
 	#if not fleeing go to nearest target
 	if !running:
 		var nextMove = position+(velocity)
-		#get_parent().line(position, nextMove) #DEBUG
 		var query = PhysicsRayQueryParameters3D.create(position, nextMove)
 		var result = space_state.intersect_ray(query)
 		#touched building, destroy it
@@ -88,12 +87,10 @@ func _physics_process(delta):
 		if (abs(destination.x) - abs(position.x) < 0.5 and abs(destination.z) - abs(position.z) < 0.5 ):
 			$AnimationPlayer.play("die")
 			leaving = true
-		else:
-			pass
-			#print(velocity)
 	velocity *= speed
 	move_and_slide()
 	
+#health bar
 var healthChanged = false
 var healthSpeedMod
 func hit():
@@ -106,7 +103,7 @@ func hit():
 		else:
 			$AnimationPlayer.play("hit")
 	return false
-	
+#animate health bar after hit
 func _process(delta):
 	if healthChanged:
 		if $healthBar.real > health:
@@ -116,7 +113,7 @@ func _process(delta):
 			$healthBar.move($healthBar.real)
 		else:
 			healthChanged = false
-	
+
 #defeated enemy, switch modes and run away
 func defeat():
 	if !running:
@@ -129,13 +126,13 @@ func defeat():
 		destination = origin
 		$AnimationPlayer.play("defeat")
 		$CollisionShape3D.disabled = true
-	
+
 func animationFinished(anim):
 	#leave tree after dying
 	if anim == 'die':
 		get_parent().destroy(self)
 
 
-
+##DEBUG
 func play():
 	$AnimationPlayer.play('hit')
