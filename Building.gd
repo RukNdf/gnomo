@@ -6,6 +6,7 @@ class_name Building
 ############
 var size
 var group
+var cost
 var center
 var dead = false
 var smokePos

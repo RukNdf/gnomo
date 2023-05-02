@@ -4,9 +4,11 @@ extends Node3D
 #MUTE ALL GAME AUDIO
 const MUTE = true
 
-################
+
+
+#############################################################
 # Init
-################
+#############################################################
 #resource indexes
 const mush = 0
 #resource list
@@ -23,20 +25,18 @@ func _ready():
 	if(MUTE):
 		mute()
 	randomize()
-	#import draw3D for 3D lines
-	#draw3D = Draw3D.new()
-	#add_child(draw3D)
 	initGridSpace()
 	initTurns()
 	spawnGrass()
-	makeGhost()
+	initGhost()
 	updateMushrooms(0)
-#aaaaaaaaaaa
+
+#mute
 func mute():
 	var master_sound = AudioServer.get_bus_index("Master")
 	AudioServer.set_bus_mute(master_sound, true)
 
-#initialize gridSpace to simplify placement, by default all cells are empty
+#initialize gridSpace to simplify placement testing, by default all cells are empty
 var gridSpace
 func initGridSpace():
 	gridSpace = []
@@ -46,15 +46,35 @@ func initGridSpace():
 			gridSpace[x].append(false)
 
 #set farm as default building 
-func makeGhost():
+func initGhost():
 	ghost = farm.instantiate()
 	ghost.position.x = -500
 	select('mush')
 
+#initialize turns from turn file
+func initTurns():
+	turns = []
+	var file = FileAccess.open("res://jogo/Turns.txt", FileAccess.READ).get_as_text().split('\n')
+	var turn = 1
+	for s in file.slice(0,-1):
+		var t = s.split(' ', true, 1)
+		var cTurn = int(t[0])
+		var e = t[-1]
+		while turn != cTurn:
+			turn+= 1 
+			turns.append([0,0,0,0,0])
+		var eInt = []
+		for v in e.split(' '):
+			eInt.append(int(v))
+		turns.append(eInt)		
+		turn+= 1 
+	nextTurn = turns[1]
 
-##############
+
+
+#############################################################
 # Graphics
-##############
+#############################################################
 #Spawn random grass patches on the player's field
 func spawnGrass():
 	var grass = preload("res://jogo/assets/map/Grass.tscn")
@@ -75,17 +95,72 @@ func spawnSmoke(pos):
 	s.position.z = pos.z + Globals.cameraOffset.z
 	add_child(s)
 
+#clear all smoke
+func clearSmoke():
+	for s in get_tree().get_nodes_in_group('smoke'):
+		remove_child(s)
 
-#############
-# Placement
-#############
-var canPlace = false
+
+
+#############################################################
+# Building
+#############################################################
 #buildings
 var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
 var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
 var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
+#last selected action icon
+var icon	
+#placement test
+var lastSpawnTime = 0
+var canPlace = false
 
-#try to spawn a building
+#select building/action	
+func select(type):
+	selected = type
+	var pos = ghost.position
+	remove_child(ghost)
+	#repair or destroy building
+	if type == 'fix':
+		print('fix')
+		ghostEnabled = false
+		return
+	#place building
+	ghostEnabled = true	
+	if type == 'mush':
+		ghost = farm.instantiate()
+	elif type == 'tower':
+		ghost = tower.instantiate()
+	elif type == 'wide':
+		ghost = wide.instantiate()
+	ghost.init()
+	ghostDisplacement = ghost.calcDisplacement()
+	ghost.createGhost()
+	ghost.position = pos
+	add_child(ghost)
+	moveGhost()
+
+
+#test if user can place a building
+func tryPlace(cost):
+	var t = Time.get_ticks_msec()
+	if t < lastSpawnTime+Globals.placementDelay:
+		return false
+	return updateMushrooms(cost)
+
+#test if spot is empty within the 2D grid
+func testPlacement(pos, size):
+	if pos.x+size.x > Globals.maxX or pos.y+size.y > Globals.maxY:
+		canPlace = false
+		return
+	for x in range(pos.x, pos.x+size.x):
+		for y in range(pos.y, pos.y+size.y):
+			if gridSpace[x][y]:
+				canPlace = false
+				return
+	canPlace = true
+
+#spawn building
 func spawn(type):
 	if !ghostEnabled:
 		return
@@ -112,18 +187,6 @@ func spawn(type):
 	add_child(f)
 	return true
 
-#test if there's a building intersecting within the grid
-func testPlacement(pos, size):
-	if pos.x+size.x > Globals.maxX or pos.y+size.y > Globals.maxY:
-		canPlace = false
-		return
-	for x in range(pos.x, pos.x+size.x):
-		for y in range(pos.y, pos.y+size.y):
-			if gridSpace[x][y]:
-				canPlace = false
-				return
-	canPlace = true
-
 #place building within the grid
 func place(pos, size):
 	canPlace = false
@@ -140,10 +203,25 @@ func clearPlace(position, size):
 		for y in range(pos.y, pos.y+size.y):
 			gridSpace[x][y] = false
 
+#move icon and display when action is valid
+func moveIcon():
+	if selected == 'fix':
+		icon = $Icons/Hammer
+	else:
+		return
+	if gridSpace[$Cursor.gridPos.x][$Cursor.gridPos.y]:
+		icon.visible = true
+		$Icons/Hammer.position.x = $Camera.mousePos.x
+		$Icons/Hammer.position.y = $Camera.mousePos.y
+		print($Icons/Hammer.position)
+	else:
+		icon.visible = false
 
-#########
+
+
+#############################################################
 # Ghost
-#########
+#############################################################
 var ghost
 var ghostEnabled = true
 var ghostState = canPlace
@@ -163,139 +241,18 @@ func moveGhost():
 		ghostState = canPlace
 
 
-###############AAAAAAAAAAAAAAAA
-#DEBUG
-var turnP = false
-var farmCost = -10
-func _process(delta):
-	if Input.is_key_pressed(KEY_1):
-		select('mush')
-	elif Input.is_key_pressed(KEY_2):
-		select('tower')
-	elif Input.is_key_pressed(KEY_3):
-		select('wide')
-	if Input.is_key_pressed(KEY_L):
-		if(canPlace):
-			var f = wide.instantiate()
-			var pos = $Cursor.getCenter()
-			f.init()
-			var disp = f.calcDisplacement()
-			f.position.x = pos.x + disp.x + Globals.cameraOffset.x
-			f.position.z = pos.z + disp.z + Globals.cameraOffset.z
-			f.position.y = 0.5
-			add_child(f)
-	if Input.is_key_pressed(KEY_A):
-		var scale = $Arrow.scale.x
-		$Arrow.scale = Vector3(-scale, -scale, -scale)
-	if Input.is_key_pressed(KEY_Q):
-		pass#test()
-	if Input.is_key_pressed(KEY_S):
-		for s in get_tree().get_nodes_in_group('smoke'):
-			remove_child(s)
-	if Input.is_key_pressed(KEY_T):
-		if turnP:
-			return
-		turnP = true
-		passTurn()
-	else:
-		turnP = false
-	if Input.is_key_pressed(KEY_K):
-		for e in get_tree().get_nodes_in_group('enemy'):
-			remove_child(e)
-	pass	
-		
-func clearSmoke():
-	for s in get_tree().get_nodes_in_group('smoke'):
-		remove_child(s)
 
-
-func defend():
-	$AtkTimer.set_wait_time(Globals.atkDelay)
-	$AtkTimer.start()
-	
-func towerAtk():
-	for tower in get_tree().get_nodes_in_group("tower"):
-		if tower.dead:
-			continue
-		var e = tower.kill()
-		if e != null:
-			atkUnit(e)
-	if(!atkTurn):
-		$AtkTimer.stop()
-		
-func atkUnit(e):
-	if MUTE:
-		e.hit()
-		return
-	#play sounds if not muted
-	$SFX/EnemyHit.play()
-	#if enemy died on hit 
-	if e.hit():
-		$SFX/EnemyDeath.play()
-
-var lastSpawnTime = 0
-func tryPlace(cost):
-	var t = Time.get_ticks_msec()
-	if t < lastSpawnTime+Globals.placementDelay:
-		return false
-	return updateMushrooms(cost)
-	
-	
-	
-
-var draw3D
-func line(p1, p2):
-	return
-	draw3D.clear()
-	draw3D.draw_line([p1,p2])
-	pass
-
-var destroyTime = 0.5
-func destroy(col):	
-	var obj = col.get_parent()
-	if(!obj.has_method('die')):
-		return
-	if obj.dead:
-		return
-	obj.die()
-	if obj.group == 'farms':
-		numBuilding -= 1	
-	if numBuilding == 0:
-		gameOver()
-	var enemies = get_tree().get_nodes_in_group("enemy")
-	for e in enemies:
-		e.getTarget()
-	
-func remove(obj):
-	remove_child(obj)
-
-func gameOver():
-	$menu/colBox.position.y = 1000
-	$Overlay/AnimationPlayer.play("GG")
-	$Cursor.visible = false
-	ghost.visible = false	
-
-func initTurns():
-	turns = []
-	var file = FileAccess.open("res://jogo/Turns.txt", FileAccess.READ).get_as_text().split('\n')
-	var turn = 1
-	for s in file.slice(0,-1):
-		var t = s.split(' ', true, 1)
-		var cTurn = int(t[0])
-		var e = t[-1]
-		while turn != cTurn:
-			turn+= 1 
-			turns.append([0,0,0,0,0])
-		var eInt = []
-		for v in e.split(' '):
-			eInt.append(int(v))
-		turns.append(eInt)		
-		turn+= 1 
-	nextTurn = turns[1]
-
+#############################################################
+# Turns
+#############################################################
+#current turn
 var turnCount = 1
+#enemies are attacking
 var atkTurn = false 
+#next turn
 var nextTurn
+
+#next turn
 func passTurn():
 	#buildings create resources
 	updateResources()
@@ -313,6 +270,7 @@ func passTurn():
 	#enemy attacking
 	if sum(turn) > 0:
 		if !atkTurn:
+			disableBuild()
 			atkTurn = true
 			defend()
 			$Bsong.stop()
@@ -324,6 +282,24 @@ func passTurn():
 	else:
 		announceEnemy(turn, nextTurn)
 		
+func disableBuild():
+	ghostEnabled = false
+	$Cursor.visible = false
+	ghost.visible = false
+
+func enableBuild():
+	ghostEnabled = true
+	$Cursor.visible = true
+	ghost.visible = true
+		
+#sum list
+func sum(list):
+	var s = 0
+	for i in list:
+		s += i
+	return s
+
+#Display where enemy spawn/warnings
 func announceEnemy(current, next):
 	$Spawners/EnemySpawnerUL.visible = current[0] > 0
 	$Spawners/EnemySpawnerLL.visible = current[1] > 0
@@ -335,11 +311,84 @@ func announceEnemy(current, next):
 	$Spawners/ArrowUR.visible = next[2] > 0
 	$Spawners/ArrowLR.visible = next[3] > 0
 	
-func sum(list):
-	var s = 0
-	for i in list:
-		s += i
-	return s
+#all enemies dead, no longer under attack
+func enemyDeath():
+	numEnemy -= 1
+	if numEnemy == 0:
+		enableBuild()
+		$AtkTimer.stop()
+		atkTurn = false
+		$Asong.stop()
+		$Bsong.play()
+		clearSmoke()
+
+#buildings produce resources between turns
+func updateResources():
+	var m = 0
+	for f in get_tree().get_nodes_in_group("farms"):
+		m += ghost.produces
+	updateMushrooms(m)
+
+#update mushroom counter
+func updateMushrooms(num):
+	if resources[mush] + num < 0:
+		return false
+	resources[mush] += num
+	$Overlay/resources.updateMush(resources[mush])
+	return true
+
+
+#############################################################
+# Defend 
+#############################################################
+#start turret processing
+func defend():
+	$AtkTimer.set_wait_time(Globals.atkDelay)
+	$AtkTimer.start()
+	
+#turrets attack nearest enemy
+func towerAtk():
+	for tower in get_tree().get_nodes_in_group("tower"):
+		if tower.dead:
+			continue
+		var e = tower.kill()
+		if e != null:
+			atkUnit(e)
+	if(!atkTurn):
+		$AtkTimer.stop()
+		
+#hit unit
+func atkUnit(e):
+	$SFX/EnemyHit.play()
+	if e.hit():
+		$SFX/EnemyDeath.play()
+
+#destroy building
+func destroy(col):	
+	var obj = col.get_parent()
+	if(!obj.has_method('die')):
+		return
+	if obj.dead:
+		return
+	obj.die()
+	if obj.group == 'farms':
+		numBuilding -= 1	
+	if numBuilding == 0:
+		gameOver()
+	var enemies = get_tree().get_nodes_in_group("enemy")
+	for e in enemies:
+		e.getTarget()
+	
+#remove destroyed building from game tree 
+func remove(obj):
+	remove_child(obj)
+
+#game over
+func gameOver():
+	$menu/colBox.position.y = 1000
+	$Overlay/AnimationPlayer.play("GG")
+	$Cursor.visible = false
+	ghost.visible = false	
 
 #recieves a list of numbers of enemies to spawn in each position
 var numEnemy = 0
@@ -358,38 +407,24 @@ func spawnEnemy(numList):
 			e.speed = randf_range(Globals.minESpeed, Globals.maxESpeed)
 			add_child(e)
 
-func enemyDeath():
-	numEnemy -= 1
-	if numEnemy == 0:
-		$AtkTimer.stop()
-		atkTurn = false
-		$Asong.stop()
-		$Bsong.play()
-		clearSmoke()
-	
-func select(type):
-	selected = type
-	var pos = ghost.position
-	remove_child(ghost)
-	if type == 'fix':
-		print('fix')
-		ghostEnabled = false
-		return
-	ghostEnabled = true	
-	if type == 'mush':
-		ghost = farm.instantiate()
-	elif type == 'tower':
-		ghost = tower.instantiate()
-	elif type == 'wide':
-		ghost = wide.instantiate()
-	ghost.init()
-	ghostDisplacement = ghost.calcDisplacement()
-	ghost.createGhost()
-	ghost.position = pos
-	add_child(ghost)
-	moveGhost()
-		
-	
+
+
+#############################################################
+# ... 
+#############################################################
+func _input(event):
+	if event is InputEventMouse:
+		$menu.testMenuCol(event.position)
+	if event is InputEventMouseButton:
+		var test = $Camera.selectEnemy()
+		if len(test) > 0:
+			test.collider.play()
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			if canPlace and not $menu.up:
+				if tryPlace(ghost.cost):
+					spawn(selected)
+					place($Cursor.gridPos, ghost.size)
+
 func updateMousePos(pos):
 	if len(pos) > 0:
 		if ghostEnabled:
@@ -400,44 +435,3 @@ func updateMousePos(pos):
 			moveIcon()
 	else:
 		canPlace = false
-
-var icon	
-func moveIcon():
-	if selected == 'fix':
-		icon = $Icons/Hammer
-	if gridSpace[$Cursor.gridPos.x][$Cursor.gridPos.y]:
-		icon.visible = true
-		$Icons/Hammer.position.x = $Camera.mousePos.x
-		$Icons/Hammer.position.y = $Camera.mousePos.y
-		print($Icons/Hammer.position)
-	else:
-		icon.visible = false
-		
-
-func _input(event):
-	if event is InputEventMouse:
-		$menu.testMenuCol(event.position)
-	if event is InputEventMouseButton:
-		var test = $Camera.selectEnemy()
-		if len(test) > 0:
-			test.collider.play()
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if canPlace and not $menu.up:
-				if tryPlace(farmCost):
-					spawn(selected)
-					place($Cursor.gridPos, ghost.size)
-	
-var farmProduces = 5
-func updateResources():
-	var m = 0
-	for f in get_tree().get_nodes_in_group("farms"):
-		m += farmProduces
-	updateMushrooms(m)
-	
-func updateMushrooms(num):
-	if resources[mush] + num < 0:
-		return false
-	resources[mush] += num
-	$Overlay/resources.updateMush(resources[mush])
-	return true
-	

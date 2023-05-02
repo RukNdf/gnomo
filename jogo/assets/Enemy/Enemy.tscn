@@ -11,6 +11,7 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Animation" id="Animation_w5hea"]
 resource_name = "defeat"
+length = 0.4
 step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
