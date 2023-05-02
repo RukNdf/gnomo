@@ -10,6 +10,8 @@ func selectTower():
 func selectWide():
 	get_parent().select('wide')
 
+func selectFix():
+	get_parent().select('fix')
 
 #move menu on hover 
 var up = false
@@ -24,3 +26,4 @@ func testMenuCol(pos):
 			$AnimationPlayer.pause()
 			up = false
 			$AnimationPlayer.play_backwards()
+

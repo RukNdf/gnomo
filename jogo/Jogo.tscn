@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=32 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b4icrnnqc2mky" path="res://jogo/assets/hud/forestForeR.png" id="17_keuvm"]
 [ext_resource type="Script" path="res://jogo/assets/Spawners.gd" id="18_ecync"]
 [ext_resource type="PackedScene" uid="uid://cqcg1fmjtcefo" path="res://jogo/assets/Enemy/enemySpawner.tscn" id="18_pkqmr"]
+[ext_resource type="PackedScene" uid="uid://5233cv5pxuof" path="res://jogo/assets/hud/Hammer.tscn" id="21_ij71n"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -171,16 +172,32 @@ position = Vector2(-275, 317)
 texture = ExtResource("11_4f1rt")
 region_filter_clip_enabled = true
 
+[node name="TPre" type="RichTextLabel" parent="Overlay"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -127.0
+offset_top = 8.0
+offset_right = 125.0
+offset_bottom = 132.0
+grow_horizontal = 0
+theme_override_font_sizes/normal_font_size = 70
+text = "Turn "
+fit_content = true
+autowrap_mode = 0
+text_direction = 2
+
 [node name="Turn" type="RichTextLabel" parent="Overlay"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 145.0
-offset_right = 301.0
-offset_bottom = 124.0
+offset_left = 63.0
+offset_top = 9.0
+offset_right = 219.0
+offset_bottom = 133.0
 grow_horizontal = 0
-theme_override_font_sizes/normal_font_size = 90
-text = "Turn   1"
+theme_override_font_sizes/normal_font_size = 70
+text = "1"
 fit_content = true
 autowrap_mode = 0
 text_direction = 2
@@ -221,6 +238,14 @@ offset_left = 176.0
 offset_top = 570.0
 offset_right = 276.0
 offset_bottom = 623.0
+
+[node name="Hammer" parent="Overlay" instance=ExtResource("21_ij71n")]
+position = Vector2(254, 48)
+
+[node name="Icons" type="Node2D" parent="."]
+
+[node name="Hammer" parent="Icons" instance=ExtResource("21_ij71n")]
+position = Vector2(-105, 108)
 
 [node name="menu" parent="." instance=ExtResource("14_cyh6t")]
 

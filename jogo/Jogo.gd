@@ -2,7 +2,7 @@ extends Node3D
 
 
 #MUTE ALL GAME AUDIO
-const MUTE = false
+const MUTE = true
 
 ################
 # Init
@@ -87,20 +87,24 @@ var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
 
 #try to spawn a building
 func spawn(type):
+	if !ghostEnabled:
+		return
 	lastSpawnTime = Time.get_ticks_msec()
-	var pos = $Cursor.getCenter()
-	if len(pos) == 0:
-		return false
 	var f
-	$SFX/Build.play()
 	if type == 'mush':
 		f = farm.instantiate()
 		numBuilding += 1
 	elif type == 'wide':
 		f = wide.instantiate()
 		numBuilding += 1
-	else:
+	elif type == 'tower':
 		f = tower.instantiate()
+	else:
+		return
+	var pos = $Cursor.getCenter()
+	if len(pos) == 0:
+		return false
+	$SFX/Build.play()
 	f.init()
 	f.position.x = pos.x + ghostDisplacement.x + Globals.cameraOffset.x
 	f.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
@@ -141,6 +145,7 @@ func clearPlace(position, size):
 # Ghost
 #########
 var ghost
+var ghostEnabled = true
 var ghostState = canPlace
 var ghostDisplacement
 #moves ghost and update placement
@@ -198,6 +203,10 @@ func _process(delta):
 		for e in get_tree().get_nodes_in_group('enemy'):
 			remove_child(e)
 	pass	
+		
+func clearSmoke():
+	for s in get_tree().get_nodes_in_group('smoke'):
+		remove_child(s)
 
 
 func defend():
@@ -356,17 +365,22 @@ func enemyDeath():
 		atkTurn = false
 		$Asong.stop()
 		$Bsong.play()
+		clearSmoke()
 	
-
 func select(type):
 	selected = type
 	var pos = ghost.position
 	remove_child(ghost)
+	if type == 'fix':
+		print('fix')
+		ghostEnabled = false
+		return
+	ghostEnabled = true	
 	if type == 'mush':
 		ghost = farm.instantiate()
-	if type == 'tower':
+	elif type == 'tower':
 		ghost = tower.instantiate()
-	if type == 'wide':
+	elif type == 'wide':
 		ghost = wide.instantiate()
 	ghost.init()
 	ghostDisplacement = ghost.calcDisplacement()
@@ -378,11 +392,28 @@ func select(type):
 	
 func updateMousePos(pos):
 	if len(pos) > 0:
-		$Cursor.update(pos)
-		moveGhost()
+		if ghostEnabled:
+			$Cursor.update(pos)
+			moveGhost()
+		else:
+			$Cursor.update(pos)
+			moveIcon()
 	else:
 		canPlace = false
-	
+
+var icon	
+func moveIcon():
+	if selected == 'fix':
+		icon = $Icons/Hammer
+	if gridSpace[$Cursor.gridPos.x][$Cursor.gridPos.y]:
+		icon.visible = true
+		$Icons/Hammer.position.x = $Camera.mousePos.x
+		$Icons/Hammer.position.y = $Camera.mousePos.y
+		print($Icons/Hammer.position)
+	else:
+		icon.visible = false
+		
+
 func _input(event):
 	if event is InputEventMouse:
 		$menu.testMenuCol(event.position)

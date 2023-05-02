@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://baut35o0w3sdq"]
+[gd_scene load_steps=11 format=3 uid="uid://baut35o0w3sdq"]
 
 [ext_resource type="Script" path="res://jogo/assets/Enemy/Enemy.gd" id="1_8nv2y"]
-[ext_resource type="Texture2D" uid="uid://c2aqhgyatiopy" path="res://jogo/assets/Enemy/human.png" id="2_3nmg3"]
 [ext_resource type="PackedScene" uid="uid://blabkyss20bj0" path="res://jogo/assets/hud/HealthBar.tscn" id="3_jfeyd"]
+[ext_resource type="Texture2D" uid="uid://dnqx72x45apsb" path="res://jogo/assets/Enemy/SPRITEbonecoinimigo.png" id="3_ndfgd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwnb5"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_05ssm"]
+viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Animation" id="Animation_w5hea"]
 resource_name = "defeat"
@@ -78,11 +81,28 @@ tracks/0/keys = {
 "values": [Vector3(0, 9.57473, 0), Vector3(0, 13.5, 0), Vector3(0, 9.57473, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hm4xq"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SubViewport/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 6]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xldnl"]
 _data = {
 "defeat": SubResource("Animation_w5hea"),
 "die": SubResource("Animation_cbx3m"),
-"hit": SubResource("Animation_g2xyv")
+"hit": SubResource("Animation_g2xyv"),
+"walk": SubResource("Animation_hm4xq")
 }
 
 [node name="Enemy" type="CharacterBody3D"]
@@ -96,20 +116,32 @@ transform = Transform3D(11, 0, 0, 0, 11, 0, 0, 0, 11, 0, 5.62729, 0)
 shape = SubResource("BoxShape3D_uwnb5")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 9.57473, 0)
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 9.57473, 0)
 billboard = 1
 double_sided = false
 alpha_cut = 1
 alpha_antialiasing_mode = 2
-texture = ExtResource("2_3nmg3")
+texture = SubResource("ViewportTexture_05ssm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
 libraries = {
 "": SubResource("AnimationLibrary_xldnl")
 }
 
 [node name="healthBar" parent="." instance=ExtResource("3_jfeyd")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 23.3526, -1.05974)
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(268, 582)
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport"]
+position = Vector2(134, 291)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_ndfgd")
+hframes = 7
+frame = 2
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]

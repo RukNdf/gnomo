@@ -72,6 +72,10 @@ func _physics_process(delta):
 		return
 	velocity.x = -(position.x - destination.x)
 	velocity.z = -(position.z - destination.z)
+	if(velocity.x < 0):
+		$Sprite3D.flip_h = true
+	else:
+		$Sprite3D.flip_h = false
 	velocity = velocity.normalized()
 	#if not fleeing go to nearest target
 	if !running:
@@ -84,7 +88,7 @@ func _physics_process(delta):
 			return
 	#if fleeing start leaving when out of the player's area
 	elif not leaving:
-		if (abs(destination.x) - abs(position.x) < 0.5 and abs(destination.z) - abs(position.z) < 0.5 ):
+		if (abs(abs(destination.x) - abs(position.x)) < 0.5 and abs(abs(destination.z) - abs(position.z)) < 0.5):
 			$AnimationPlayer.play("die")
 			leaving = true
 	velocity *= speed
@@ -131,6 +135,8 @@ func animationFinished(anim):
 	#leave tree after dying
 	if anim == 'die':
 		get_parent().destroy(self)
+	else:
+		$AnimationPlayer.play('walk')
 
 
 ##DEBUG
