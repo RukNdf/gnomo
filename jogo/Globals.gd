@@ -43,4 +43,5 @@ var maxESpeed = 3.0
 ####################
 # cursor selection
 ###################
-enum {NOMODE, BUILDMODE, ATKMODE}
+enum {NOMODE, BUILDMODE, ATKMODE, EDITMODE}
+var BUILDOREDIT = 1

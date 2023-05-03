@@ -51,6 +51,7 @@ script = ExtResource("1_n06b6")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+collision_layer = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_r5iv5")

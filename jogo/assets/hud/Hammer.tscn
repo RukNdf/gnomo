@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://5233cv5pxuof"]
+[gd_scene load_steps=8 format=3 uid="uid://5233cv5pxuof"]
 
 [ext_resource type="Texture2D" uid="uid://cc58g2ah1flgi" path="res://jogo/assets/hud/HammerBase.png" id="1_l83er"]
 [ext_resource type="Texture2D" uid="uid://bononreul7c3t" path="res://jogo/assets/hud/HammerHead.png" id="2_q331m"]
@@ -20,18 +20,55 @@ tracks/0/keys = {
 "values": [Color(1, 0.141176, 0.141176, 1), Color(1, 1, 0.239216, 1), Color(0.270588, 1, 0.333333, 1), Color(0.0784314, 0.764706, 1, 1), Color(1, 0.75, 1, 1), Color(1, 0.25098, 0.25098, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_f4hwc"]
+resource_name = "hit"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.23, 0.5),
+"transitions": PackedFloat32Array(0.233258, 5.65685, 0.164939, 1.56917, 1),
+"update": 0,
+"values": [0.0, 0.698132, -1.5708, -1.1781, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_5f12k"]
+resource_name = "swing"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.872665, 0.698132]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e34rh"]
 _data = {
-"glow": SubResource("Animation_3kgbv")
+"glow": SubResource("Animation_3kgbv"),
+"hit": SubResource("Animation_f4hwc"),
+"swing": SubResource("Animation_5f12k")
 }
 
 [node name="Node2D" type="Node2D"]
+rotation = -0.308757
 
 [node name="body" type="Sprite2D" parent="."]
 texture = ExtResource("1_l83er")
 
 [node name="head" type="Sprite2D" parent="."]
-modulate = Color(1, 0.141176, 0.141176, 1)
+modulate = Color(1, 0.692775, 0.204144, 1)
 texture = ExtResource("2_q331m")
 
 [node name="det" type="Sprite2D" parent="."]
@@ -43,3 +80,6 @@ speed_scale = 0.5
 libraries = {
 "": SubResource("AnimationLibrary_e34rh")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+anim_player = NodePath("../AnimationPlayer")

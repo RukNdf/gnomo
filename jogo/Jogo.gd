@@ -122,11 +122,13 @@ func select(type):
 	remove_child(ghost)
 	#repair or destroy building
 	if type == 'fix':
+		$Camera.mode = Globals.EDITMODE
 		print('fix')
 		ghostEnabled = false
 		return
 	#place building
 	ghostEnabled = true	
+	$Camera.mode = Globals.BUILDMODE
 	if type == 'mush':
 		ghost = farm.instantiate()
 	elif type == 'tower':
@@ -431,13 +433,15 @@ func _input(event):
 					spawn(selected)
 					place($Cursor.gridPos, ghost.size)
 
-func updateMousePos(pos):
+func updateBuildCursor(pos):
 	if len(pos) > 0:
-		if ghostEnabled:
-			$Cursor.update(pos)
-			moveGhost()
-		else:
-			$Cursor.update(pos)
-			moveIcon()
+		$Cursor.update(pos)
+		moveGhost()
 	else:
 		canPlace = false
+	
+func updateEditCursor(pos):
+	moveIcon()
+	if len(pos) > 0:
+		$Cursor.update(pos)
+		moveIcon()
