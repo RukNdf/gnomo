@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=33 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://jogo/assets/Spawners.gd" id="18_ecync"]
 [ext_resource type="PackedScene" uid="uid://cqcg1fmjtcefo" path="res://jogo/assets/Enemy/enemySpawner.tscn" id="18_pkqmr"]
 [ext_resource type="PackedScene" uid="uid://5233cv5pxuof" path="res://jogo/assets/hud/Hammer.tscn" id="21_ij71n"]
+[ext_resource type="Texture2D" uid="uid://uenmbgy435i7" path="res://jogo/assets/hud/Attack.png" id="22_bbdp8"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -239,8 +240,14 @@ offset_top = 570.0
 offset_right = 276.0
 offset_bottom = 623.0
 
-[node name="Hammer" parent="Overlay" instance=ExtResource("21_ij71n")]
+[node name="Build" parent="Overlay" instance=ExtResource("21_ij71n")]
 position = Vector2(254, 48)
+
+[node name="Defend" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(262, 51)
+scale = Vector2(1.13462, 1.13462)
+texture = ExtResource("22_bbdp8")
 
 [node name="Icons" type="Node2D" parent="."]
 

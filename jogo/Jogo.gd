@@ -286,12 +286,18 @@ func disableBuild():
 	ghostEnabled = false
 	$Cursor.visible = false
 	ghost.visible = false
+	$Overlay/Build.visible = false
+	$Overlay/Defend.visible = true
+	$menu.position.y += 500
 
 func enableBuild():
 	ghostEnabled = true
 	$Cursor.visible = true
 	ghost.visible = true
-		
+	$Overlay/Build.visible = true
+	$Overlay/Defend.visible = false
+	$menu.position.y -= 500
+
 #sum list
 func sum(list):
 	var s = 0
@@ -326,7 +332,7 @@ func enemyDeath():
 func updateResources():
 	var m = 0
 	for f in get_tree().get_nodes_in_group("farms"):
-		m += ghost.produces
+		m += f.produces
 	updateMushrooms(m)
 
 #update mushroom counter
