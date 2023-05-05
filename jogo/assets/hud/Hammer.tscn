@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://5233cv5pxuof"]
+[gd_scene load_steps=10 format=3 uid="uid://5233cv5pxuof"]
 
+[ext_resource type="Script" path="res://jogo/assets/hud/Hammer.gd" id="1_5msjd"]
 [ext_resource type="Texture2D" uid="uid://cc58g2ah1flgi" path="res://jogo/assets/hud/HammerBase.png" id="1_l83er"]
 [ext_resource type="Texture2D" uid="uid://bononreul7c3t" path="res://jogo/assets/hud/HammerHead.png" id="2_q331m"]
 [ext_resource type="Texture2D" uid="uid://diymxm7vmaswc" path="res://jogo/assets/hud/HammerDet.png" id="3_bwhxg"]
+[ext_resource type="Texture2D" uid="uid://e2e6tes4j862" path="res://jogo/assets/hud/HammerImpact.png" id="5_gb18g"]
 
 [sub_resource type="Animation" id="Animation_3kgbv"]
 resource_name = "glow"
@@ -22,7 +24,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_f4hwc"]
 resource_name = "hit"
-length = 0.5
+length = 0.3
 step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -31,10 +33,22 @@ tracks/0/path = NodePath(".:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.23, 0.5),
-"transitions": PackedFloat32Array(0.233258, 5.65685, 0.164939, 1.56917, 1),
+"times": PackedFloat32Array(0, 0.02, 0.14, 0.15, 0.3),
+"transitions": PackedFloat32Array(0.233258, 5.65685, 0.164939, 1.86607, 1),
 "update": 0,
 "values": [0.0, 0.698132, -1.5708, -1.1781, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("impact:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.13, 0.14, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="Animation" id="Animation_5f12k"]
@@ -62,24 +76,34 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
-rotation = -0.308757
+rotation = -0.980032
+script = ExtResource("1_5msjd")
 
 [node name="body" type="Sprite2D" parent="."]
 texture = ExtResource("1_l83er")
 
 [node name="head" type="Sprite2D" parent="."]
-modulate = Color(1, 0.692775, 0.204144, 1)
+modulate = Color(1, 0.903727, 0.228226, 1)
 texture = ExtResource("2_q331m")
 
 [node name="det" type="Sprite2D" parent="."]
 texture = ExtResource("3_bwhxg")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="swing" type="AnimationPlayer" parent="."]
+speed_scale = 0.5
+libraries = {
+"": SubResource("AnimationLibrary_e34rh")
+}
+
+[node name="glow" type="AnimationPlayer" parent="."]
 autoplay = "glow"
 speed_scale = 0.5
 libraries = {
 "": SubResource("AnimationLibrary_e34rh")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-anim_player = NodePath("../AnimationPlayer")
+[node name="impact" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-11, -5.00004)
+rotation = 1.57079
+texture = ExtResource("5_gb18g")

@@ -47,12 +47,13 @@ func calcDisplacement():
 # Die
 #######
 #start dying
-func die():
+func die(smoke = true):
 	dead = true
 	#remove from target group, start animations, and remove collision halfway into the animation
 	remove_from_group(group)
 	get_parent().clearPlace(position, size)
-	get_parent().spawnSmoke(getSmokePos())
+	if smoke:
+		get_parent().spawnSmoke(getSmokePos())
 	$AnimationPlayer.play("die")
 	await get_tree().create_timer(Globals.colDelay).timeout
 	$StaticBody3D/CollisionShape3D.disabled = true

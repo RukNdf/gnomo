@@ -25,6 +25,7 @@ func _ready():
 	if(MUTE):
 		mute()
 	randomize()
+	icon =  $Icons/Hammer
 	initGridSpace()
 	initTurns()
 	spawnGrass()
@@ -110,21 +111,33 @@ var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
 var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
 var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
 #last selected action icon
-var icon	
+var icon
 #placement test
 var lastSpawnTime = 0
 var canPlace = false
+#selected building to repair/delete
+var selectedBuilding = null
 
 #select building/action	
 func select(type):
 	selected = type
 	var pos = ghost.position
 	remove_child(ghost)
+	icon.visible = false
 	#repair or destroy building
 	if type == 'fix':
+		icon = $Icons/Hammer
 		$Camera.mode = Globals.EDITMODE
-		print('fix')
+		icon.visible = true
 		ghostEnabled = false
+		moveIcon()
+		return
+	elif type == 'dest':
+		icon = $Icons/Destroy
+		$Camera.mode = Globals.EDITMODE
+		icon.visible = true
+		ghostEnabled = false
+		moveIcon()
 		return
 	#place building
 	ghostEnabled = true	
@@ -168,10 +181,13 @@ func spawn(type):
 		return
 	lastSpawnTime = Time.get_ticks_msec()
 	var f
+	var required = false
 	if type == 'mush':
+		required = true
 		f = farm.instantiate()
 		numBuilding += 1
 	elif type == 'wide':
+		required = true
 		f = wide.instantiate()
 		numBuilding += 1
 	elif type == 'tower':
@@ -187,6 +203,8 @@ func spawn(type):
 	f.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
 	f.position.y = 0.5
 	add_child(f)
+	if required:
+		$Overlay/turnButton.disabled = false
 	return true
 
 #place building within the grid
@@ -207,17 +225,10 @@ func clearPlace(position, size):
 
 #move icon and display when action is valid
 func moveIcon():
-	if selected == 'fix':
-		icon = $Icons/Hammer
-	else:
+	if $Camera.mode != Globals.EDITMODE:
 		return
-	if gridSpace[$Cursor.gridPos.x][$Cursor.gridPos.y]:
-		icon.visible = true
-		$Icons/Hammer.position.x = $Camera.mousePos.x
-		$Icons/Hammer.position.y = $Camera.mousePos.y
-		print($Icons/Hammer.position)
-	else:
-		icon.visible = false
+	icon.position.x = $Camera.mousePos.x
+	icon.position.y = $Camera.mousePos.y
 
 
 
@@ -253,9 +264,13 @@ var turnCount = 1
 var atkTurn = false 
 #next turn
 var nextTurn
+#turn change in progress, can't pass another turn
+var turnChange = false
 
 #next turn
 func passTurn():
+	if turnChange:
+		return
 	#buildings create resources
 	updateResources()
 	#update turn
@@ -272,12 +287,16 @@ func passTurn():
 	#enemy attacking
 	if sum(turn) > 0:
 		if !atkTurn:
+			turnChange = true
 			disableBuild()
 			atkTurn = true
 			defend()
 			$Bsong.stop()
 			$Horn.play()
+			$Overlay/turnButton.disabled = true
 			await get_tree().create_timer(2).timeout
+			turnChange = false
+			$Overlay/turnButton.disabled = false
 			$Asong.play()
 		announceEnemy(turn, nextTurn)
 		spawnEnemy(turn)
@@ -373,16 +392,21 @@ func atkUnit(e):
 
 #destroy building
 func destroy(col):	
+	print(numBuilding)
 	var obj = col.get_parent()
 	if(!obj.has_method('die')):
 		return
 	if obj.dead:
 		return
-	obj.die()
+	#kills object but doesn't spawn smoke if it's not getting attacked
+	obj.die(atkTurn)
 	if obj.group == 'farms':
 		numBuilding -= 1	
 	if numBuilding == 0:
-		gameOver()
+		if atkTurn:
+			gameOver()
+		else:
+			$Overlay/turnButton.disabled = true
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for e in enemies:
 		e.getTarget()
@@ -397,6 +421,7 @@ func gameOver():
 	$Overlay/AnimationPlayer.play("GG")
 	$Cursor.visible = false
 	ghost.visible = false	
+	$Overlay/turnButton.disabled = true
 
 #recieves a list of numbers of enemies to spawn in each position
 var numEnemy = 0
@@ -421,17 +446,37 @@ func spawnEnemy(numList):
 # ... 
 #############################################################
 func _input(event):
+	if event is InputEventKey:
+		if !atkTurn:
+			keySelect(event.keycode)
 	if event is InputEventMouse:
 		$menu.testMenuCol(event.position)
 	if event is InputEventMouseButton:
-		var test = $Camera.selectEnemy()
-		if len(test) > 0:
-			test.collider.play()
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if canPlace and not $menu.up:
-				if tryPlace(ghost.cost):
-					spawn(selected)
-					place($Cursor.gridPos, ghost.size)
+		if $Camera.mode == Globals.BUILDMODE:
+			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+				if canPlace and not $menu.up:
+					if tryPlace(ghost.cost):
+						spawn(selected)
+						place($Cursor.gridPos, ghost.size)
+		elif $Camera.mode == Globals.EDITMODE:
+			if selectedBuilding != null:
+				icon.click(selectedBuilding)
+		else:
+			var test = $Camera.selectEnemy()
+			if len(test) > 0:
+				test.collider.play()
+
+func keySelect(key):
+	if key == KEY_1 or key == KEY_KP_1:
+		select('mush')
+	elif key == KEY_2 or key == KEY_KP_2:
+		select('tower')
+	elif key == KEY_3 or key == KEY_KP_3:
+		select('wide')
+	elif key == KEY_4 or key == KEY_KP_4:
+		select('fix')
+	elif key == KEY_5 or key == KEY_KP_5:
+		select('dest')
 
 func updateBuildCursor(pos):
 	if len(pos) > 0:
@@ -441,7 +486,13 @@ func updateBuildCursor(pos):
 		canPlace = false
 	
 func updateEditCursor(pos):
+	print('test')
 	moveIcon()
 	if len(pos) > 0:
+		icon.hover(true)
+		selectedBuilding = pos.collider
 		$Cursor.update(pos)
-		moveIcon()
+	else:
+		icon.hover(false)
+		selectedBuilding = null
+		

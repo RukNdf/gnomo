@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1fsas23mw4mv"]
+
+[ext_resource type="Texture2D" uid="uid://cx65ip5tx7j1p" path="res://jogo/assets/hud/Slap.png" id="1_22f0j"]
+[ext_resource type="Texture2D" uid="uid://bvado0i351g2c" path="res://jogo/assets/hud/slapPre.png" id="2_juwlj"]
+[ext_resource type="Texture2D" uid="uid://bc5m24puvccup" path="res://jogo/assets/hud/SlapImpact.png" id="3_adr5n"]
+
+[sub_resource type="Animation" id="Animation_8kj0f"]
+resource_name = "slap"
+length = 0.3
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.17),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_juwlj"), ExtResource("1_22f0j")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("impact:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.16, 0.19, 0.28),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bacq1"]
+_data = {
+"slap": SubResource("Animation_8kj0f")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2.38419e-07, 0)
+scale = Vector2(0.798684, 0.798684)
+texture = ExtResource("1_22f0j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bacq1")
+}
+
+[node name="impact" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_adr5n")
