@@ -25,6 +25,7 @@ func initSmokePos():
 	var x = position.x + (Globals.gridCenter*(size.x%2)) + ((Globals.gridSize*(size.x/2))/2)
 	var z = position.z + (Globals.gridCenter*(size.y%2)) + ((Globals.gridSize*(size.y/2))/2)
 	smokePos = {'x' = x, 'z' = z}
+
 func getSmokePos():
 	return smokePos
 

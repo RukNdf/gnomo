@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://baut35o0w3sdq"]
+[gd_scene load_steps=13 format=3 uid="uid://baut35o0w3sdq"]
 
 [ext_resource type="Script" path="res://jogo/assets/Enemy/Enemy.gd" id="1_8nv2y"]
 [ext_resource type="PackedScene" uid="uid://blabkyss20bj0" path="res://jogo/assets/hud/HealthBar.tscn" id="3_jfeyd"]
@@ -8,6 +8,33 @@
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_05ssm"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_aje64"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 9.57473, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_w5hea"]
 resource_name = "defeat"
@@ -82,6 +109,34 @@ tracks/0/keys = {
 "values": [Vector3(0, 9.57473, 0), Vector3(0, 13.5, 0), Vector3(0, 9.57473, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_v51rr"]
+resource_name = "poison damage"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 9.575, 0), Vector3(0, 13.5, 0), Vector3(0, 9.575, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.529412, 0.0117647, 0.568627, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_hm4xq"]
 resource_name = "walk"
 loop_mode = 1
@@ -100,9 +155,11 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xldnl"]
 _data = {
+"RESET": SubResource("Animation_aje64"),
 "defeat": SubResource("Animation_w5hea"),
 "die": SubResource("Animation_cbx3m"),
 "hit": SubResource("Animation_g2xyv"),
+"poison damage": SubResource("Animation_v51rr"),
 "walk": SubResource("Animation_hm4xq")
 }
 
@@ -117,7 +174,7 @@ transform = Transform3D(11, 0, 0, 0, 11, 0, 0, 0, 11, 0, 5.62729, 0)
 shape = SubResource("BoxShape3D_uwnb5")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 9.57473, 0)
+transform = Transform3D(14.6841, 0, 0, 0, 14.6841, 0, 0, 0, 14.6841, 0, 9.57473, 0)
 billboard = 1
 double_sided = false
 alpha_cut = 1
@@ -142,6 +199,7 @@ position = Vector2(134, 291)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_ndfgd")
 hframes = 7
+frame = 3
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]

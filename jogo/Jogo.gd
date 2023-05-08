@@ -105,11 +105,12 @@ func clearSmoke():
 
 #############################################################
 # Building
-#############################################################
+################################################S#############
 #buildings
 var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
 var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
 var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
+var poison_tower = preload("res://jogo/assets/Buildings/PoisonTower/PoisonTower.tscn")
 #last selected action icon
 var icon
 #placement test
@@ -148,6 +149,9 @@ func select(type):
 		ghost = tower.instantiate()
 	elif type == 'wide':
 		ghost = wide.instantiate()
+	elif type == 'poison_tower':
+		ghost = poison_tower.instantiate()
+		
 	ghost.init()
 	ghostDisplacement = ghost.calcDisplacement()
 	ghost.createGhost()
@@ -192,6 +196,8 @@ func spawn(type):
 		numBuilding += 1
 	elif type == 'tower':
 		f = tower.instantiate()
+	elif type == 'poison_tower':
+		f = poison_tower.instantiate()
 	else:
 		return
 	var pos = $Cursor.getCenter()
@@ -477,6 +483,8 @@ func keySelect(key):
 		select('fix')
 	elif key == KEY_5 or key == KEY_KP_5:
 		select('dest')
+	elif key == KEY_6 or key == KEY_KP_6:
+		select('poison_tower')
 
 func updateBuildCursor(pos):
 	if len(pos) > 0:

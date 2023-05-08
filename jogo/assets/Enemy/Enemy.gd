@@ -138,6 +138,17 @@ func animationFinished(anim):
 	else:
 		$AnimationPlayer.play('walk')
 
+func poisonDamage(damage:float):
+	if health > 0:
+		health -= damage
+		healthChanged = true
+		
+	if health == 0:
+		defeat()
+		return true
+	else:
+		$AnimationPlayer.play("poison damage")
+	return false
 
 ##DEBUG
 func play():
