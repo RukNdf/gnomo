@@ -1,0 +1,103 @@
+[gd_scene load_steps=13 format=3 uid="uid://1lxd7khq2cks"]
+
+[ext_resource type="Script" path="res://jogo/assets/Buildings/FencePost.gd" id="1_8lqfy"]
+[ext_resource type="Texture2D" uid="uid://dcd7dvxdage60" path="res://jogo/assets/Buildings/FencePost.png" id="1_jllsd"]
+[ext_resource type="Texture2D" uid="uid://bwijfjn2fb5dq" path="res://jogo/assets/Buildings/FenceR.png" id="3_i8cti"]
+[ext_resource type="Texture2D" uid="uid://bk3ktfrfoimh3" path="res://jogo/assets/Buildings/FenceDown.png" id="4_1c453"]
+[ext_resource type="Script" path="res://jogo/assets/Buildings/FenceSide.gd" id="5_igake"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7iwa8"]
+transparency = 4
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_logsm"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3xowj"]
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_b2l8n"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_omytq"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="Animation" id="Animation_uc3ll"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Post:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.323174, 0), Vector3(0, -2, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2qj7k"]
+_data = {
+"die": SubResource("Animation_uc3ll")
+}
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_8lqfy")
+
+[node name="Post" type="Sprite3D" parent="."]
+transform = Transform3D(1.55821, 0, 0, 0, 1.55821, 0, 0, 0, 1, 0, 0.323174, 0)
+billboard = 2
+alpha_cut = 2
+texture = ExtResource("1_jllsd")
+
+[node name="DL" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.246534, 1.31788)
+visible = false
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("3_i8cti")
+
+[node name="DLCol" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1.68934, 0, 0, 0, 1.89923, 0, 0, 1.22276)
+material_override = SubResource("StandardMaterial3D_7iwa8")
+script = ExtResource("5_igake")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DLCol"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DLCol/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_logsm")
+disabled = true
+
+[node name="DR" type="Sprite3D" parent="."]
+transform = Transform3D(1.70958, 0, 0, 0, 2, 0, 0, 0, 2, 1.18325, 0.217225, -0.0917885)
+visible = false
+billboard = 1
+alpha_cut = 1
+texture = ExtResource("4_1c453")
+
+[node name="DRCol" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.40772, 0, 0, 0, 1.68934, 0, 0, 0, 0.85107, 0.992652, -0.0615019, -0.120517)
+material_override = SubResource("StandardMaterial3D_3xowj")
+skeleton = NodePath("../DLCol/StaticBody3D/CollisionShape3D")
+script = ExtResource("5_igake")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DRCol"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DRCol/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_b2l8n")
+disabled = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.370246, 0)
+shape = SubResource("ConcavePolygonShape3D_omytq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2qj7k")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]

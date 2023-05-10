@@ -39,12 +39,18 @@ func mute():
 
 #initialize gridSpace to simplify placement testing, by default all cells are empty
 var gridSpace
+var fences
 func initGridSpace():
 	gridSpace = []
 	for x in range(Globals.maxX+1):
 		gridSpace.append([])
 		for y in range(Globals.maxY+1):
 			gridSpace[x].append(false)
+	fences = []
+	for x in range(Globals.maxX+1):
+		fences.append([])
+		for y in range(Globals.maxY+1):
+			fences[x].append(false)
 
 #set farm as default building 
 func initGhost():
@@ -108,6 +114,7 @@ func clearSmoke():
 ################################################S#############
 #buildings
 var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
+var fence = preload("res://jogo/assets/Buildings/FencePost.tscn")
 var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
 var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
 var poison_tower = preload("res://jogo/assets/Buildings/PoisonTower/PoisonTower.tscn")
@@ -151,6 +158,8 @@ func select(type):
 		ghost = wide.instantiate()
 	elif type == 'poison_tower':
 		ghost = poison_tower.instantiate()
+	elif type == 'fence':
+		ghost = fence.instantiate()
 		
 	ghost.init()
 	ghostDisplacement = ghost.calcDisplacement()
@@ -198,13 +207,18 @@ func spawn(type):
 		f = tower.instantiate()
 	elif type == 'poison_tower':
 		f = poison_tower.instantiate()
+	elif type == 'fence':
+		f = fence.instantiate()
 	else:
 		return
 	var pos = $Cursor.getCenter()
 	if len(pos) == 0:
 		return false
 	$SFX/Build.play()
-	f.init()
+	if type == 'fence':
+		f.init($Cursor.gridPos)
+	else:
+		f.init()
 	f.position.x = pos.x + ghostDisplacement.x + Globals.cameraOffset.x
 	f.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
 	f.position.y = 0.5
@@ -219,6 +233,9 @@ func place(pos, size):
 	for x in range(pos.x, pos.x+size.x):
 		for y in range(pos.y, pos.y+size.y):
 			gridSpace[x][y] = true
+			if selected == 'fence':
+				fences[x][y] = true
+				updateFences()
 
 #clear space on grid when destroyed
 func clearPlace(position, size):
@@ -228,6 +245,8 @@ func clearPlace(position, size):
 	for x in range(pos.x, pos.x+size.x):
 		for y in range(pos.y, pos.y+size.y):
 			gridSpace[x][y] = false
+			fences[x][y] = false
+	updateFences()
 
 #move icon and display when action is valid
 func moveIcon():
@@ -235,6 +254,11 @@ func moveIcon():
 		return
 	icon.position.x = $Camera.mousePos.x
 	icon.position.y = $Camera.mousePos.y
+
+func updateFences():
+	for f in get_tree().get_nodes_in_group('fence'):
+		f.updateFence(fences)
+		
 
 
 
@@ -398,8 +422,11 @@ func atkUnit(e):
 
 #destroy building
 func destroy(col):	
-	print(numBuilding)
-	var obj = col.get_parent()
+	var obj
+	if(col.has_method('getNode')):
+		obj = col.get_parent().getNode()
+	else:
+		obj = col.get_parent()
 	if(!obj.has_method('die')):
 		return
 	if obj.dead:
@@ -461,7 +488,7 @@ func _input(event):
 		if $Camera.mode == Globals.BUILDMODE:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				if canPlace and not $menu.up:
-					if tryPlace(ghost.cost):
+					if tryPlace(-ghost.cost):
 						spawn(selected)
 						place($Cursor.gridPos, ghost.size)
 		elif $Camera.mode == Globals.EDITMODE:

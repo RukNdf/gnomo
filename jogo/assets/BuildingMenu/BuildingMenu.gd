@@ -1,7 +1,11 @@
 extends Node2D
 
 
+func select(selected):
+	get_parent().select(selected)
+
 func selectMush():
+	return
 	get_parent().select('mush')
 	
 func selectTower():
@@ -30,6 +34,3 @@ func testMenuCol(pos):
 			$AnimationPlayer.pause()
 			up = false
 			$AnimationPlayer.play_backwards()
-
-
-

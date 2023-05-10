@@ -76,14 +76,13 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
-rotation = -0.980032
 script = ExtResource("1_5msjd")
 
 [node name="body" type="Sprite2D" parent="."]
 texture = ExtResource("1_l83er")
 
 [node name="head" type="Sprite2D" parent="."]
-modulate = Color(1, 0.903727, 0.228226, 1)
+modulate = Color(1, 0.141176, 0.141176, 1)
 texture = ExtResource("2_q331m")
 
 [node name="det" type="Sprite2D" parent="."]

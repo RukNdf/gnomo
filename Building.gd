@@ -16,6 +16,9 @@ func _ready():
 	initSmokePos()
 	add_to_group(group)
 
+#get root building
+func getNode():
+	return self
 
 ###########
 # Graphics
@@ -59,7 +62,6 @@ func die(smoke = true):
 	await get_tree().create_timer(Globals.colDelay).timeout
 	$StaticBody3D/CollisionShape3D.disabled = true
 
-
 #########
 # Ghost
 ########
@@ -76,4 +78,4 @@ func updateGhost(canPlace):
 		$Mesh.material_override.albedo_color = Color(1, 1, 1, Globals.ghostOpacity)
 	else:
 		$Mesh.material_override.albedo_color = Globals.blockedColor
-	
+		

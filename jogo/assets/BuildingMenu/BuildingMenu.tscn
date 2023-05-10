@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://byagf7xbcx37j"]
+[gd_scene load_steps=18 format=3 uid="uid://byagf7xbcx37j"]
 
 [ext_resource type="Script" path="res://jogo/assets/BuildingMenu/BuildingMenu.gd" id="1_0nihi"]
 [ext_resource type="Texture2D" uid="uid://6tlv7kb8l7ap" path="res://jogo/assets/BuildingMenu/BuildingMenu.png" id="1_g3558"]
 [ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Buildings/Farm.png" id="2_wx84w"]
-[ext_resource type="Texture2D" uid="uid://bk4hgp6tj1j2w" path="res://jogo/assets/Buildings/Tower.png" id="3_knnam"]
 [ext_resource type="Texture2D" uid="uid://dpxuwbgmchdbf" path="res://jogo/assets/BuildingMenu/Overlay.png" id="4_1crbr"]
-[ext_resource type="Texture2D" uid="uid://cimwdxkyxveh4" path="res://jogo/assets/BuildingMenu/TowerSelected.png" id="5_q8ulc"]
+[ext_resource type="Texture2D" uid="uid://ce44pamm0cnsl" path="res://jogo/assets/BuildingMenu/Atk.png" id="5_pfhnk"]
 [ext_resource type="Script" path="res://jogo/assets/BuildingMenu/colBox.gd" id="6_7dyf8"]
+[ext_resource type="Texture2D" uid="uid://b7qtysq1qih2" path="res://jogo/assets/BuildingMenu/atkSelected.png" id="6_8yl82"]
+[ext_resource type="Texture2D" uid="uid://cwiffpopnsiy7" path="res://jogo/assets/BuildingMenu/Shield.png" id="7_5mkxh"]
 [ext_resource type="Texture2D" uid="uid://ci72q2q3fmgdi" path="res://jogo/assets/BuildingMenu/FarmSelected.png" id="7_6qkpf"]
+[ext_resource type="Texture2D" uid="uid://b3c873kxa2a7" path="res://jogo/assets/BuildingMenu/ShieldSelected.png" id="8_f6rdu"]
 [ext_resource type="Texture2D" uid="uid://ceekqoywqud7t" path="res://jogo/assets/BuildingMenu/Hammer.png" id="8_xsu5q"]
 [ext_resource type="Texture2D" uid="uid://cxewgw37ti6hg" path="res://jogo/assets/BuildingMenu/Slap.png" id="9_1kwmp"]
 [ext_resource type="Texture2D" uid="uid://16ar34bvr87j" path="res://jogo/assets/BuildingMenu/HammerSelected.png" id="9_ua0b2"]
@@ -73,31 +75,7 @@ texture = ExtResource("1_g3558")
 [node name="Buildings" type="Node2D" parent="."]
 position = Vector2(0, 42)
 
-[node name="Wide" type="TextureButton" parent="Buildings"]
-offset_left = 554.0
-offset_top = 460.0
-offset_right = 644.0
-offset_bottom = 550.0
-mouse_filter = 1
-texture_normal = ExtResource("2_wx84w")
-texture_pressed = ExtResource("7_6qkpf")
-ignore_texture_size = true
-stretch_mode = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="Tower" type="TextureButton" parent="Buildings"]
-offset_left = 398.0
-offset_top = 460.0
-offset_right = 488.0
-offset_bottom = 550.0
-mouse_filter = 1
-texture_normal = ExtResource("3_knnam")
-texture_pressed = ExtResource("5_q8ulc")
-ignore_texture_size = true
-stretch_mode = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="Mush" type="TextureButton" parent="Buildings"]
+[node name="Farm" type="TextureButton" parent="Buildings"]
 offset_left = 243.0
 offset_top = 460.0
 offset_right = 333.0
@@ -105,6 +83,30 @@ offset_bottom = 550.0
 mouse_filter = 1
 texture_normal = ExtResource("2_wx84w")
 texture_pressed = ExtResource("7_6qkpf")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Atk" type="TextureButton" parent="Buildings"]
+offset_left = 398.0
+offset_top = 460.0
+offset_right = 488.0
+offset_bottom = 550.0
+mouse_filter = 1
+texture_normal = ExtResource("5_pfhnk")
+texture_pressed = ExtResource("6_8yl82")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Def" type="TextureButton" parent="Buildings"]
+offset_left = 554.0
+offset_top = 460.0
+offset_right = 644.0
+offset_bottom = 550.0
+mouse_filter = 1
+texture_normal = ExtResource("7_5mkxh")
+texture_pressed = ExtResource("8_f6rdu")
 ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
@@ -198,8 +200,8 @@ scale = Vector2(916, 268)
 texture = SubResource("CanvasTexture_iwdwk")
 script = ExtResource("6_7dyf8")
 
-[connection signal="pressed" from="Buildings/Wide" to="." method="selectWide"]
-[connection signal="pressed" from="Buildings/Tower" to="." method="selectTower"]
-[connection signal="pressed" from="Buildings/Mush" to="." method="selectMush"]
+[connection signal="pressed" from="Buildings/Farm" to="." method="select" binds= ["mush"]]
+[connection signal="pressed" from="Buildings/Atk" to="." method="selectTower"]
+[connection signal="pressed" from="Buildings/Def" to="." method="select" binds= ["fence"]]
 [connection signal="pressed" from="Buildings/Fix" to="." method="selectFix"]
 [connection signal="pressed" from="Buildings/Dest" to="." method="selectDest"]
