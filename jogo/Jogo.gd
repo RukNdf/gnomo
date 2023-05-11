@@ -135,19 +135,14 @@ func select(type):
 	#repair or destroy building
 	if type == 'fix':
 		icon = $Icons/Hammer
-		$Camera.mode = Globals.EDITMODE
-		icon.visible = true
-		ghostEnabled = false
-		moveIcon()
+		enableEdit()
 		return
 	elif type == 'dest':
 		icon = $Icons/Destroy
-		$Camera.mode = Globals.EDITMODE
-		icon.visible = true
-		ghostEnabled = false
-		moveIcon()
+		enableEdit()
 		return
 	#place building
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ghostEnabled = true	
 	$Camera.mode = Globals.BUILDMODE
 	if type == 'mush':
@@ -168,6 +163,12 @@ func select(type):
 	add_child(ghost)
 	moveGhost()
 
+func enableEdit():
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	$Camera.mode = Globals.EDITMODE
+	icon.visible = true
+	ghostEnabled = false
+	moveIcon()
 
 #test if user can place a building
 func tryPlace(cost):
@@ -500,18 +501,23 @@ func _input(event):
 				test.collider.play()
 
 func keySelect(key):
+	var selected
 	if key == KEY_1 or key == KEY_KP_1:
-		select('mush')
+		selected = 0
 	elif key == KEY_2 or key == KEY_KP_2:
-		select('tower')
+		selected = 1
 	elif key == KEY_3 or key == KEY_KP_3:
-		select('wide')
+		selected = 2
 	elif key == KEY_4 or key == KEY_KP_4:
-		select('fix')
+		selected = 3
 	elif key == KEY_5 or key == KEY_KP_5:
-		select('dest')
+		selected = 4
 	elif key == KEY_6 or key == KEY_KP_6:
 		select('poison_tower')
+		return
+	else:
+		return
+	$menu.shortcut(selected)
 
 func updateBuildCursor(pos):
 	if len(pos) > 0:

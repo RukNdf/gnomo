@@ -13,7 +13,7 @@ material = SubResource("StandardMaterial3D_rhjwm")
 radius = 0.2
 height = 0.5
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ntyjp"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_26boa"]
 viewport_path = NodePath("SubViewport")
 
 [node name="PoisonEffect" type="Node3D"]
@@ -37,7 +37,7 @@ gravity = Vector3(0, 9.8, 0)
 [node name="Sprite3D" parent="." instance=ExtResource("4_wskqc")]
 transform = Transform3D(1, 0, 0, 0, 0.667, 0, 0, 0, 0.667, 0, 5.34455, 0)
 modulate = Color(0.423529, 0, 0.423529, 1)
-texture = SubResource("ViewportTexture_ntyjp")
+texture = SubResource("ViewportTexture_26boa")
 
 [node name="SubViewport2" type="SubViewport" parent="Sprite3D"]
 transparent_bg = true

@@ -210,6 +210,10 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
+[node name="3" type="Node2D" parent="Farms"]
+
+[node name="4" type="Node2D" parent="Farms"]
+
 [node name="Back" type="TextureButton" parent="Farms"]
 offset_left = 865.0
 offset_top = 460.0
