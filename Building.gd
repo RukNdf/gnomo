@@ -23,7 +23,7 @@ func getNode():
 ###########
 # Graphics
 ###########
-#smoke position to place in front of the farm when it dies
+#smoke position to place in front of the farm when it diest
 func initSmokePos():
 	var x = position.x + (Globals.gridCenter*(size.x%2)) + ((Globals.gridSize*(size.x/2))/2)
 	var z = position.z + (Globals.gridCenter*(size.y%2)) + ((Globals.gridSize*(size.y/2))/2)

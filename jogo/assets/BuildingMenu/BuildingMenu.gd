@@ -1,25 +1,19 @@
 extends Node2D
 
+@onready
+var curMenu = $Main
 
 func select(selected):
 	get_parent().select(selected)
-
-func selectMush():
-	return
-	get_parent().select('mush')
 	
-func selectTower():
-	get_parent().select('tower')
-	
-func selectWide():
-	get_parent().select('wide')
-
-func selectFix():
-	get_parent().select('fix')
-
-func selectDest():
-	get_parent().select('dest')
-	
+func changeMenu(selected):
+	print(curMenu)
+	curMenu.position.y = 542
+	if selected == 'farms':
+		curMenu = $Farms
+	if selected == 'back':
+		curMenu = $Main
+	curMenu.position.y = 42
 	
 #move menu on hover 
 var up = false

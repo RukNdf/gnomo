@@ -72,10 +72,10 @@ modulate = Color(1, 1, 1, 0.886275)
 position = Vector2(576, 324)
 texture = ExtResource("1_g3558")
 
-[node name="Buildings" type="Node2D" parent="."]
+[node name="Main" type="Node2D" parent="."]
 position = Vector2(0, 42)
 
-[node name="Farm" type="TextureButton" parent="Buildings"]
+[node name="Farm" type="TextureButton" parent="Main"]
 offset_left = 243.0
 offset_top = 460.0
 offset_right = 333.0
@@ -87,7 +87,7 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Atk" type="TextureButton" parent="Buildings"]
+[node name="Atk" type="TextureButton" parent="Main"]
 offset_left = 398.0
 offset_top = 460.0
 offset_right = 488.0
@@ -99,7 +99,7 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Def" type="TextureButton" parent="Buildings"]
+[node name="Def" type="TextureButton" parent="Main"]
 offset_left = 554.0
 offset_top = 460.0
 offset_right = 644.0
@@ -111,7 +111,7 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Fix" type="TextureButton" parent="Buildings"]
+[node name="Fix" type="TextureButton" parent="Main"]
 offset_left = 709.0
 offset_top = 460.0
 offset_right = 799.0
@@ -123,7 +123,7 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="Dest" type="TextureButton" parent="Buildings"]
+[node name="Dest" type="TextureButton" parent="Main"]
 offset_left = 865.0
 offset_top = 460.0
 offset_right = 955.0
@@ -135,14 +135,10 @@ ignore_texture_size = true
 stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="overlay" type="Sprite2D" parent="."]
-position = Vector2(576, 324)
-texture = ExtResource("4_1crbr")
+[node name="ShortcutText" type="Node2D" parent="Main"]
+position = Vector2(0, -217)
 
-[node name="ShortcutText" type="Node2D" parent="."]
-position = Vector2(0, -175)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ShortcutText"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Main/ShortcutText"]
 offset_left = 248.0
 offset_top = 665.0
 offset_right = 288.0
@@ -151,7 +147,7 @@ theme_override_font_sizes/normal_font_size = 22
 text = "1"
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="ShortcutText"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Main/ShortcutText"]
 offset_left = 401.0
 offset_top = 665.0
 offset_right = 441.0
@@ -160,7 +156,7 @@ theme_override_font_sizes/normal_font_size = 22
 text = "2"
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="ShortcutText"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="Main/ShortcutText"]
 offset_left = 559.0
 offset_top = 665.0
 offset_right = 599.0
@@ -169,7 +165,16 @@ theme_override_font_sizes/normal_font_size = 22
 text = "3"
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="ShortcutText"]
+[node name="RichTextLabel4" type="RichTextLabel" parent="Main/ShortcutText"]
+offset_left = 713.0
+offset_top = 665.0
+offset_right = 753.0
+offset_bottom = 705.0
+theme_override_font_sizes/normal_font_size = 22
+text = "4"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Main/ShortcutText"]
 offset_left = 869.0
 offset_top = 663.0
 offset_right = 909.0
@@ -178,14 +183,78 @@ theme_override_font_sizes/normal_font_size = 22
 text = "5"
 metadata/_edit_use_anchors_ = true
 
-[node name="RichTextLabel5" type="RichTextLabel" parent="ShortcutText"]
-offset_left = 713.0
+[node name="Farms" type="Node2D" parent="."]
+position = Vector2(0, 542)
+
+[node name="Farm" type="TextureButton" parent="Farms"]
+offset_left = 243.0
+offset_top = 460.0
+offset_right = 333.0
+offset_bottom = 550.0
+mouse_filter = 1
+texture_normal = ExtResource("2_wx84w")
+texture_pressed = ExtResource("7_6qkpf")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Wide" type="TextureButton" parent="Farms"]
+offset_left = 398.0
+offset_top = 460.0
+offset_right = 488.0
+offset_bottom = 550.0
+mouse_filter = 1
+texture_normal = ExtResource("5_pfhnk")
+texture_pressed = ExtResource("6_8yl82")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Back" type="TextureButton" parent="Farms"]
+offset_left = 865.0
+offset_top = 460.0
+offset_right = 955.0
+offset_bottom = 550.0
+mouse_filter = 1
+texture_normal = ExtResource("9_1kwmp")
+texture_pressed = ExtResource("10_yfstw")
+ignore_texture_size = true
+stretch_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="ShortcutText" type="Node2D" parent="Farms"]
+position = Vector2(0, -217)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Farms/ShortcutText"]
+offset_left = 248.0
 offset_top = 665.0
-offset_right = 753.0
+offset_right = 288.0
 offset_bottom = 705.0
 theme_override_font_sizes/normal_font_size = 22
-text = "4"
+text = "1"
 metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Farms/ShortcutText"]
+offset_left = 401.0
+offset_top = 665.0
+offset_right = 441.0
+offset_bottom = 705.0
+theme_override_font_sizes/normal_font_size = 22
+text = "2"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="Farms/ShortcutText"]
+offset_left = 869.0
+offset_top = 663.0
+offset_right = 909.0
+offset_bottom = 703.0
+theme_override_font_sizes/normal_font_size = 22
+text = "5"
+metadata/_edit_use_anchors_ = true
+
+[node name="overlay" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+texture = ExtResource("4_1crbr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -200,8 +269,11 @@ scale = Vector2(916, 268)
 texture = SubResource("CanvasTexture_iwdwk")
 script = ExtResource("6_7dyf8")
 
-[connection signal="pressed" from="Buildings/Farm" to="." method="select" binds= ["mush"]]
-[connection signal="pressed" from="Buildings/Atk" to="." method="selectTower"]
-[connection signal="pressed" from="Buildings/Def" to="." method="select" binds= ["fence"]]
-[connection signal="pressed" from="Buildings/Fix" to="." method="selectFix"]
-[connection signal="pressed" from="Buildings/Dest" to="." method="selectDest"]
+[connection signal="pressed" from="Main/Farm" to="." method="changeMenu" binds= ["farms"]]
+[connection signal="pressed" from="Main/Atk" to="." method="select" binds= ["tower"]]
+[connection signal="pressed" from="Main/Def" to="." method="select" binds= ["fence"]]
+[connection signal="pressed" from="Main/Fix" to="." method="select" binds= ["fix"]]
+[connection signal="pressed" from="Main/Dest" to="." method="select" binds= ["dest"]]
+[connection signal="pressed" from="Farms/Farm" to="." method="select" binds= ["mush"]]
+[connection signal="pressed" from="Farms/Wide" to="." method="select" binds= ["wide"]]
+[connection signal="pressed" from="Farms/Back" to="." method="changeMenu" binds= ["back"]]
