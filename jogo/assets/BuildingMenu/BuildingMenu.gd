@@ -11,8 +11,12 @@ func changeMenu(selected):
 	curMenu.position.y = 542
 	if selected == 'farms':
 		curMenu = $Farms
-	if selected == 'back':
+	elif selected == 'back':
 		curMenu = $Main
+	elif selected == 'atk':
+		curMenu = $Atk
+	elif selected == 'def':
+		curMenu = $Def
 	curMenu.position.y = 42
 	
 func shortcut(num):
@@ -20,11 +24,15 @@ func shortcut(num):
 	if typeof(selected) == buttonType:
 		selected.emit_signal("pressed")
 	
+func reset():
+	changeMenu('back')
+	
 #move menu on hover 
 var up = false
 func testMenuCol(pos):
 	if $colBox.activateMenu(pos):
 		if !up:
+			reset()
 			$AnimationPlayer.pause()
 			up = true
 			$AnimationPlayer.play("move")
