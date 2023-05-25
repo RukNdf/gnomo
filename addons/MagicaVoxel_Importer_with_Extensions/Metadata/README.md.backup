@@ -21,4 +21,4 @@ IP e usuário no quadro. Caso a chave esteja configurada corretamente poderá en
 
 ## Etapa 3.5 - Adicionar a chave pública à máquina remota
 
-A máquina remota provavelmente será utilizada futuramente e se tu bota a chave não precisa de senha pra logar. 
+A máquina remota provavelmente será utilizada futuramente e 

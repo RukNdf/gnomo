@@ -10,7 +10,7 @@ const MUTE = true
 # Init
 #############################################################
 #resource indexes
-const mush = 0
+const MUSH = 0
 #resource list
 var resources = [120]
 #num of required buildings (e.g. farm)
@@ -19,12 +19,16 @@ var numBuilding = 0
 var selected = 'mush'
 #turn configuration
 var turns
+#3d lines
+var draw3D
 
 #initialize game field
 func _ready():	
 	if(MUTE):
 		mute()
 	randomize()
+	draw3D = Draw3D.new()
+	add_child(draw3D)
 	icon =  $Icons/Hammer
 	initGridSpace()
 	initTurns()
@@ -389,16 +393,21 @@ func updateResources():
 
 #update mushroom counter
 func updateMushrooms(num):
-	if resources[mush] + num < 0:
+	if resources[MUSH] + num < 0:
 		return false
-	resources[mush] += num
-	$Overlay/resources.updateMush(resources[mush])
+	resources[MUSH] += num
+	$Overlay/resources.updateMush(resources[MUSH])
 	return true
 
 
 #############################################################
 # Defend 
 #############################################################
+#list of attack lines to render on screen
+var atkLines = []
+#time of next atk line to despawn
+var nextDespawnTime = 0
+
 #start turret processing
 func defend():
 	$AtkTimer.set_wait_time(Globals.atkDelay)
@@ -411,12 +420,42 @@ func towerAtk():
 			continue
 		var e = tower.kill()
 		if e != null:
-			atkUnit(e)
+			atkUnit(e, tower.position)
 	if(!atkTurn):
+		draw3D.clear()
 		$AtkTimer.stop()
-		
+		$atkLineTimer.stop()
+
+#add another attack line to render on screen
+func addAtkLine(src, dst):
+	var despawnTime = Time.get_ticks_msec() + Globals.projectileDuration
+	src.y = Globals.projectileSrcHeight
+	dst.y = Globals.projectileDstHeight
+	atkLines += [[[src,dst], despawnTime]]
+	print(atkLines)
+	draw3D.draw_line([src,dst])
+	nextDespawnTime = atkLines[0][0]
+	if($atkLineTimer.is_stopped()):
+		$atkLineTimer.set_wait_time(Globals.projectileCleanupTimer)
+		$atkLineTimer.start()
+	
+#remove expired lines and redraw
+func updateAtkLine():
+	var curTime = Time.get_ticks_msec()
+	var len = len(atkLines)
+	while len > 0:
+		if(atkLines[0][1] < curTime):
+			atkLines.remove_at(0)
+			len -= 1
+		else:
+			break
+	draw3D.clear()
+	for line in atkLines:
+		draw3D.draw_line(line[0])
+
 #hit unit
-func atkUnit(e):
+func atkUnit(e, source):
+	addAtkLine(source, e.position)
 	$SFX/EnemyHit.play()
 	if e.hit():
 		$SFX/EnemyDeath.play()
@@ -480,7 +519,7 @@ func spawnEnemy(numList):
 # ... 
 #############################################################
 func _input(event):
-	if event is InputEventKey:
+	if event is InputEventKey and event.pressed:
 		if !atkTurn:
 			keySelect(event.keycode)
 	if event is InputEventMouse:
@@ -512,10 +551,9 @@ func keySelect(key):
 		selected = 3
 	elif key == KEY_5 or key == KEY_KP_5:
 		selected = 4
-	elif key == KEY_6 or key == KEY_KP_6:
-		select('poison_tower')
-		return
 	else:
+		if key == KEY_ESCAPE:
+			$menu.reset()
 		return
 	$menu.shortcut(selected)
 

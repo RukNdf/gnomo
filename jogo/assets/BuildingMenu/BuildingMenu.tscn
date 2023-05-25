@@ -536,7 +536,7 @@ script = ExtResource("6_7dyf8")
 [connection signal="pressed" from="Atk/Wide" to="." method="select" binds= ["poison_tower"]]
 [connection signal="pressed" from="Atk/Back" to="." method="changeMenu" binds= ["back"]]
 [connection signal="pressed" from="Def/Farm" to="." method="select" binds= ["fence"]]
-[connection signal="pressed" from="Def/Back" to="." method="changeMenu"]
+[connection signal="pressed" from="Def/Back" to="." method="changeMenu" binds= ["back"]]
 [connection signal="pressed" from="Base/Farm" to="." method="select"]
 [connection signal="pressed" from="Base/Wide" to="." method="select"]
 [connection signal="pressed" from="Base/Def" to="." method="select"]

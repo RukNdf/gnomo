@@ -29,7 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://uenmbgy435i7" path="res://jogo/assets/hud/Attack.png" id="22_bbdp8"]
 [ext_resource type="PackedScene" uid="uid://c1fsas23mw4mv" path="res://jogo/assets/hud/Slap.tscn" id="25_i7080"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Slap.gd" id="26_kucwj"]
-[ext_resource type="PackedScene" uid="uid://kh5ef7li5wbu" path="res://jogo/assets/Gnomo/Hat.tscn" id="30_30kl7"]
+[ext_resource type="PackedScene" uid="uid://8c1uoog0fiyd" path="res://jogo/assets/Gnomo/Hat.tscn" id="30_30kl7"]
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -155,6 +155,7 @@ script = ExtResource("3_goc5b")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 15.3634, 0, 4.17966)
 
 [node name="Cursor" parent="." instance=ExtResource("4_23btj")]
+transform = Transform3D(0.3, 0, 0, 0, -1.31134e-08, 0.3, 0, -0.3, -1.31134e-08, 0, 0.1, 0)
 script = ExtResource("5_jfmow")
 
 [node name="ground" parent="." instance=ExtResource("1_t65l0")]
@@ -165,6 +166,9 @@ collision_layer = 3
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8vrw3")
+
+[node name="atkLineTimer" type="Timer" parent="."]
+wait_time = 0.5
 
 [node name="AtkTimer" type="Timer" parent="."]
 
@@ -339,5 +343,6 @@ visible = false
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15.875, 1.9, 4.12)
 visible = false
 
+[connection signal="timeout" from="atkLineTimer" to="." method="updateAtkLine"]
 [connection signal="timeout" from="AtkTimer" to="." method="towerAtk"]
 [connection signal="button_up" from="Overlay/turnButton" to="." method="passTurn"]
