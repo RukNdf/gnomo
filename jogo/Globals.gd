@@ -33,7 +33,7 @@ var placementDelay = 150
 ##########
 var atkDelay = 1
 var projectileDuration = 0.3
-var projectileCleanupTimer = 0.2
+var projectileCleanupTimer = 0.05
 var projectileSrcHeight = 0.5
 var projectileDstHeight = 1.5
 
