@@ -18,9 +18,7 @@ var leaving = false
 var atacking = false
 #enemy spawns and instantly searches for the nearest target
 func _ready():
-	$healthBar.max = float(health)
-	$healthBar.real = $healthBar.max
-	healthSpeedMod = 3.0/health
+	$healthBar.setHealth(float(health))
 	self.add_to_group("enemy")
 	origin = position
 	destination = position
@@ -100,6 +98,7 @@ var healthSpeedMod
 func hit():
 	if health > 0:
 		health -= 1
+		$healthBar.damage(1)
 		healthChanged = true
 		if health == 0:
 			defeat()
@@ -107,16 +106,6 @@ func hit():
 		else:
 			$AnimationPlayer.play("hit")
 	return false
-#animate health bar after hit
-func _process(delta):
-	if healthChanged:
-		if $healthBar.real > health:
-			$healthBar.real -= healthSpeedMod*delta
-			if $healthBar.real < health:
-				$healthBar.real = float(health)
-			$healthBar.move($healthBar.real)
-		else:
-			healthChanged = false
 
 #defeated enemy, switch modes and run away
 func defeat():
