@@ -155,7 +155,6 @@ script = ExtResource("3_goc5b")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 15.3634, 0, 4.17966)
 
 [node name="Cursor" parent="." instance=ExtResource("4_23btj")]
-transform = Transform3D(0.3, 0, 0, 0, -1.31134e-08, 0.3, 0, -0.3, -1.31134e-08, 0, 0.1, 0)
 script = ExtResource("5_jfmow")
 
 [node name="ground" parent="." instance=ExtResource("1_t65l0")]

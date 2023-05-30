@@ -1,8 +1,14 @@
+gnome	
 	construct animation
-gnome pathfinding
+	gnome pathfinding
 
-	enemy decustler 
-	enemy spawn random
 
-del building
+building health
+	health bar
+	repair health
 
+resource
+	fix farm resource production
+
+fence
+	fix collision box

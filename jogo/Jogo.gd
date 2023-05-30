@@ -228,6 +228,7 @@ func spawn(type):
 	f.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
 	f.position.y = 0.5
 	add_child(f)
+	updateNextResources()
 	if required:
 		$Overlay/turnButton.disabled = false
 	return true
@@ -337,6 +338,7 @@ func passTurn():
 		spawnEnemy(turn)
 	else:
 		announceEnemy(turn, nextTurn)
+		updateResources()
 		
 func disableBuild():
 	ghostEnabled = false
@@ -384,12 +386,20 @@ func enemyDeath():
 		$Bsong.play()
 		clearSmoke()
 
-#buildings produce resources between turns
-func updateResources():
+#calculate the resources generated per turn
+func calcNextResources():
 	var m = 0
 	for f in get_tree().get_nodes_in_group("farms"):
-		m += f.produces
-	updateMushrooms(m)
+		if !f.dead:
+			m += f.produces
+	return m
+#buildings produce resources between turns
+func updateResources():
+	updateMushrooms(calcNextResources())
+#update counter of resource change at the end of the turn
+func updateNextResources():
+	$Overlay/resources.updateMushPT(calcNextResources())
+
 
 #update mushroom counter
 func updateMushrooms(num):

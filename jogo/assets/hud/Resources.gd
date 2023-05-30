@@ -1,5 +1,19 @@
 extends Node2D
 
-#update text
+var numMush = '0'
+var numMushPT = '0'
+
+#update vars
 func updateMush(num):
-	$Mtext.text = '[right]'+str(num)+'[/right]'
+	numMush = str(num)
+	updateValues()
+func updateMushPT(num):
+	print(num)
+	numMushPT = str(num)
+	updateValues()
+	
+#update text
+func updateValues():
+	$Mtext.text = numMush + ' [color=green]('+numMushPT+')[/color]'
+
+	

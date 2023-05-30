@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://yecjvohw3ilf"]
+[gd_scene load_steps=4 format=3 uid="uid://yecjvohw3ilf"]
 
 [ext_resource type="Texture2D" uid="uid://brtaiy41bqx57" path="res://jogo/assets/hud/Mush.png" id="1_1472y"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Resources.gd" id="1_kwp37"]
+[ext_resource type="Texture2D" uid="uid://bhpyomm8gvbis" path="res://jogo/assets/hud/TextBackdrop.png" id="2_7bkog"]
 
 [node name="resources" type="Node2D"]
 script = ExtResource("1_kwp37")
+
+[node name="TextBackdrop" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.662745)
+position = Vector2(111, 49)
+rotation = -0.0750492
+scale = Vector2(0.232, 0.252)
+texture = ExtResource("2_7bkog")
 
 [node name="mush" type="Sprite2D" parent="."]
 position = Vector2(57, 40)
@@ -14,8 +22,11 @@ texture = ExtResource("1_1472y")
 [node name="Mtext" type="RichTextLabel" parent="."]
 offset_left = 101.0
 offset_top = 38.0
-offset_right = 141.0
-offset_bottom = 78.0
+offset_right = 111.0
+offset_bottom = 61.0
 bbcode_enabled = true
 text = "0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 text_direction = 1
