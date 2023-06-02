@@ -13,6 +13,7 @@ func init(location = null):
 	gridLocation = location
 	dead = false
 	cost = 5
+	$healthBar.setHealth(2)
 	
 	
 func updateFence(fences):
@@ -41,8 +42,15 @@ func hasNeighbor(fences, x,y):
 		return false
 	return fences[x][y]
 
+func hit():
+	$healthBar.damage(1)
+	if($healthBar.realHealth <= 0):
+		die()
+
 #overload die
 func die(smoke = true):
+	#hit()
+	return
 	dead = true
 	#remove from target group, start animations, and remove collision halfway into the animation
 	remove_from_group(group)

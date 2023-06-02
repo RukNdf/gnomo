@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://1iu70ppnt3yq"]
+[gd_scene load_steps=9 format=3 uid="uid://1iu70ppnt3yq"]
 
 [ext_resource type="Script" path="res://jogo/assets/Buildings/Farm.gd" id="1_0ld32"]
 [ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Buildings/Farm.png" id="2_armiy"]
+[ext_resource type="Texture2D" uid="uid://bxhv1jjt10qxg" path="res://jogo/assets/Buildings/FarmB.png" id="2_ev37j"]
 
 [sub_resource type="Animation" id="Animation_yd33j"]
 resource_name = "die"
@@ -35,16 +36,17 @@ _data = {
 "die": SubResource("Animation_yd33j")
 }
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yali0"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dj1q8"]
 resource_local_to_scene = true
+render_priority = -1
 transparency = 1
 albedo_texture = ExtResource("2_armiy")
 uv1_scale = Vector3(3, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_teiyg"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yali0"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="farm" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -55,14 +57,21 @@ libraries = {
 "": SubResource("AnimationLibrary_cdjlb")
 }
 
+[node name="Mesh" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_dj1q8")
+mesh = SubResource("BoxMesh_teiyg")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.165748, 0, 0, 0, 0.165748, 0, 0, 0, 1, 0.0858107, -0.120362, 0.0281328)
+billboard = 1
+alpha_cut = 2
+texture = ExtResource("2_ev37j")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_layer = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_yali0")
-
-[node name="Mesh" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_dj1q8")
-mesh = SubResource("BoxMesh_teiyg")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
