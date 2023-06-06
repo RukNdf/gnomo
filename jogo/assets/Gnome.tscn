@@ -6,6 +6,7 @@
 
 [node name="gnome" type="CharacterBody3D"]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+collision_mask = 15
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(11, 0, 0, 0, 11, 0, 0, 0, 11, 0, 5.62729, 0)

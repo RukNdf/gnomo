@@ -528,7 +528,7 @@ func spawnEnemy(numList):
 # Camera
 #############################################################
 #x position, zoom, and z position
-var minCamera = Vector3i(20,10,20)
+var minCamera = Vector3i(20,5,20)
 var maxCamera = Vector3i(50,100,50)
 var moveFactor = Vector2(.6, 0.3)
 var zoomFactor = 1

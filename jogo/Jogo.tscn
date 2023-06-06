@@ -1,9 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=38 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
 [ext_resource type="Script" path="res://jogo/Camera3D.gd" id="3_goc5b"]
 [ext_resource type="PackedScene" uid="uid://dprocgeb8ure4" path="res://jogo/assets/hud/Forest.tscn" id="3_jb13l"]
+[ext_resource type="Script" path="res://jogo/assets/Gnome.gd" id="4_7quh5"]
 [ext_resource type="PackedScene" uid="uid://oqt3xm2plyds" path="res://jogo/assets/hud/Cursor.tscn" id="4_23btj"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Cursor.gd" id="5_jfmow"]
 [ext_resource type="PackedScene" uid="uid://c6h1k467knxnk" path="res://jogo/assets/hud/Arrow.tscn" id="8_ikw7w"]
@@ -152,7 +153,10 @@ near = 0.001
 script = ExtResource("3_goc5b")
 
 [node name="gnome" parent="." instance=ExtResource("11_20040")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 15.3634, 0, 4.17966)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 9.6391, 0, 6.69312)
+collision_layer = 15
+motion_mode = 1
+script = ExtResource("4_7quh5")
 
 [node name="Cursor" parent="." instance=ExtResource("4_23btj")]
 script = ExtResource("5_jfmow")
