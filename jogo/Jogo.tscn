@@ -145,9 +145,9 @@ _data = {
 script = ExtResource("1_2b80a")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(0.641304, -0.272422, 0.717298, -0.0328686, 0.924237, 0.380401, -0.766583, -0.267529, 0.583763, 22.4884, 6.75599, 15.9936)
+transform = Transform3D(0.640612, -0.273538, 0.717491, -0.0322662, 0.923983, 0.38107, -0.767186, -0.267269, 0.583089, 29.4873, 13.679, 21.5953)
 projection = 1
-size = 10.0
+size = 20.0
 near = 0.001
 script = ExtResource("3_goc5b")
 
@@ -158,7 +158,7 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 15.3634, 0, 4.17966)
 script = ExtResource("5_jfmow")
 
 [node name="ground" parent="." instance=ExtResource("1_t65l0")]
-transform = Transform3D(22, 0, 0, 0, 0.2, 0, 0, 0, 15, 10.161, -0.499999, 6.71224)
+transform = Transform3D(37.1273, 0, 0, 0, 0.2, 0, 0, 0, 29.3523, 17.8396, -0.499999, 13.9104)
 collision_layer = 3
 
 [node name="trunk" parent="." instance=ExtResource("3_jb13l")]
@@ -307,29 +307,29 @@ transform = Transform3D(0.35, 0, 0, 0, -1.5299e-08, 0.35, 0, -0.35, -1.5299e-08,
 visible = false
 
 [node name="EnemySpawnerLL" parent="Spawners" instance=ExtResource("18_pkqmr")]
-transform = Transform3D(5, 0, 0, 0, 2, 0, 0, 0, 5, -0.587847, 0, 10.9395)
+transform = Transform3D(5, 0, 0, 0, 2, 0, 0, 0, 5, -0.587847, 0, 27.7217)
 visible = false
 
 [node name="ArrowLL" parent="Spawners" instance=ExtResource("8_ikw7w")]
-transform = Transform3D(0.35, 0, 0, 0, -1.5299e-08, 0.35, 0, -0.35, -1.5299e-08, 4.25922, 0.0900005, 12.432)
+transform = Transform3D(0.35, 0, 0, 0, -1.5299e-08, 0.35, 0, -0.35, -1.5299e-08, 4.25922, 0.0900011, 25.4834)
 visible = false
 flip_v = true
 
 [node name="EnemySpawnerUR" parent="Spawners" instance=ExtResource("18_pkqmr")]
-transform = Transform3D(5, 0, 0, 0, 2, 0, 0, 0, 5, 20.2306, 0, -0.130857)
+transform = Transform3D(5, 0, 0, 0, 2, 0, 0, 0, 5, 37.2035, 0, -0.130857)
 visible = false
 
 [node name="ArrowUR" parent="Spawners" instance=ExtResource("8_ikw7w")]
-transform = Transform3D(0.338074, -0.0905867, -3.95967e-09, 0, -1.5299e-08, 0.35, -0.0905867, -0.338074, -1.47777e-08, 19.2, 0.09, 1.5)
+transform = Transform3D(0.338074, -0.0905867, -3.95967e-09, 0, -1.5299e-08, 0.35, -0.0905867, -0.338074, -1.47777e-08, 34.2192, 0.09, 2.37317)
 visible = false
 flip_h = true
 
 [node name="EnemySpawnerLR" parent="Spawners" instance=ExtResource("18_pkqmr")]
-transform = Transform3D(3.53553, 0, -3.53553, 0, 2, 0, 3.53553, 0, 3.53553, 22.9577, 0, 15.1494)
+transform = Transform3D(3.53553, 0, -3.53553, 0, 2, 0, 3.53553, 0, 3.53553, 37.3829, 0, 29.6581)
 visible = false
 
 [node name="ArrowLR" parent="Spawners" instance=ExtResource("8_ikw7w")]
-transform = Transform3D(0.34103, 0.0787329, 3.44152e-09, 0, -1.5299e-08, 0.35, 0.0787329, -0.34103, -1.49069e-08, 20.5, 0.001, 13)
+transform = Transform3D(0.34103, 0.0787329, 3.44152e-09, 0, -1.5299e-08, 0.35, 0.0787329, -0.34103, -1.49069e-08, 33.6554, 0.09, 26.8336)
 visible = false
 flip_h = true
 flip_v = true

@@ -524,10 +524,55 @@ func spawnEnemy(numList):
 			add_child(e)
 
 
+#############################################################
+# Camera
+#############################################################
+#x position, zoom, and z position
+var minCamera = Vector3i(20,10,20)
+var maxCamera = Vector3i(50,100,50)
+var moveFactor = Vector2(.6, 0.3)
+var zoomFactor = 1
+func cameraZoomIn():
+	$Camera.size -= zoomFactor
+	if $Camera.size < minCamera.y:
+		$Camera.size = minCamera.y
+func cameraZoomOut():
+	$Camera.size += zoomFactor
+	if $Camera.size > maxCamera.y:
+		$Camera.size = maxCamera.y
+func moveCamera(x,z):
+	$Camera.position.x += x
+	if x < 0:
+		if($Camera.position.x < minCamera.x):
+			$Camera.position.x = minCamera.x
+	else:
+		if($Camera.position.x > maxCamera.x):
+			$Camera.position.x = maxCamera.x
+	$Camera.position.z += z
+	if z < 0:
+		if($Camera.position.z < minCamera.z):
+			$Camera.position.z = minCamera.z
+	else:
+		if($Camera.position.z > maxCamera.z):
+			$Camera.position.z = maxCamera.z
 
 #############################################################
 # ... 
 #############################################################
+func _process(delta):
+	#var moveCamera = false
+	#var move = 
+	if Input.is_key_pressed(KEY_W):
+		moveCamera(-moveFactor.x,-moveFactor.x)
+	elif Input.is_key_pressed(KEY_S):
+		moveCamera(moveFactor.x,moveFactor.x)
+	if Input.is_key_pressed(KEY_A):
+		moveCamera(-moveFactor.y,moveFactor.y)
+	elif Input.is_key_pressed(KEY_D):
+		moveCamera(moveFactor.y,-moveFactor.y)
+	#elif Input.is_key_pressed(KEY_S):
+		
+	
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if !atkTurn:
@@ -535,6 +580,10 @@ func _input(event):
 	if event is InputEventMouse:
 		$menu.testMenuCol(event.position)
 	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			cameraZoomIn()
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			cameraZoomOut()
 		if $Camera.mode == Globals.BUILDMODE:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				if canPlace and not $menu.up:

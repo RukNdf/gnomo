@@ -5,8 +5,8 @@ extends Node
 ###############
 var size = 2
 var spacing = 0.1
-var maxX = 9
-var maxY = 6
+var maxX = 16
+var maxY = 13
 var gridSize = size+(spacing*2)
 var gridCenter = spacing+(size/2)
 
