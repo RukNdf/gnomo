@@ -472,7 +472,7 @@ func atkUnit(e, source):
 
 #damage building
 func damageBuilding(col):	
-	print(col)
+	return
 	var obj
 	if(col.has_method('getNode')):
 		obj = col.get_parent().getNode()
@@ -482,7 +482,6 @@ func damageBuilding(col):
 		return
 	if obj.dead:
 		return
-	print('dmg')
 	obj.damage()
 
 #destroy building
@@ -514,8 +513,10 @@ func removeFarm():
 		e.getTarget()
 	
 #remove destroyed building from game tree 
-func remove(obj):
+func remove(obj, farm = false):
 	remove_child(obj)
+	if farm:
+		removeFarm()
 
 #game over
 func gameOver():
@@ -591,6 +592,13 @@ func _process(delta):
 		moveCamera(moveFactor.y,-moveFactor.y)
 	elif Input.is_key_pressed(KEY_SPACE):
 		damageBuilding($gnome.col)
+	elif Input.is_action_just_pressed('toggleMenu'):
+		$menu.toggleMenu()
+	elif Input.is_key_pressed(KEY_T):
+		damageBuilding($gnome.col)		
+		var enemies = get_tree().get_nodes_in_group("enemy")
+		for e in enemies:
+			e.getTarget()
 	#elif Input.is_key_pressed(KEY_S):
 		
 	

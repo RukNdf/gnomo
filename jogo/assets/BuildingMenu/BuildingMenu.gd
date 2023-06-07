@@ -3,6 +3,7 @@ extends Node2D
 @onready
 var curMenu = $Main
 var buttonType = typeof($Main/Farm)
+var keepUp = false
 
 func select(selected):
 	get_parent().select(selected)
@@ -35,13 +36,26 @@ func reset():
 var up = false
 func testMenuCol(pos):
 	if $colBox.activateMenu(pos):
+		keepUp = false
 		if !up:
 			reset()
 			$AnimationPlayer.pause()
 			up = true
 			$AnimationPlayer.play("move")
-	else:
+	elif !keepUp:
 		if up:
 			$AnimationPlayer.pause()
 			up = false
 			$AnimationPlayer.play_backwards()
+
+func toggleMenu():
+	if !up:
+		$AnimationPlayer.pause()
+		up = true
+		keepUp = true
+		$AnimationPlayer.play("move")
+	else:
+		$AnimationPlayer.pause()
+		keepUp = false
+		up = false
+		$AnimationPlayer.play_backwards()

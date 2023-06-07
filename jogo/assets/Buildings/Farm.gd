@@ -10,3 +10,7 @@ func init():
 	dead = false
 	cost = 10
 	produces = 5
+
+#leave scene 
+func leave():
+	get_parent().remove(self, true)
