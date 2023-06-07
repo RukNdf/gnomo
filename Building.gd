@@ -65,8 +65,9 @@ func die(smoke = true):
 	await get_tree().create_timer(Globals.colDelay).timeout
 	$StaticBody3D/CollisionShape3D.disabled = true
 #leave scene 
-func leave():
-	get_parent().remove(self)
+func leave(anim):
+	if anim == 'die':
+		get_parent().remove(self)
 
 #########
 # Ghost

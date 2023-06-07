@@ -12,5 +12,7 @@ func init():
 	produces = 5
 
 #leave scene 
-func leave():
-	get_parent().remove(self, true)
+func leave(anim):
+	print('aaaa')
+	if anim == 'die':
+		get_parent().remove(self, true)

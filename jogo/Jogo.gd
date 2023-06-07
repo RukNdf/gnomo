@@ -472,7 +472,6 @@ func atkUnit(e, source):
 
 #damage building
 func damageBuilding(col):	
-	return
 	var obj
 	if(col.has_method('getNode')):
 		obj = col.get_parent().getNode()
@@ -487,6 +486,7 @@ func damageBuilding(col):
 #destroy building
 func destroy(col):	
 	var obj
+	var group = obj.group
 	if(col.has_method('getNode')):
 		obj = col.get_parent().getNode()
 	else:
@@ -497,7 +497,7 @@ func destroy(col):
 		return
 	#kills object but doesn't spawn smoke if it's not getting attacked
 	obj.die(atkTurn)
-	if obj.group == 'farms':
+	if group == 'farms':
 		removeFarm()
 	
 #call after a farm is destroyed
@@ -514,6 +514,7 @@ func removeFarm():
 	
 #remove destroyed building from game tree 
 func remove(obj, farm = false):
+	print('test')
 	remove_child(obj)
 	if farm:
 		removeFarm()
@@ -595,7 +596,6 @@ func _process(delta):
 	elif Input.is_action_just_pressed('toggleMenu'):
 		$menu.toggleMenu()
 	elif Input.is_key_pressed(KEY_T):
-		damageBuilding($gnome.col)		
 		var enemies = get_tree().get_nodes_in_group("enemy")
 		for e in enemies:
 			e.getTarget()
