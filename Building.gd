@@ -50,6 +50,9 @@ func calcDisplacement():
 ########
 # Die
 #######
+#take damage, by default has 1 health and takes 1 damage
+func damage(damage = 1, smoke = true):
+	die(smoke) 
 #start dying
 func die(smoke = true):
 	dead = true

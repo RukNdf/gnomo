@@ -15,6 +15,8 @@ var maxHealth
 var healthChanged = false
 #speed at which health moves
 var healthSpeedMod = 0.03
+#died, stop processing inputs
+var dead = false
 
 func setHealth(health):
 	curHealth = health
@@ -23,9 +25,9 @@ func setHealth(health):
 	healthSpeedMod = 3.0/health
 	
 func damage(num):
-	realHealth -= num
-	healthChanged = true
-	
+	if !dead:
+		realHealth -= num
+		healthChanged = true	
 	
 func _process(delta):
 	if healthChanged:
@@ -34,6 +36,10 @@ func _process(delta):
 			if curHealth < realHealth:
 				curHealth = realHealth
 			animate(curHealth)
+			if(curHealth <= 0):
+				if !dead:
+					print('dead')
+					dead = true
 		else:
 			healthChanged = false
 

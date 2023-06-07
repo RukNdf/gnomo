@@ -18,18 +18,15 @@ func init(location = null):
 	
 func updateFence(fences):
 	if hasNeighbor(fences, 1, 0):
-		print('has x')
 		$DR.visible = true
 		$DRCol/StaticBody3D/CollisionShape3D.disabled = false
 	else:
 		$DR.visible = false
 		$DRCol/StaticBody3D/CollisionShape3D.disabled = true
 	if hasNeighbor(fences, 0, 1):
-		print('has y')
 		$DL.visible = true
 		$DLCol/StaticBody3D/CollisionShape3D.disabled = false
 	else:
-		print('noy')
 		$DL.visible = false
 		$DLCol/StaticBody3D/CollisionShape3D.disabled = true
 	
@@ -42,15 +39,13 @@ func hasNeighbor(fences, x,y):
 		return false
 	return fences[x][y]
 
-func hit():
-	$healthBar.damage(1)
+func damage(dmg = 1, smoke = true):
+	$healthBar.damage(dmg)
 	if($healthBar.realHealth <= 0):
-		die()
+		die(smoke)
 
 #overload die
 func die(smoke = true):
-	#hit()
-	return
 	dead = true
 	#remove from target group, start animations, and remove collision halfway into the animation
 	remove_from_group(group)

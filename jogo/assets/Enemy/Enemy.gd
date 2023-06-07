@@ -78,12 +78,6 @@ func _physics_process(delta):
 	#if not fleeing go to nearest target
 	if !running:
 		var nextMove = position+(velocity)
-		var query = PhysicsRayQueryParameters3D.create(position, nextMove)
-		var result = space_state.intersect_ray(query)
-		#touched building, destroy it
-		if result:
-			get_parent().destroy(result.collider)
-			return
 	#if fleeing start leaving when out of the player's area
 	elif not leaving:
 		if (abs(abs(destination.x) - abs(position.x)) < 0.5 and abs(abs(destination.z) - abs(position.z)) < 0.5):
@@ -91,6 +85,9 @@ func _physics_process(delta):
 			leaving = true
 	velocity *= speed
 	move_and_slide()
+	for i in get_slide_collision_count():
+		var col = get_slide_collision(i).get_collider()
+		get_parent().damageBuilding(col)
 	
 #health bar
 var healthChanged = false
@@ -110,7 +107,6 @@ func hit():
 #defeated enemy, switch modes and run away
 func defeat():
 	if !running:
-		print('die')
 		get_parent().enemyDeath()
 		remove_from_group('enemy')
 		running = true

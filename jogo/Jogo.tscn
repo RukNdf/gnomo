@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
 [ext_resource type="Script" path="res://jogo/Camera3D.gd" id="3_goc5b"]
 [ext_resource type="PackedScene" uid="uid://dprocgeb8ure4" path="res://jogo/assets/hud/Forest.tscn" id="3_jb13l"]
-[ext_resource type="Script" path="res://jogo/assets/Gnome.gd" id="4_7quh5"]
 [ext_resource type="PackedScene" uid="uid://oqt3xm2plyds" path="res://jogo/assets/hud/Cursor.tscn" id="4_23btj"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Cursor.gd" id="5_jfmow"]
 [ext_resource type="PackedScene" uid="uid://c6h1k467knxnk" path="res://jogo/assets/hud/Arrow.tscn" id="8_ikw7w"]
@@ -31,6 +30,35 @@
 [ext_resource type="PackedScene" uid="uid://c1fsas23mw4mv" path="res://jogo/assets/hud/Slap.tscn" id="25_i7080"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Slap.gd" id="26_kucwj"]
 [ext_resource type="PackedScene" uid="uid://8c1uoog0fiyd" path="res://jogo/assets/Gnomo/Hat.tscn" id="30_30kl7"]
+
+[sub_resource type="GDScript" id="GDScript_2qwcr"]
+script/source = "extends CharacterBody3D
+
+
+const SPEED = 5.0
+
+var col = null
+
+func _physics_process(delta):
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir = Input.get_vector(\"ui_left\", \"ui_right\", \"ui_up\", \"ui_down\")
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+	
+	move_and_slide()
+	for index in get_slide_collision_count():
+		var collision = get_slide_collision(index)
+		var body := collision.get_collider()
+		print(\"Collided with: \", body.name)
+		col = body
+"
 
 [sub_resource type="Environment" id="Environment_8vrw3"]
 background_mode = 1
@@ -153,10 +181,9 @@ near = 0.001
 script = ExtResource("3_goc5b")
 
 [node name="gnome" parent="." instance=ExtResource("11_20040")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 9.6391, 0, 6.69312)
-collision_layer = 15
-motion_mode = 1
-script = ExtResource("4_7quh5")
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 9.939, 0.1, 6.693)
+collision_mask = 15
+script = SubResource("GDScript_2qwcr")
 
 [node name="Cursor" parent="." instance=ExtResource("4_23btj")]
 script = ExtResource("5_jfmow")

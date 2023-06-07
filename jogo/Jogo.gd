@@ -470,6 +470,21 @@ func atkUnit(e, source):
 	if e.hit():
 		$SFX/EnemyDeath.play()
 
+#damage building
+func damageBuilding(col):	
+	print(col)
+	var obj
+	if(col.has_method('getNode')):
+		obj = col.get_parent().getNode()
+	else:
+		obj = col.get_parent()
+	if(!obj.has_method('damage')):
+		return
+	if obj.dead:
+		return
+	print('dmg')
+	obj.damage()
+
 #destroy building
 func destroy(col):	
 	var obj
@@ -484,7 +499,11 @@ func destroy(col):
 	#kills object but doesn't spawn smoke if it's not getting attacked
 	obj.die(atkTurn)
 	if obj.group == 'farms':
-		numBuilding -= 1	
+		removeFarm()
+	
+#call after a farm is destroyed
+func removeFarm():
+	numBuilding -= 1	
 	if numBuilding == 0:
 		if atkTurn:
 			gameOver()
@@ -570,6 +589,8 @@ func _process(delta):
 		moveCamera(-moveFactor.y,moveFactor.y)
 	elif Input.is_key_pressed(KEY_D):
 		moveCamera(moveFactor.y,-moveFactor.y)
+	elif Input.is_key_pressed(KEY_SPACE):
+		damageBuilding($gnome.col)
 	#elif Input.is_key_pressed(KEY_S):
 		
 	

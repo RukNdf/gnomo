@@ -22,7 +22,11 @@ func changeMenu(selected):
 func shortcut(num):
 	var selected = curMenu.get_child(num)
 	if typeof(selected) == buttonType:
-		selected.emit_signal("pressed")
+		if curMenu != $Main:
+			selected.emit_signal("pressed")
+			changeMenu('back')
+		else:
+			selected.emit_signal("pressed")
 	
 func reset():
 	changeMenu('back')
