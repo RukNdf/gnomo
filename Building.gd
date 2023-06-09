@@ -64,6 +64,8 @@ func die(smoke = true):
 	$AnimationPlayer.play("die")
 	await get_tree().create_timer(Globals.colDelay).timeout
 	$StaticBody3D/CollisionShape3D.disabled = true
+	hide()
+	queue_free()
 #leave scene 
 func leave(anim):
 	if anim == 'die':

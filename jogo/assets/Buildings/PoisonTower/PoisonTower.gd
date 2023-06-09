@@ -17,9 +17,13 @@ func _process(delta):
 
 func deal_poison(body):
 	# apply poison
-	if body.is_in_group("enemy"):
+	if body.is_in_group("enemy") and body.has_method("get_status") and not body.get_status().has("poison"):
 		print("AAAAA-->", body, dead)
 		if body.has_method("poisonDamage"):
+			var newStatus = body.get_status()
+			newStatus["poison"] = 0.5
+			body.set_status(newStatus)
+			
 			body.poisonDamage(0.5)
 			var effectInstance = effect.instantiate()
 			body.add_child(effectInstance)

@@ -16,6 +16,8 @@ var space_state
 var running = false
 var leaving = false
 var atacking = false
+var status := {}
+
 #enemy spawns and instantly searches for the nearest target
 func _ready():
 	$healthBar.setHealth(float(health))
@@ -122,6 +124,12 @@ func animationFinished(anim):
 		get_parent().destroy(self)
 	else:
 		$AnimationPlayer.play('walk')
+
+func set_status(newStatus:Dictionary) -> void:
+	status = newStatus
+
+func get_status() -> Dictionary:
+	return status
 
 func poisonDamage(damage:float):
 	if health > 0:
