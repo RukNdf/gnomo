@@ -256,7 +256,7 @@ func place(pos, size):
 				updateFences()
 
 #clear space on grid when destroyed
-func clearPlace(position, size):
+func clearPlace(position, size, group=''):
 	var pos = Vector2()
 	pos.x = position.x/Globals.gridSize
 	pos.y = position.z/Globals.gridSize
@@ -264,7 +264,11 @@ func clearPlace(position, size):
 		for y in range(pos.y, pos.y+size.y):
 			gridSpace[x][y] = false
 			fences[x][y] = false
-	updateFences()
+	if group == 'farms':
+		updateEnemyTargets()
+		removeFarm()
+	else:
+		updateFences()
 
 #move icon and display when action is valid
 func moveIcon():
@@ -521,16 +525,16 @@ func removeFarm():
 			gameOver()
 		else:
 			$Overlay/turnButton.disabled = true
+	updateEnemyTargets()
+
+func updateEnemyTargets():
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	for e in enemies:
 		e.getTarget()
 	
 #remove destroyed building from game tree 
-func remove(obj, farm = false):
-	print('test')
+func remove(obj):
 	remove_child(obj)
-	if farm:
-		removeFarm()
 
 #game over
 func gameOver():
@@ -609,9 +613,7 @@ func _process(delta):
 	elif Input.is_action_just_pressed('toggleMenu'):
 		$menu.toggleMenu()
 	elif Input.is_key_pressed(KEY_T):
-		var enemies = get_tree().get_nodes_in_group("enemy")
-		for e in enemies:
-			e.getTarget()
+		updateEnemyTargets()
 	if Input.is_key_pressed(KEY_C):
 		$Cursor.changeSize(Vector2i(2,1))
 	#elif Input.is_key_pressed(KEY_S):

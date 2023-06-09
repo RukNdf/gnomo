@@ -57,8 +57,8 @@ func damage(damage = 1, smoke = true):
 func die(smoke = true):
 	dead = true
 	#remove from target group, start animations, and remove collision halfway into the animation
+	get_parent().clearPlace(position, size, group)
 	remove_from_group(group)
-	get_parent().clearPlace(position, size)
 	if smoke:
 		get_parent().spawnSmoke(getSmokePos())
 	$AnimationPlayer.play("die")
