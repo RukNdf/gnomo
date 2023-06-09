@@ -201,5 +201,5 @@ texture = ExtResource("3_ndfgd")
 hframes = 7
 frame = 3
 
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="animationFinished"]

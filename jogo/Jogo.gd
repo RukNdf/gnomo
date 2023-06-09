@@ -60,7 +60,16 @@ func initGridSpace():
 func initGhost():
 	ghost = farm.instantiate()
 	ghost.position.x = -500
-	select('mush')
+	selected = 'mush'
+	icon.visible = false
+	ghostEnabled = true	
+	$Camera.mode = Globals.BUILDMODE
+	ghost = farm.instantiate()
+	ghost.init()
+	ghostDisplacement = ghost.calcDisplacement()
+	ghost.createGhost()
+	add_child(ghost)
+	moveGhost()
 
 #initialize turns from turn file
 func initTurns():
@@ -148,6 +157,7 @@ func select(type):
 	#place building
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ghostEnabled = true	
+	$Cursor.visible = true
 	$Camera.mode = Globals.BUILDMODE
 	if type == 'mush':
 		ghost = farm.instantiate()
@@ -159,19 +169,21 @@ func select(type):
 		ghost = poison_tower.instantiate()
 	elif type == 'fence':
 		ghost = fence.instantiate()
-		
 	ghost.init()
 	ghostDisplacement = ghost.calcDisplacement()
 	ghost.createGhost()
 	ghost.position = pos
+	$Cursor.changeSize(ghost.size)
 	add_child(ghost)
-	moveGhost()
+	updateBuildCursor($Camera.groundedMousePos)
+	#moveGhost()
 
 func enableEdit():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	$Camera.mode = Globals.EDITMODE
 	icon.visible = true
 	ghostEnabled = false
+	$Cursor.visible = false
 	moveIcon()
 
 #test if user can place a building
@@ -287,6 +299,7 @@ func moveGhost():
 	#only update color if it changed
 	if ghostState != canPlace:
 		ghost.updateGhost(canPlace)
+		$Cursor.toggleBuild(canPlace)
 		ghostState = canPlace
 
 
@@ -486,7 +499,6 @@ func damageBuilding(col):
 #destroy building
 func destroy(col):	
 	var obj
-	var group = obj.group
 	if(col.has_method('getNode')):
 		obj = col.get_parent().getNode()
 	else:
@@ -495,6 +507,7 @@ func destroy(col):
 		return
 	if obj.dead:
 		return
+	var group = obj.group	
 	#kills object but doesn't spawn smoke if it's not getting attacked
 	obj.die(atkTurn)
 	if group == 'farms':
@@ -599,6 +612,8 @@ func _process(delta):
 		var enemies = get_tree().get_nodes_in_group("enemy")
 		for e in enemies:
 			e.getTarget()
+	if Input.is_key_pressed(KEY_C):
+		$Cursor.changeSize(Vector2i(2,1))
 	#elif Input.is_key_pressed(KEY_S):
 		
 	

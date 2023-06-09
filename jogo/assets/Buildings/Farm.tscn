@@ -65,7 +65,7 @@ mesh = SubResource("BoxMesh_teiyg")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.165748, 0, 0, 0, 0.165748, 0, 0, 0, 1, 0.0858107, -0.120362, 0.0281328)
 billboard = 1
-alpha_cut = 2
+alpha_cut = 1
 texture = ExtResource("2_ev37j")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

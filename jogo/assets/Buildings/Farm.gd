@@ -13,6 +13,5 @@ func init():
 
 #leave scene 
 func leave(anim):
-	print('aaaa')
 	if anim == 'die':
 		get_parent().remove(self, true)
