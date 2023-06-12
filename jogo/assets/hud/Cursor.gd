@@ -42,4 +42,4 @@ func toggleBuild(enabled):
 #change cursor size to fit building
 func changeSize(newSize):
 	size = newSize
-	scale = Vector3(0.3*size.x, 0.3, 0.3*size.y)
+	scale = Vector3(0.3*size.x, 0.3*size.y, 0.3*size.y)

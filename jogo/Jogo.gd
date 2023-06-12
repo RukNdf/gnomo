@@ -127,9 +127,10 @@ func clearSmoke():
 ################################################S#############
 #buildings
 var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
+var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
+var storage = preload("res://jogo/assets/Buildings/Storage.tscn")
 var fence = preload("res://jogo/assets/Buildings/FencePost.tscn")
 var tower = preload("res://jogo/assets/Buildings/Tower.tscn")
-var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
 var poison_tower = preload("res://jogo/assets/Buildings/PoisonTower/PoisonTower.tscn")
 #last selected action icon
 var icon
@@ -161,6 +162,8 @@ func select(type):
 	$Camera.mode = Globals.BUILDMODE
 	if type == 'mush':
 		ghost = farm.instantiate()
+	if type == 'storage':
+		ghost = storage.instantiate()
 	elif type == 'tower':
 		ghost = tower.instantiate()
 	elif type == 'wide':
@@ -215,6 +218,10 @@ func spawn(type):
 	if type == 'mush':
 		required = true
 		f = farm.instantiate()
+		numBuilding += 1
+	elif type == 'storage':
+		required = true
+		f = storage.instantiate()
 		numBuilding += 1
 	elif type == 'wide':
 		required = true
@@ -567,7 +574,7 @@ func spawnEnemy(numList):
 #############################################################
 #x position, zoom, and z position
 var minCamera = Vector3i(20,5,20)
-var maxCamera = Vector3i(50,100,50)
+var maxCamera = Vector3i(60,100,50)
 var moveFactor = Vector2(.6, 0.3)
 var zoomFactor = 1
 func cameraZoomIn():
@@ -615,7 +622,8 @@ func _process(delta):
 	elif Input.is_key_pressed(KEY_T):
 		updateEnemyTargets()
 	if Input.is_key_pressed(KEY_C):
-		$Cursor.changeSize(Vector2i(2,1))
+		select('storage')
+		#$Cursor.changeSize(Vector2i(2,2))
 	#elif Input.is_key_pressed(KEY_S):
 		
 	

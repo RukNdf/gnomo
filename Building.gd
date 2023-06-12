@@ -43,7 +43,7 @@ func calcDisplacement():
 	if size.y == 1:
 		z = 0
 	else:
-		z = (Globals.gridCenter*(size.y-1))
+		z = (Globals.gridCenter*(size.y-2))
 	return {'x' = x, 'z' = z}
 
 
