@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgqxrkoq4k7c"
-path.bptc="res://.godot/imported/g.png-5dea14323f9c094e4082965d3cb8cf9c.bptc.ctex"
+uid="uid://bub4qm4yk7rf0"
+path.bptc="res://.godot/imported/StorageBack.png-ce5b93d80c4543dd0f51c8a9f706b807.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://menu/assets/g.png"
-dest_files=["res://.godot/imported/g.png-5dea14323f9c094e4082965d3cb8cf9c.bptc.ctex"]
+source_file="res://jogo/assets/Buildings/StorageBack.png"
+dest_files=["res://.godot/imported/StorageBack.png-ce5b93d80c4543dd0f51c8a9f706b807.bptc.ctex"]
 
 [params]
 

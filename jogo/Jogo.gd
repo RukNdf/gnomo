@@ -180,7 +180,6 @@ func select(type):
 	$Cursor.changeSize(ghost.size)
 	add_child(ghost)
 	updateBuildCursor($Camera.groundedMousePos)
-	#moveGhost()
 
 func enableEdit():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -189,7 +188,7 @@ func enableEdit():
 	ghostEnabled = false
 	$Cursor.visible = false
 	moveIcon()
-
+	
 func togglePlacing(enabled):
 	placingEnabled = enabled
 
