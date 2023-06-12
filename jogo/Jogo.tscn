@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=37 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://bijx3q3p5ij2r" path="res://mus/atk.mp3" id="10_oy75o"]
 [ext_resource type="AudioStream" uid="uid://dnh0t18wojhxq" path="res://mus/sfx/battle-horn.mp3" id="10_s3qrk"]
 [ext_resource type="Texture2D" uid="uid://dbgpnjryugo6d" path="res://jogo/assets/hud/treeShadow.png" id="11_4f1rt"]
-[ext_resource type="PackedScene" uid="uid://baukyukyxwori" path="res://jogo/assets/Gnome.tscn" id="11_20040"]
+[ext_resource type="PackedScene" uid="uid://baukyukyxwori" path="res://jogo/assets/Gnomo/Gnome.tscn" id="11_20040"]
 [ext_resource type="Shader" path="res://jogo/assets/hud/treeShadow.gdshader" id="11_o2rlp"]
 [ext_resource type="AudioStream" uid="uid://dfswyx4216vkb" path="res://mus/sfx/build.mp3" id="11_s511n"]
 [ext_resource type="PackedScene" uid="uid://yecjvohw3ilf" path="res://jogo/assets/hud/Resources.tscn" id="11_uv7wv"]
@@ -22,14 +22,13 @@
 [ext_resource type="Texture2D" uid="uid://co5pr03rt13jm" path="res://jogo/assets/hud/forestForeL.png" id="16_7henw"]
 [ext_resource type="PackedScene" uid="uid://cl51c3hxl8gf0" path="res://jogo/assets/hud/TurnButton.tscn" id="17_jeokt"]
 [ext_resource type="Texture2D" uid="uid://b4icrnnqc2mky" path="res://jogo/assets/hud/forestForeR.png" id="17_keuvm"]
-[ext_resource type="Script" path="res://jogo/assets/Spawners.gd" id="18_ecync"]
 [ext_resource type="PackedScene" uid="uid://cqcg1fmjtcefo" path="res://jogo/assets/Enemy/enemySpawner.tscn" id="18_pkqmr"]
 [ext_resource type="Texture2D" uid="uid://dmyll3wdse0fb" path="res://jogo/assets/hud/TurnBT.png" id="21_16rqh"]
 [ext_resource type="PackedScene" uid="uid://5233cv5pxuof" path="res://jogo/assets/hud/Hammer.tscn" id="21_ij71n"]
 [ext_resource type="Texture2D" uid="uid://uenmbgy435i7" path="res://jogo/assets/hud/Attack.png" id="22_bbdp8"]
 [ext_resource type="PackedScene" uid="uid://c1fsas23mw4mv" path="res://jogo/assets/hud/Slap.tscn" id="25_i7080"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Slap.gd" id="26_kucwj"]
-[ext_resource type="PackedScene" uid="uid://8c1uoog0fiyd" path="res://jogo/assets/Gnomo/Hat.tscn" id="30_30kl7"]
+[ext_resource type="Script" path="res://jogo/assets/Enemy/Spawners.gd" id="27_0jqms"]
 
 [sub_resource type="GDScript" id="GDScript_2qwcr"]
 script/source = "extends CharacterBody3D
@@ -327,7 +326,7 @@ script = ExtResource("26_kucwj")
 
 [node name="Spawners" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-script = ExtResource("18_ecync")
+script = ExtResource("27_0jqms")
 
 [node name="EnemySpawnerUL" parent="Spawners" instance=ExtResource("18_pkqmr")]
 transform = Transform3D(2.91877, 0, -4.05965, 0, 2, 0, 4.05965, 0, 2.91877, -0.4567, 0, -0.635214)
@@ -369,10 +368,8 @@ flip_v = true
 transform = Transform3D(5, 0, 0, 0, 2, 0, 0, 0, 5, 10.1871, 0, 6.69993)
 visible = false
 
-[node name="hat" parent="." instance=ExtResource("30_30kl7")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 15.875, 1.9, 4.12)
-visible = false
-
 [connection signal="timeout" from="atkLineTimer" to="." method="updateAtkLine"]
 [connection signal="timeout" from="AtkTimer" to="." method="towerAtk"]
 [connection signal="button_up" from="Overlay/turnButton" to="." method="passTurn"]
+[connection signal="mouse_entered" from="Overlay/turnButton" to="." method="togglePlacing" binds= [false]]
+[connection signal="mouse_exited" from="Overlay/turnButton" to="." method="togglePlacing" binds= [true]]

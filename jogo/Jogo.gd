@@ -137,6 +137,7 @@ var icon
 #placement test
 var lastSpawnTime = 0
 var canPlace = false
+var placingEnabled = true
 #selected building to repair/delete
 var selectedBuilding = null
 
@@ -189,8 +190,13 @@ func enableEdit():
 	$Cursor.visible = false
 	moveIcon()
 
+func togglePlacing(enabled):
+	placingEnabled = enabled
+
 #test if user can place a building
 func tryPlace(cost):
+	if not placingEnabled:
+		return
 	var t = Time.get_ticks_msec()
 	if t < lastSpawnTime+Globals.placementDelay:
 		return false
@@ -687,4 +693,3 @@ func updateEditCursor(pos):
 	else:
 		icon.hover(false)
 		selectedBuilding = null
-		

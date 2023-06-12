@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccb1tii1wf8yd"]
-
-[ext_resource type="PackedScene" uid="uid://dc5e4v4cy4ghn" path="res://jogo/assets/Gnomo/Hat/hat.fbx" id="1_1o7md"]
-
-[node name="hat" instance=ExtResource("1_1o7md")]
-
-[node name="hatsmooth003" parent="RootNode" index="0"]
-gi_mode = 2

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://menu/Background.tscn" id="2_023kg"]
 [ext_resource type="Script" path="res://menu/Button.gd" id="2_u5cw4"]
-[ext_resource type="AudioStream" uid="uid://chsu8hihxohke" path="res://mus/menu.mp3" id="3_fvpo6"]
+[ext_resource type="AudioStream" uid="uid://bdo48yj3uijxt" path="res://mus/menu.mp3" id="3_fvpo6"]
 
 [node name="menu" type="Node2D"]
 
