@@ -9,6 +9,7 @@ func init():
 	group = "poison_tower"
 	dead = false
 	cost = 15
+	buildingType = Globals.POISONTOWER
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

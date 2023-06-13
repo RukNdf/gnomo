@@ -10,6 +10,7 @@ var cost
 var center
 var dead = false
 var smokePos
+var buildingType
 
 #building starts in group 
 func ready():
@@ -55,6 +56,7 @@ func damage(damage = 1, smoke = true):
 	die(smoke) 
 #start dying
 func die(smoke = true):
+	updateCost(true)
 	dead = true
 	#remove from target group, start animations, and remove collision halfway into the animation
 	get_parent().clearPlace(position, size, group)
@@ -87,4 +89,18 @@ func updateGhost(canPlace):
 		$Mesh.material_override.albedo_color = Color(1, 1, 1, Globals.ghostOpacity)
 	else:
 		$Mesh.material_override.albedo_color = Globals.blockedColor
-		
+
+
+#########
+# Ghost
+########
+# cost
+func getCost():
+	return Globals.buildingPrices[buildingType]
+
+func updateCost(reverse = false):
+	var increase = Globals.buildingPriceIncrease[buildingType]
+	if reverse:
+		Globals.buildingPrices[buildingType] -= increase
+	else:
+		Globals.buildingPrices[buildingType] += increase

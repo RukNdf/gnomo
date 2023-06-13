@@ -12,7 +12,7 @@ const MUTE = true
 #resource indexes
 const MUSH = 0
 #resource list
-var resources = [120]
+var resources = [50]
 #num of required buildings (e.g. farm)
 var numBuilding = 0
 #current selected building
@@ -217,6 +217,7 @@ func testPlacement(pos, size):
 func spawn(type):
 	if !ghostEnabled:
 		return
+	ghost.updateCost()
 	lastSpawnTime = Time.get_ticks_msec()
 	var f
 	var required = false
@@ -653,7 +654,7 @@ func _input(event):
 		if $Camera.mode == Globals.BUILDMODE:
 			if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 				if canPlace and not $menu.up:
-					if tryPlace(-ghost.cost):
+					if tryPlace(-ghost.getCost()):
 						spawn(selected)
 						place($Cursor.gridPos, ghost.size)
 		elif $Camera.mode == Globals.EDITMODE:

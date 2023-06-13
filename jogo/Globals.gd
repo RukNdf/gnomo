@@ -45,7 +45,14 @@ var minESpeed = 2.5
 var maxESpeed = 3.0
 
 ####################
-# cursor selection
+# Cursor selection
 ###################
 enum {NOMODE, BUILDMODE, ATKMODE, EDITMODE}
 var BUILDOREDIT = 1
+
+####################
+# Building prices
+###################
+enum {FARM, WIDEFARM, TOWER, POISONTOWER, FENCE}
+var buildingPrices 		  = [10, 20, 20, 15,  5]
+var buildingPriceIncrease = [ 0,  1,  6,  1,  0]

@@ -7,7 +7,8 @@ func init():
 	size = Vector2i(1,1)
 	group = "tower"
 	dead = false
-	cost = 15
+	cost = 20
+	buildingType = Globals.TOWER
 
 ##########
 # Attack

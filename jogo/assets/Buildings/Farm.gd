@@ -9,7 +9,8 @@ func init():
 	group = "farms"
 	dead = false
 	cost = 10
-	produces = 5
+	produces = 7
+	buildingType = Globals.FARM
 
 #leave scene 
 func leave(anim):

@@ -26,7 +26,7 @@ func _ready():
 	$AnimationPlayer.seek(1, true)
 
 #max mush level
-var maxMush = 150
+var maxMush = 600
 #real mush level (target)
 var realMush = 0
 #current mush level
@@ -34,7 +34,7 @@ var curMush = 0
 #mush changed and needs animation
 var mushChanged = false
 #speed at which mush moves
-var mushSpeedMod = 75
+var mushSpeedMod = 500
 	
 func updtMush(num):
 	print('call')

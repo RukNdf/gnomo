@@ -13,6 +13,7 @@ func init(location = null):
 	gridLocation = location
 	dead = false
 	cost = 5
+	buildingType = Globals.FENCE
 	$healthBar.setHealth(2)
 	
 	
