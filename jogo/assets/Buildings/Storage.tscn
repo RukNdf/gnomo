@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cnva6vogxs7dw"]
+[gd_scene load_steps=12 format=3 uid="uid://cnva6vogxs7dw"]
 
 [ext_resource type="Script" path="res://jogo/assets/Buildings/storage.gd" id="1_gur83"]
 [ext_resource type="Texture2D" uid="uid://dtwodfoku0ir7" path="res://jogo/assets/Buildings/Farm.png" id="2_gtrw0"]
@@ -81,9 +81,49 @@ tracks/4/keys = {
 "values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_52vu5"]
+resource_name = "mush"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mush/Mush:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.15, 0.15, 0.15), Vector3(0.15, 0.15, 0.15), Vector3(0.1, 0, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mush/Mush:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.17, -0.001), Vector3(0.25, -0.7, 0.26), Vector3(-0.5, 0.65, -0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("mush/Mush:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.17, -0.001), Vector3(0, -0.7, -0.001), Vector3(0, -0.65, -0.001)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ux622"]
 _data = {
-"die": SubResource("Animation_ed7xq")
+"die": SubResource("Animation_ed7xq"),
+"mush": SubResource("Animation_52vu5")
 }
 
 [node name="storage" type="Node3D"]
@@ -107,16 +147,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124, 0, 0.112)
 [node name="Front" type="Sprite3D" parent="mush"]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.17, 0)
 billboard = 1
+no_depth_test = true
+alpha_cut = 2
+render_priority = 2
 texture = ExtResource("3_wd68p")
 
 [node name="Mush" type="Sprite3D" parent="mush"]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.17, -0.001)
 billboard = 1
+no_depth_test = true
+alpha_cut = 2
+render_priority = 1
 texture = ExtResource("4_vmfba")
 
 [node name="Back" type="Sprite3D" parent="mush"]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.17, -0.009)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -0.1, 0.17, -0.029)
 billboard = 1
+no_depth_test = true
+alpha_cut = 2
+render_priority = -1
 texture = ExtResource("5_vtue6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

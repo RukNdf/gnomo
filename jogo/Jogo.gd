@@ -227,6 +227,7 @@ func spawn(type):
 	elif type == 'storage':
 		required = true
 		f = storage.instantiate()
+		f.updtMush(resources[MUSH])
 		numBuilding += 1
 	elif type == 'wide':
 		required = true
@@ -251,6 +252,7 @@ func spawn(type):
 	f.position.x = pos.x + ghostDisplacement.x + Globals.cameraOffset.x
 	f.position.z = pos.z + ghostDisplacement.z + Globals.cameraOffset.z
 	f.position.y = 0.5
+	f.ready()
 	add_child(f)
 	updateNextResources()
 	if required:
@@ -425,6 +427,9 @@ func calcNextResources():
 #buildings produce resources between turns
 func updateResources():
 	updateMushrooms(calcNextResources())
+	for s in get_tree().get_nodes_in_group("storage"):
+		print(s)
+		s.updtMush(resources[MUSH])
 #update counter of resource change at the end of the turn
 func updateNextResources():
 	$Overlay/resources.updateMushPT(calcNextResources())
@@ -625,7 +630,9 @@ func _process(delta):
 	elif Input.is_action_just_pressed('toggleMenu'):
 		$menu.toggleMenu()
 	elif Input.is_key_pressed(KEY_T):
-		updateEnemyTargets()
+		updateResources()
+	elif Input.is_key_pressed(KEY_Y):
+		resources[MUSH] = 0
 	if Input.is_key_pressed(KEY_C):
 		select('storage')
 		#$Cursor.changeSize(Vector2i(2,2))

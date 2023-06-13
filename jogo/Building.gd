@@ -12,7 +12,7 @@ var dead = false
 var smokePos
 
 #building starts in group 
-func _ready():
+func ready():
 	initSmokePos()
 	add_to_group(group)
 
