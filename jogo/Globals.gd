@@ -56,3 +56,4 @@ var BUILDOREDIT = 1
 enum {FARM, WIDEFARM, TOWER, POISONTOWER, FENCE}
 var buildingPrices 		  = [10, 20, 20, 15,  5]
 var buildingPriceIncrease = [ 0,  1,  6,  1,  0]
+var buildingGain		  = [ 7, 16,  5,  5,'-']

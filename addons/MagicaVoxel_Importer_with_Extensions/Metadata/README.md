@@ -1,24 +1,13 @@
-# Exercício de Agente SSH
+# Projeto Infra
 
----
+[Descrição do Projeto](link-pra-descrição)
 
-## Etapa 1 - Adicionar a chave ao agente local 
+**Nome:** nome-da-silva
 
-Baixe o arquivo *private_key* e adicione ele ao agente da sua máquina. 
+[test](#testa)
+[test2](#paragraph2)
 
-*Aviso: devido a fatores fora do meu controle o arquivo de chave precisa acabar com uma nova linha, e não funcionará com o comando caso não acabe com essa linha em branco.*
+## Tabela de Índices 
 
-## Etapa 2 - Entrar na máquina remota 
-
-IP, usuário e senha no quadro. 
-Utilizar a flag -A para entrar com agente.
-
-`ssh -A usuario@ip`
-
-## Etapa 3 - Entrar na VM remota
-
-IP e usuário no quadro. Caso a chave esteja configurada corretamente poderá entrar na VM sem senha. 
-
-## Etapa 3.5 - Adicionar a chave pública à máquina remota
-
-A máquina remota provavelmente será utilizada futuramente e se tu bota a chave não precisa de senha pra logar. 
+## Testa
+## test <a name="paragraph2"></a>

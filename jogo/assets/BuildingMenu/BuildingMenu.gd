@@ -59,3 +59,22 @@ func toggleMenu():
 		keepUp = false
 		up = false
 		$AnimationPlayer.play_backwards()
+
+
+##############
+# info menu
+##############
+#open info with informations from id and design of type
+func openInfo(id, type):
+	$InfoMenu.setType(type)
+	$InfoMenu.setValues(Globals.buildingPrices[id], Globals.buildingGain[id])
+	$InfoMenu.visible = true
+
+#closes menu
+func closeInfo():
+	$InfoMenu.visible = false
+
+#move menu
+func _input(event):
+	if event is InputEventMouse:
+		$InfoMenu.position = event.position
