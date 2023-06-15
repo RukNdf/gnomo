@@ -311,6 +311,17 @@ position = Vector2(262, 51)
 scale = Vector2(1.13462, 1.13462)
 texture = ExtResource("22_bbdp8")
 
+[node name="Label" type="Label" parent="Overlay"]
+offset_left = -296.0
+offset_top = 20.0
+offset_right = -248.0
+offset_bottom = 67.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 31
+text = "(-8)"
+
 [node name="menu" parent="." instance=ExtResource("14_cyh6t")]
 
 [node name="Icons" type="Node2D" parent="."]

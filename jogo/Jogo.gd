@@ -174,12 +174,16 @@ func select(type):
 	elif type == 'fence':
 		ghost = fence.instantiate()
 	ghost.init()
+	updateCost(Globals.buildingPrices[ghost.buildingType])
 	ghostDisplacement = ghost.calcDisplacement()
 	ghost.createGhost()
 	ghost.position = pos
 	$Cursor.changeSize(ghost.size)
 	add_child(ghost)
 	updateBuildCursor($Camera.groundedMousePos)
+
+func updateCost(cost):
+	$Overlay/Label.text = '(-'+str(cost)+')'
 
 func enableEdit():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -256,6 +260,7 @@ func spawn(type):
 	f.ready()
 	add_child(f)
 	updateNextResources()
+	updateCost(Globals.buildingPrices[ghost.buildingType])
 	if required:
 		$Overlay/turnButton.disabled = false
 	return true
@@ -379,6 +384,7 @@ func disableBuild():
 	$Overlay/Build.visible = false
 	$Overlay/Defend.visible = true
 	$menu.position.y += 500
+	$Overlay/Label.visible = false
 
 func enableBuild():
 	ghostEnabled = true
@@ -387,6 +393,7 @@ func enableBuild():
 	$Overlay/Build.visible = true
 	$Overlay/Defend.visible = false
 	$menu.position.y -= 500
+	$Overlay/Label.visible = true
 
 #sum list
 func sum(list):
