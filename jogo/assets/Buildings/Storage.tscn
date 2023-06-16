@@ -160,3 +160,5 @@ texture = ExtResource("5_vtue6")
 libraries = {
 "": SubResource("AnimationLibrary_ux622")
 }
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="leave"]

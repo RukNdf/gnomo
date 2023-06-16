@@ -2,12 +2,111 @@
 
 [Descrição do Projeto](link-pra-descrição)
 
-**Nome:** nome-da-silva
+**Nome:** nome da silva
 
-[test](#testa)
-[test2](#paragraph2)
+### Tabela de Índices 
+* [Etapa 1: Primeiros Passos](#e1)
+* [Etapa 2: Virtualização](#e2)
+* [Etapa 3: Banco de Dados](#e3)
+* [Etapa 4: Object Storage](#e4)
+* [Etapa 5: Redundância](#e5)
+* [Etapa 6: Automação](#e6)
+* [Etapa 7: High Availability e Disaster Recovery](#e7)
+* [Overview](#over)
+---
+## Etapa 1: Primeiros Passos <a name="e1"></a>
 
-## Tabela de Índices 
 
-## Testa
-## test <a name="paragraph2"></a>
+### Descrição
+
+o que foi feito
+
+
+### Relatórios
+
+[Relatório de X](link-para-o-relatório)
+
+[Relatório de Y](link-para-o-relatório)
+
+### Dificuldades
+Dificuldades encotradas 
+
+### Sugestões
+Sugestões para o projeto
+
+
+
+## Etapa 2: Virtualização <a name="e2"></a>
+
+### Descrição
+
+### Relatórios
+
+### Dificuldades
+
+### Sugestões
+
+
+## Etapa 3: Banco de Dados <a name="e3"></a>
+
+### Descrição
+
+### Relatórios
+
+### Dificuldades
+
+### Sugestões
+
+
+## Etapa 4: Object Storage<a name="e4"></a>
+
+### Descrição
+
+### Relatórios
+
+### Dificuldades
+
+### Sugestões
+
+
+## Etapa 5: Redundância <a name="e5"></a>
+
+### Descrição
+
+### Relatórios
+
+### Dificuldades
+
+### Sugestões
+
+
+## Etapa 6: Automação <a name="e6"></a>
+
+### Descrição
+
+### Relatórios
+
+### Dificuldades
+
+### Sugestões
+
+
+## Etapa 7: High Availability e Disaster Recovery <a name="e7"></a>
+
+### Descrição
+
+### Relatórios
+
+### Dificuldades
+
+### Sugestões
+
+
+## Overview <a name="over"></a>
+
+### Dificuldades
+
+### Sugestões
+
+
+

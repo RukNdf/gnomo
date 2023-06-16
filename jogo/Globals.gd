@@ -53,7 +53,7 @@ var BUILDOREDIT = 1
 ####################
 # Building prices
 ###################
-enum {FARM, WIDEFARM, TOWER, POISONTOWER, FENCE}
-var buildingPrices 		  = [10, 20, 20, 15,  5]
-var buildingPriceIncrease = [ 0,  1,  6,  1,  0]
-var buildingGain		  = [ 7, 16,  5,  5,'-']
+enum {STORAGE, FARM, WIDEFARM, TOWER, POISONTOWER, FENCE}
+var buildingPrices 		  = [  0, 10, 20, 20, 15,  5]
+var buildingPriceIncrease = [999,  0,  1,  6,  1,  0]
+var buildingGain		  = [  0,  7, 16,  5,  5,'-']

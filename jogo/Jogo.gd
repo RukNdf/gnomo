@@ -35,6 +35,7 @@ func _ready():
 	spawnGrass()
 	initGhost()
 	updateMushrooms(0)
+	enableStorageMode()
 
 #mute
 func mute():
@@ -123,8 +124,31 @@ func clearSmoke():
 
 
 #############################################################
+# Storage
+#############################################################
+func enableStorageMode():
+	atkTurn = true
+	$menu.visible = false
+	$Overlay/Label.visible = false
+	$Cursor.visible = false
+	_select('storage')
+
+func disableStorageMode():
+	atkTurn = false
+	$menu.visible = true
+	$Overlay/Label.visible = true
+	$Cursor.visible = true
+	select('mush')
+
+#storage destroyed, remove resources and force replace
+func storageDestroyed():
+	resources[MUSH] = 0
+	$Overlay/resources.updateMush(0)
+
+
+#############################################################
 # Building
-################################################S#############
+#############################################################
 #buildings
 var farm = preload("res://jogo/assets/Buildings/Farm.tscn")
 var wide = preload("res://jogo/assets/Buildings/WideFarm.tscn")
@@ -141,8 +165,12 @@ var placingEnabled = true
 #selected building to repair/delete
 var selectedBuilding = null
 
-#select building/action	
+#select and update cursor
 func select(type):
+	_select(type)
+	updateBuildCursor($Camera.groundedMousePos)
+#select building/action	
+func _select(type):	
 	selected = type
 	var pos = ghost.position
 	remove_child(ghost)
@@ -180,7 +208,6 @@ func select(type):
 	ghost.position = pos
 	$Cursor.changeSize(ghost.size)
 	add_child(ghost)
-	updateBuildCursor($Camera.groundedMousePos)
 
 func updateCost(cost):
 	$Overlay/Label.text = '(-'+str(cost)+')'
@@ -234,6 +261,7 @@ func spawn(type):
 		f = storage.instantiate()
 		f.updtMush(resources[MUSH])
 		numBuilding += 1
+		disableStorageMode()
 	elif type == 'wide':
 		required = true
 		f = wide.instantiate()
@@ -285,6 +313,10 @@ func clearPlace(position, size, group=''):
 			gridSpace[x][y] = false
 			fences[x][y] = false
 	if group == 'farms':
+		updateEnemyTargets()
+		removeFarm()
+	elif group == 'storage':
+		storageDestroyed()
 		updateEnemyTargets()
 		removeFarm()
 	else:
@@ -642,9 +674,7 @@ func _process(delta):
 	elif Input.is_key_pressed(KEY_Y):
 		resources[MUSH] = 0
 	if Input.is_key_pressed(KEY_C):
-		select('storage')
-		#$Cursor.changeSize(Vector2i(2,2))
-	#elif Input.is_key_pressed(KEY_S):
+		enableStorageMode()
 		
 	
 func _input(event):
