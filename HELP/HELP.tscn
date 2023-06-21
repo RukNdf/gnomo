@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cufvyrda26v7s"]
+
+[ext_resource type="AudioStream" uid="uid://ckxr23rhwsx3i" path="res://mus/sfx/moreYouKnow.mp3" id="1_0gbfw"]
+[ext_resource type="Script" path="res://HELP/HELP.gd" id="1_6kcd6"]
+[ext_resource type="AudioStream" uid="uid://dj5p5whpie26c" path="res://mus/sfx/BEWARE.mp3" id="2_8unoj"]
+
+[node name="HELP" type="Node2D"]
+script = ExtResource("1_6kcd6")
+
+[node name="DEFEND" type="Node2D" parent="."]
+
+[node name="PRODUCE" type="Node2D" parent="."]
+
+[node name="KILL" type="Node2D" parent="."]
+
+[node name="moreyouknow" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_0gbfw")
+autoplay = true
+
+[node name="beware" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8unoj")
+volume_db = -4.809
+
+[connection signal="finished" from="moreyouknow" to="." method="startSong"]

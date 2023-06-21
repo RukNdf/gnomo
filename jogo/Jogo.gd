@@ -126,6 +126,7 @@ func clearSmoke():
 #############################################################
 # Storage
 #############################################################
+var hasStorage = false
 func enableStorageMode():
 	atkTurn = true
 	$menu.visible = false
@@ -134,6 +135,7 @@ func enableStorageMode():
 	_select('storage')
 
 func disableStorageMode():
+	hasStorage = true
 	atkTurn = false
 	$menu.visible = true
 	$Overlay/Label.visible = true
@@ -142,6 +144,7 @@ func disableStorageMode():
 
 #storage destroyed, remove resources and force replace
 func storageDestroyed():
+	hasStorage = false
 	resources[MUSH] = 0
 	$Overlay/resources.updateMush(0)
 
@@ -456,6 +459,8 @@ func enemyDeath():
 		$Asong.stop()
 		$Bsong.play()
 		clearSmoke()
+		if !hasStorage:
+			enableStorageMode()
 
 #calculate the resources generated per turn
 func calcNextResources():
