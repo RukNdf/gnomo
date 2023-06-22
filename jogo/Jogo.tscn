@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=38 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -157,15 +157,67 @@ tracks/6/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Label:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("esc:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.6, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("RestartButton:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_jco2y"]
 resource_name = "Rustle"
 length = 2.0
 loop_mode = 1
 
+[sub_resource type="Animation" id="Animation_ue83k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RestartButton:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81et"]
 _data = {
 "GG": SubResource("Animation_ww7sj"),
+"RESET": SubResource("Animation_ue83k"),
 "Rustle": SubResource("Animation_jco2y")
 }
 
@@ -311,6 +363,17 @@ position = Vector2(262, 51)
 scale = Vector2(1.13462, 1.13462)
 texture = ExtResource("22_bbdp8")
 
+[node name="esc" type="Label" parent="Overlay"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -289.0
+offset_top = 210.0
+offset_right = -226.0
+offset_bottom = 253.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 29
+theme_override_font_sizes/font_size = 29
+text = "(esc)"
+
 [node name="Label" type="Label" parent="Overlay"]
 offset_left = -296.0
 offset_top = 20.0
@@ -318,9 +381,16 @@ offset_right = -248.0
 offset_bottom = 67.0
 theme_override_colors/font_color = Color(1, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
+theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 31
 text = "(-8)"
+
+[node name="RestartButton" type="Button" parent="Overlay"]
+offset_left = -338.0
+offset_top = 282.0
+offset_right = -208.0
+offset_bottom = 313.0
+text = "Press to Restart"
 
 [node name="menu" parent="." instance=ExtResource("14_cyh6t")]
 
@@ -384,3 +454,4 @@ visible = false
 [connection signal="button_up" from="Overlay/turnButton" to="." method="passTurn"]
 [connection signal="mouse_entered" from="Overlay/turnButton" to="." method="togglePlacing" binds= [false]]
 [connection signal="mouse_exited" from="Overlay/turnButton" to="." method="togglePlacing" binds= [true]]
+[connection signal="pressed" from="Overlay/RestartButton" to="." method="_on_restart_button_pressed"]

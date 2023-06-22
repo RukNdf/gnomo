@@ -683,6 +683,8 @@ func _process(delta):
 		resources[MUSH] = 0
 	if Input.is_key_pressed(KEY_C):
 		enableStorageMode()
+	if Input.is_action_just_pressed("Restart"):
+		get_tree().reload_current_scene()
 		
 	
 func _input(event):
@@ -748,3 +750,8 @@ func updateEditCursor(pos):
 	else:
 		icon.hover(false)
 		selectedBuilding = null
+
+
+func _on_restart_button_pressed():
+	get_tree().reload_current_scene()
+	pass # Replace with function body.
