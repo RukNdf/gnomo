@@ -21,6 +21,8 @@ var selected = 'mush'
 var turns
 #3d lines
 var draw3D
+#ded
+var gg = false
 
 #initialize game field
 func _ready():	
@@ -602,6 +604,7 @@ func remove(obj):
 func gameOver():
 	$menu/colBox.position.y = 1000
 	$Overlay/AnimationPlayer.play("GG")
+	gg = true
 	$Cursor.visible = false
 	ghost.visible = false	
 	$Overlay/turnButton.disabled = true
@@ -684,6 +687,9 @@ func _process(delta):
 	
 func _input(event):
 	if event is InputEventKey and event.pressed:
+		if event.is_ctrl_pressed() or gg:
+			if event.keycode == KEY_ESCAPE:
+				get_tree().change_scene_to_file("res://menu/Menu.tscn")
 		if !atkTurn:
 			keySelect(event.keycode)
 	if event is InputEventMouse:

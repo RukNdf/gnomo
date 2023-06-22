@@ -17,4 +17,5 @@ func startSong():
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
-			get_tree().change_scene_to_file("res://menu/Menu.tscn")
+			if event.is_ctrl_pressed():
+				get_tree().change_scene_to_file("res://menu/Menu.tscn")
