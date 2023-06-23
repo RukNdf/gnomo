@@ -181,38 +181,14 @@ tracks/8/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("RestartButton:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+
+[sub_resource type="Animation" id="Animation_ue83k"]
+length = 0.001
 
 [sub_resource type="Animation" id="Animation_jco2y"]
 resource_name = "Rustle"
 length = 2.0
 loop_mode = 1
-
-[sub_resource type="Animation" id="Animation_ue83k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RestartButton:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81et"]
 _data = {
@@ -369,10 +345,13 @@ offset_left = -289.0
 offset_top = 210.0
 offset_right = -226.0
 offset_bottom = 253.0
+size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 29
 theme_override_font_sizes/font_size = 29
-text = "(esc)"
+text = "Press (esc) to go back to menu
+Press \"r to go back to menu
+"
 
 [node name="Label" type="Label" parent="Overlay"]
 offset_left = -296.0
@@ -384,13 +363,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 31
 text = "(-8)"
-
-[node name="RestartButton" type="Button" parent="Overlay"]
-offset_left = -338.0
-offset_top = 282.0
-offset_right = -208.0
-offset_bottom = 313.0
-text = "Press to Restart"
 
 [node name="menu" parent="." instance=ExtResource("14_cyh6t")]
 
@@ -454,4 +426,3 @@ visible = false
 [connection signal="button_up" from="Overlay/turnButton" to="." method="passTurn"]
 [connection signal="mouse_entered" from="Overlay/turnButton" to="." method="togglePlacing" binds= [false]]
 [connection signal="mouse_exited" from="Overlay/turnButton" to="." method="togglePlacing" binds= [true]]
-[connection signal="pressed" from="Overlay/RestartButton" to="." method="_on_restart_button_pressed"]

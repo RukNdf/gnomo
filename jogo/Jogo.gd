@@ -683,7 +683,7 @@ func _process(delta):
 		resources[MUSH] = 0
 	if Input.is_key_pressed(KEY_C):
 		enableStorageMode()
-	if Input.is_action_just_pressed("Restart"):
+	if Input.is_action_just_pressed("Restart") and gg:
 		get_tree().reload_current_scene()
 		
 	
