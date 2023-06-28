@@ -1,0 +1,3 @@
+# gnomo
+
+![](temp/aaaaaaaaaaaaaaaaaaaaaaaaaa.png)
