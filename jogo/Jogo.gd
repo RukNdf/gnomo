@@ -2,7 +2,7 @@ extends Node3D
 
 
 #MUTE ALL GAME AUDIO
-const MUTE = true
+const MUTE = false
 
 
 
