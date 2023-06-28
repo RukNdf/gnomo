@@ -389,7 +389,26 @@ func passTurn():
 	if turnCount < len(turns):
 		nextTurn = turns[turnCount]
 	else:
-		nextTurn = turns[0]
+		if turnCount == 10:
+			$Overlay/turnButton.disabled = true
+			nextTurn = turns[0]
+		else:
+			var type = randi()%3
+			#build turn
+			if type == 0:
+				nextTurn = turns[0]
+			#attack no center
+			elif type == 1:
+				nextTurn = [randi(), randi(), randi(), randi(), 0]
+				var sum = sum(nextTurn)
+				var div = float(turnCount)/sum
+				nextTurn = [int(nextTurn[0]*div), int(nextTurn[1]*div), int(nextTurn[2]*div), int(nextTurn[3]*div), 0]
+			#attack with center
+			else:
+				nextTurn = [randi(), randi(), randi(), randi(), randi()]
+				var sum = sum(nextTurn)
+				var div = float(turnCount)/sum
+				nextTurn = [int(nextTurn[0]*div), int(nextTurn[1]*div), int(nextTurn[2]*div), int(nextTurn[3]*div), int(nextTurn[4]*div)]
 	if turnCount > 9:
 		$Overlay/Turn.text = 'Turn ' + str(turnCount) + ' '
 	else: 
@@ -455,6 +474,10 @@ func announceEnemy(current, next):
 func enemyDeath():
 	numEnemy -= 1
 	if numEnemy == 0:
+		if turnCount == 10 and not gg:
+			$Win.visible = true
+			$Overlay/AnimationPlayer.play('WIN')
+			$Overlay/turnButton.disabled = false
 		enableBuild()
 		$AtkTimer.stop()
 		atkTurn = false

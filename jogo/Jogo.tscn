@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://fqofi4s5xd28"]
+[gd_scene load_steps=40 format=3 uid="uid://fqofi4s5xd28"]
 
 [ext_resource type="Script" path="res://jogo/Jogo.gd" id="1_2b80a"]
 [ext_resource type="PackedScene" uid="uid://bsa5ljee4nfo" path="res://jogo/assets/map/Ground.tscn" id="1_t65l0"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://c1fsas23mw4mv" path="res://jogo/assets/hud/Slap.tscn" id="25_i7080"]
 [ext_resource type="Script" path="res://jogo/assets/hud/Slap.gd" id="26_kucwj"]
 [ext_resource type="Script" path="res://jogo/assets/Enemy/Spawners.gd" id="27_0jqms"]
+[ext_resource type="Texture2D" uid="uid://ci4tv4p35jtmj" path="res://win.png" id="27_isdw3"]
 
 [sub_resource type="GDScript" id="GDScript_2qwcr"]
 script/source = "extends CharacterBody3D
@@ -190,11 +191,40 @@ resource_name = "Rustle"
 length = 2.0
 loop_mode = 1
 
+[sub_resource type="Animation" id="Animation_pw1r7"]
+resource_name = "WIN"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Win:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(906, 656), Vector2(776, 50)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Win:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(4.85181, 4.85181), Vector2(0.0879628, 0.0879628)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81et"]
 _data = {
 "GG": SubResource("Animation_ww7sj"),
 "RESET": SubResource("Animation_ue83k"),
-"Rustle": SubResource("Animation_jco2y")
+"Rustle": SubResource("Animation_jco2y"),
+"WIN": SubResource("Animation_pw1r7")
 }
 
 [node name="jogo" type="Node3D"]
@@ -317,7 +347,7 @@ position = Vector2(67, 530)
 texture = ExtResource("17_keuvm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Overlay"]
-autoplay = "Rustle"
+autoplay = "WIN"
 speed_scale = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_t81et")
@@ -349,9 +379,7 @@ size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 29
 theme_override_font_sizes/font_size = 29
-text = "Press (esc) to go back to menu
-Press \"r to go back to menu
-"
+text = "(esc)"
 
 [node name="Label" type="Label" parent="Overlay"]
 offset_left = -296.0
@@ -376,6 +404,12 @@ position = Vector2(-105, 108)
 visible = false
 position = Vector2(-105, 214)
 script = ExtResource("26_kucwj")
+
+[node name="Win" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(906, 656)
+scale = Vector2(4.85181, 4.85181)
+texture = ExtResource("27_isdw3")
 
 [node name="Spawners" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
